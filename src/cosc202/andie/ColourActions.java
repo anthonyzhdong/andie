@@ -35,6 +35,7 @@ public class ColourActions {
     public ColourActions() {
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new BrightnessAction("Brightness", null, "Alter the brightness", Integer.valueOf(KeyEvent.VK_M)));
     }
 
     /**
@@ -95,6 +96,46 @@ public class ColourActions {
             target.getParent().revalidate();
         }
 
+    }
+
+    public class BrightnessAction extends ImageAction {
+        /**
+         * <p>
+         * Create a new brightness action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        BrightnessAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+
+            // Determine the radius - ask the user.
+            float degree = 1;
+            
+
+            // Pop-up dialog box to ask for the radius value.
+            JSlider brightnessSlider = new JSlider(10, 1000, 100);
+            int optionBrightness = JOptionPane.showOptionDialog(null, brightnessSlider, "Enter brightness degree", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            
+            // Check the return value from the dialog box.
+            if (optionBrightness == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (optionBrightness == JOptionPane.OK_OPTION) {
+                degree = brightnessSlider.getValue();
+            }
+
+            // Create and apply the filter
+            degree = degree / 100;
+            target.getImage().apply(new Brightness(degree));
+            target.repaint();
+            target.getParent().revalidate();
+        }
     }
 
 }
