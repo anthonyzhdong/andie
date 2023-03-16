@@ -97,4 +97,17 @@ public class ColourActions {
 
     }
 
+    public class BrightnessAction extends ImageAction {
+        BrightnessAction(String name, ImageIcon icon,
+        String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the filter
+            target.getImage().apply(new Brightness());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }    
+
 }
