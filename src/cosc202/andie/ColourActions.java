@@ -3,6 +3,8 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 /**
  * <p>
@@ -26,7 +28,7 @@ public class ColourActions {
     
     /** A list of actions for the Colour menu. */
     protected ArrayList<Action> actions;
-
+    private int degree;
     /**
      * <p>
      * Create a set of Colour menu actions.
@@ -116,13 +118,24 @@ public class ColourActions {
         public void actionPerformed(ActionEvent e) {
 
             // Determine the radius - ask the user.
-            float degree = 1;
-            
+            ImagePanel prevTarget = target;
 
             // Pop-up dialog box to ask for the radius value.
-            JSlider brightnessSlider = new JSlider(10, 1000, 100);
-            int optionBrightness = JOptionPane.showOptionDialog(null, brightnessSlider, "Enter brightness degree", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-            
+            JSlider brightnessSlider = new JSlider((-255), 255, degree);
+            JLabel degreeLabel = new JLabel(degree + "");
+            JComponent[] labels = new JComponent[]  {brightnessSlider, degreeLabel};
+            int optionBrightness = JOptionPane.showOptionDialog(null, labels, "Enter brightness degree", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+        
+            brightnessSlider.addChangeListener(new ChangeListener() {
+                public void stateChanged(ChangeEvent e) {
+                  degree = brightnessSlider.getValue();
+                  degreeLabel.setText(degree + "");
+                  System.out.println(degreeLabel.getText());
+                }
+              });
+
+
+
             // Check the return value from the dialog box.
             if (optionBrightness == JOptionPane.CANCEL_OPTION) {
                 return;
@@ -131,7 +144,6 @@ public class ColourActions {
             }
 
             // Create and apply the filter
-            degree = degree / 100;
             target.getImage().apply(new Brightness(degree));
             target.repaint();
             target.getParent().revalidate();
