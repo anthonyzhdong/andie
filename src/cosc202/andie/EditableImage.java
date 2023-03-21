@@ -257,6 +257,17 @@ class EditableImage {
 
     /**
      * <p>
+     * Set the current image to a passed in parameter.
+     * </p>
+     * 
+     * @return The result of applying all of the current operations to the {@link original} image.
+     */
+    public void setCurrentImage (BufferedImage b) {
+        current = b;
+    }
+
+    /**
+     * <p>
      * Reapply the current list of operations to the original.
      * </p>
      * 
