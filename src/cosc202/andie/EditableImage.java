@@ -224,6 +224,10 @@ class EditableImage {
         current = op.apply(current);
         ops.add(op);
     }
+    //Seperate option for birhgtness functionality
+    public void tempApplyBrightness(ImageOperation op) {
+        current = op.apply(current);
+    }
 
     /**
      * <p>

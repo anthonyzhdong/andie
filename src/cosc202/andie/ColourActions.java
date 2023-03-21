@@ -136,7 +136,7 @@ public class ColourActions {
                     degree = brightnessSlider.getValue();
                     degreeLabel.setText(degree + "");
                     target.getImage().setCurrentImage(copyTarget);
-                    target.getImage().apply(new Brightness(degree));
+                    target.getImage().tempApplyBrightness(new Brightness(degree));
                     target.repaint();
                     target.getParent().revalidate();
                 }
