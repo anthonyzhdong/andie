@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -100,6 +102,8 @@ public class ColourActions {
 
     }
 
+    
+
     public class BrightnessAction extends ImageAction {
         /**
          * <p>
@@ -115,38 +119,51 @@ public class ColourActions {
             super(name, icon, desc, mnemonic);
         }
 
+        
+
         public void actionPerformed(ActionEvent e) {
-
-            // Determine the radius - ask the user.
-            ImagePanel prevTarget = target;
-
+            BufferedImage originalTarget = target.getImage().getCurrentImage();
+            BufferedImage copyTarget = target.getImage().getCurrentImage();
+            int oldDegree = degree;
+            
             // Pop-up dialog box to ask for the radius value.
             JSlider brightnessSlider = new JSlider((-255), 255, degree);
             JLabel degreeLabel = new JLabel(degree + "");
+
+            class SliderListener implements ChangeListener {
+            
+                public void stateChanged(ChangeEvent e) {
+                    degree = brightnessSlider.getValue();
+                    degreeLabel.setText(degree + "");
+                    target.getImage().setCurrentImage(copyTarget);
+                    target.getImage().apply(new Brightness(degree));
+                    target.repaint();
+                    target.getParent().revalidate();
+                }
+            }
+
+            SliderListener cl = new SliderListener();
+            brightnessSlider.addChangeListener(cl);
+              
+
             JComponent[] labels = new JComponent[]  {brightnessSlider, degreeLabel};
             int optionBrightness = JOptionPane.showOptionDialog(null, labels, "Enter brightness degree", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
         
-            brightnessSlider.addChangeListener(new ChangeListener() {
-                public void stateChanged(ChangeEvent e) {
-                  degree = brightnessSlider.getValue();
-                  degreeLabel.setText(degree + "");
-                  System.out.println(degreeLabel.getText());
-                }
-              });
-
-
-
             // Check the return value from the dialog box.
             if (optionBrightness == JOptionPane.CANCEL_OPTION) {
+                target.getImage().setCurrentImage(originalTarget);
+                target.repaint();
+                target.getParent().revalidate();
+                degree = oldDegree;
                 return;
             } else if (optionBrightness == JOptionPane.OK_OPTION) {
                 degree = brightnessSlider.getValue();
+                target.getImage().apply(new Brightness(degree));
+                target.repaint();
+                target.getParent().revalidate();
             }
-
-            // Create and apply the filter
-            target.getImage().apply(new Brightness(degree));
-            target.repaint();
-            target.getParent().revalidate();
+            
+            
         }
     }
 
