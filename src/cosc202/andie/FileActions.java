@@ -93,7 +93,7 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            JFileChooser fileChooser = new JFileChooser("J:/2nd Year/Semester 1/COSC202");
+            JFileChooser fileChooser = new JFileChooser("");
             int result = fileChooser.showOpenDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
