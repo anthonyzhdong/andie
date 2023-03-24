@@ -30,10 +30,12 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
                 double green = rgb[1];
                 double blue = rgb[2];
 
-                red = ((1 + contrastValue / 100) * (red - 127.5) + (127.5 * (1 + brightnessValue / 100)));
-                green = ((1 + contrastValue / 100) * (green - 127.5) + (127.5 * (1 + brightnessValue / 100)));
-                blue = ((1 + contrastValue / 100) * (blue - 127.5) + (127.5 * (1 + brightnessValue / 100)));
-
+                red = ((1 + contrastValue / 100.0) * (red - 127.5) + (127.5 * (1 + brightnessValue / 100.0)));
+                green = ((1 + contrastValue / 100.0) * (green - 127.5) + (127.5 * (1 + brightnessValue / 100.0)));
+                blue = ((1 + contrastValue / 100.0) * (blue - 127.5) + (127.5 * (1 + brightnessValue / 100.0)));
+                if(i == 0 && j == 0){
+                    System.out.println(red);
+                }
                 double arr[] = {red, green, blue};
 
                 output.getRaster().setPixel(i, j, arr);

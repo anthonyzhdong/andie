@@ -178,6 +178,7 @@ public class ColourActions {
                 contrastDegree = oldContrastDegree;
                 return;
             } else if (optionBrightness == JOptionPane.OK_OPTION) {
+                target.getImage().setCurrentImage(originalTarget);
                 brightnessDegree = brightnessSlider.getValue();
                 contrastDegree = contrastSlider.getValue();
                 target.getImage().apply(new BrightnessContrast(brightnessDegree, contrastDegree));
