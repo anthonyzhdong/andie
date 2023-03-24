@@ -30,7 +30,8 @@ public class ColourActions {
     
     /** A list of actions for the Colour menu. */
     protected ArrayList<Action> actions;
-    private int degree;
+    private int brightnessDegree;
+    private int contrastDegree;
     /**
      * <p>
      * Create a set of Colour menu actions.
@@ -39,7 +40,7 @@ public class ColourActions {
     public ColourActions() {
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new BrightnessAction("Brightness", null, "Alter the brightness", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new BrightnessContrastAction("Brightness and Contrast", null, "Alter the brightness and contrast", Integer.valueOf(KeyEvent.VK_M)));
     }
 
     /**
@@ -104,7 +105,7 @@ public class ColourActions {
 
     
 
-    public class BrightnessAction extends ImageAction {
+    public class BrightnessContrastAction extends ImageAction {
         /**
          * <p>
          * Create a new brightness action.
@@ -115,7 +116,7 @@ public class ColourActions {
          * @param desc A brief description of the action  (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
-        BrightnessAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        BrightnessContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
@@ -124,41 +125,62 @@ public class ColourActions {
         public void actionPerformed(ActionEvent e) {
             BufferedImage originalTarget = target.getImage().getCurrentImage();
             BufferedImage copyTarget = target.getImage().getCurrentImage();
-            int oldDegree = degree;
+            int oldBrightnessDegree = brightnessDegree;
+            int oldContrastDegree = contrastDegree;
             
             // Pop-up dialog box to ask for the radius value.
-            JSlider brightnessSlider = new JSlider((-255), 255, degree);
-            JLabel degreeLabel = new JLabel(degree + "");
+            JSlider brightnessSlider = new JSlider((-100), 100, brightnessDegree);
+            JLabel brightnessLabel = new JLabel(brightnessDegree + "");
 
-            class SliderListener implements ChangeListener {
+            JSlider contrastSlider = new JSlider((-100), 100, brightnessDegree);
+            JLabel contrastLabel = new JLabel(brightnessDegree + "");
+
+            class BrightnessSliderListener implements ChangeListener {
             
                 public void stateChanged(ChangeEvent e) {
-                    degree = brightnessSlider.getValue();
-                    degreeLabel.setText(degree + "");
+                    brightnessDegree = brightnessSlider.getValue();
+                    brightnessLabel.setText(brightnessDegree + "");
                     target.getImage().setCurrentImage(copyTarget);
-                    target.getImage().tempApplyBrightness(new Brightness(degree));
+                    target.getImage().tempApplyBrightness(new BrightnessContrast(brightnessDegree, contrastDegree));
                     target.repaint();
                     target.getParent().revalidate();
                 }
             }
 
-            SliderListener cl = new SliderListener();
-            brightnessSlider.addChangeListener(cl);
+            class ContrastSliderListener implements ChangeListener {
+            
+                public void stateChanged(ChangeEvent e) {
+                    contrastDegree = contrastSlider.getValue();
+                    contrastLabel.setText(contrastDegree + "");
+                    target.getImage().setCurrentImage(copyTarget);
+                    target.getImage().tempApplyBrightness(new BrightnessContrast(brightnessDegree, contrastDegree));
+                    target.repaint();
+                    target.getParent().revalidate();
+                }
+            }
+
+            BrightnessSliderListener bcl = new BrightnessSliderListener();
+            brightnessSlider.addChangeListener(bcl);
+
+            ContrastSliderListener ccl = new ContrastSliderListener();
+            contrastSlider.addChangeListener(ccl);
               
 
-            JComponent[] labels = new JComponent[]  {brightnessSlider, degreeLabel};
-            int optionBrightness = JOptionPane.showOptionDialog(null, labels, "Enter brightness degree", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+            JComponent[] labels = new JComponent[]  {brightnessSlider, brightnessLabel, contrastSlider, contrastLabel};
+            int optionBrightness = JOptionPane.showOptionDialog(null, labels, "Enter brightness and contrast", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
         
             // Check the return value from the dialog box.
             if (optionBrightness == JOptionPane.CANCEL_OPTION) {
                 target.getImage().setCurrentImage(originalTarget);
                 target.repaint();
                 target.getParent().revalidate();
-                degree = oldDegree;
+                brightnessDegree = oldBrightnessDegree;
+                contrastDegree = oldContrastDegree;
                 return;
             } else if (optionBrightness == JOptionPane.OK_OPTION) {
-                degree = brightnessSlider.getValue();
-                target.getImage().apply(new Brightness(degree));
+                brightnessDegree = brightnessSlider.getValue();
+                contrastDegree = contrastSlider.getValue();
+                target.getImage().apply(new BrightnessContrast(brightnessDegree, contrastDegree));
                 target.repaint();
                 target.getParent().revalidate();
             }
