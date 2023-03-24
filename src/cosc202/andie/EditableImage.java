@@ -224,6 +224,10 @@ class EditableImage {
         current = op.apply(current);
         ops.add(op);
     }
+    //Seperate option for birhgtness functionality
+    public void tempApplyBrightness(ImageOperation op) {
+        current = op.apply(current);
+    }
 
     /**
      * <p>
@@ -253,6 +257,17 @@ class EditableImage {
      */
     public BufferedImage getCurrentImage() {
         return current;
+    }
+
+    /**
+     * <p>
+     * Set the current image to a passed in parameter.
+     * </p>
+     * 
+     * @return The result of applying all of the current operations to the {@link original} image.
+     */
+    public void setCurrentImage (BufferedImage b) {
+        current = b;
     }
 
     /**

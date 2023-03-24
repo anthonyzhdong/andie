@@ -4,6 +4,7 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+
 /**
  * <p>
  * Actions provided by the Filter menu.
@@ -109,14 +110,17 @@ public class FilterActions {
             } else if (option == JOptionPane.OK_OPTION) {
                 radius = radiusModel.getNumber().intValue();
             }
-
+            
             // Create and apply the filter
             target.getImage().apply(new MeanFilter(radius));
             target.repaint();
-            target.getParent().revalidate();
+            target.getParent().revalidate(); 
         }
 
     }
+
+    
+
     public class SoftBlurAction extends ImageAction {
         SoftBlurAction(String name, ImageIcon icon,
         String desc, Integer mnemonic) {
