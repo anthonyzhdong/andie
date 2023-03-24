@@ -132,8 +132,8 @@ public class ColourActions {
             JSlider brightnessSlider = new JSlider((-100), 100, brightnessDegree);
             JLabel brightnessLabel = new JLabel(brightnessDegree + "");
 
-            JSlider contrastSlider = new JSlider((-100), 100, brightnessDegree);
-            JLabel contrastLabel = new JLabel(brightnessDegree + "");
+            JSlider contrastSlider = new JSlider((-100), 100, contrastDegree);
+            JLabel contrastLabel = new JLabel(contrastDegree + "");
 
             class BrightnessSliderListener implements ChangeListener {
             
@@ -141,7 +141,7 @@ public class ColourActions {
                     brightnessDegree = brightnessSlider.getValue();
                     brightnessLabel.setText(brightnessDegree + "");
                     target.getImage().setCurrentImage(copyTarget);
-                    target.getImage().tempApplyBrightness(new BrightnessContrast(brightnessDegree, contrastDegree));
+                    target.getImage().tempApplyBrightnessContrast(new BrightnessContrast(brightnessDegree, contrastDegree));
                     target.repaint();
                     target.getParent().revalidate();
                 }
@@ -153,7 +153,7 @@ public class ColourActions {
                     contrastDegree = contrastSlider.getValue();
                     contrastLabel.setText(contrastDegree + "");
                     target.getImage().setCurrentImage(copyTarget);
-                    target.getImage().tempApplyBrightness(new BrightnessContrast(brightnessDegree, contrastDegree));
+                    target.getImage().tempApplyBrightnessContrast(new BrightnessContrast(brightnessDegree, contrastDegree));
                     target.repaint();
                     target.getParent().revalidate();
                 }
