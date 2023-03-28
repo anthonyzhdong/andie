@@ -44,6 +44,7 @@ public class Andie {
      * @see ViewActions
      * @see FilterActions
      * @see ColourActions
+     * @see AdjustmentActions
      * 
      * @throws Exception if something goes wrong.
      */
@@ -83,6 +84,10 @@ public class Andie {
         // Actions that affect the representation of colour in the image
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
+
+        // Adjustments change the image proportions
+        AdjustmentActions adjustmentActions = new AdjustmentActions();
+        menuBar.add(adjustmentActions.createMenu());
         
         frame.setJMenuBar(menuBar);
         frame.pack();
