@@ -47,9 +47,11 @@ public class Andie {
      * 
      * @throws Exception if something goes wrong.
      */
-    private static void createAndShowGUI() throws Exception {
-        // Set up the main GUI frame
-        JFrame frame = new JFrame("ANDIE");
+
+    //Launches GUI frame for application (outside so accessable fro other classes)
+    public static JFrame frame = new JFrame("ANDIE");
+
+    public static void createAndShowGUI() throws Exception {
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
         frame.setIconImage(image);
@@ -61,6 +63,14 @@ public class Andie {
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
         
+        frame.setJMenuBar(CreateMenuBar());
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    //Split menu bar out for language change purposes without losing functionality of menubar
+    public static JMenuBar CreateMenuBar(){
+
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
 
@@ -83,12 +93,12 @@ public class Andie {
         // Actions that affect the representation of colour in the image
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
-        
-        frame.setJMenuBar(menuBar);
-        frame.pack();
-        frame.setVisible(true);
-    }
 
+        SettingsActions languageActions = new SettingsActions();
+        menuBar.add(languageActions.createMenu());
+
+        return menuBar;
+    }
     /**
      * <p>
      * Main entry point to the ANDIE program.
