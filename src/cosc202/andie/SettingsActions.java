@@ -23,9 +23,10 @@ import javax.swing.*;
  * @author Steven Mills
  * @version 1.0
  */
-public class SettingsActions {
+public class SettingsActions extends AbstractAction {
     
     public static ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+    Preferences prefs = Preferences.userNodeForPackage(cosc202.andie.Andie.class);
     /** A list of actions for the Settings menu. */
     protected ArrayList<Action> actions;
 
@@ -36,10 +37,10 @@ public class SettingsActions {
      */
     public SettingsActions() {
         actions = new ArrayList<Action>();
-        actions.add(new LanguageChangeEnglishAction("English", null, "Changes the display language",Integer.valueOf(KeyEvent.VK_B)));
-        actions.add(new LanguageChangeFrenchAction("French", null, "Changes the display language",Integer.valueOf(KeyEvent.VK_B)));
-        actions.add(new LanguageChangeSpanishAction("Spanish", null, "Changes the display language",Integer.valueOf(KeyEvent.VK_B)));
-        actions.add(new LanguageChangeMaoriAction("Maori", null, "Changes the display language",Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new LanguageChangeEnglishAction("English", null, "Changes display language to English",null));
+        actions.add(new LanguageChangeFrenchAction("French", null, "Changes display language to French",null));
+        actions.add(new LanguageChangeMaoriAction("Moari", null, "Changes display language to Maori",null));
+        actions.add(new LanguageChangeSpanishAction("Spanish", null, "Changes display language to Spanish",null));
 
     }
 
@@ -51,8 +52,8 @@ public class SettingsActions {
      * @return The Settings menu UI element.
      */
     public JMenu createMenu() {
-        JMenu SettingsMenu = new JMenu("Settings");
-        JMenu LanguageSubMenu = new JMenu("Language Select");
+        JMenu SettingsMenu = new JMenu(SettingsActions.bundle.getString("Settings"));
+        JMenu LanguageSubMenu = new JMenu(SettingsActions.bundle.getString("LanguageSelect"));
 
         for(Action action: actions) {
             LanguageSubMenu.add(new JMenuItem(action));
@@ -75,7 +76,7 @@ public class SettingsActions {
 
         /**
          * <p>
-         * Create a new Language Change action.
+         * Create a new Language Change English action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -89,109 +90,24 @@ public class SettingsActions {
 
         /**
          * <p>
-         * This method is called whenever the LanguageChangeAction is triggered.
-         * It prompts the user to choose language then applies the language change
+         * This method is called whenever the LanguageChangeEnglishAction is triggered.
+         * It changes the display language to English.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-            Locale.setDefault(new Locale(prefs.get("language", "en"), 
-            prefs.get("country","NZ")));
+            /* Potenial code for saving preferences inbetween instances of Andie
+            bundle.clearCache();
+            prefs.put("language", "en"); 
+            prefs.put("country","NZ");
+            */
     
-            bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+            bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle_en_NZ");
 
             try {
-                Andie.frame.setJMenuBar(Andie.CreateMenuBar());
-                Andie.frame.pack();
-                Andie.frame.setVisible(true);
-            } catch (Exception e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-            
-        }
-
-    }
-
-    public class LanguageChangeSpanishAction extends ImageAction {
-
-        /**
-         * <p>
-         * Create a new Language Change action.
-         * </p>
-         * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
-         */
-        LanguageChangeSpanishAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * <p>
-         * This method is called whenever the LanguageChangeAction is triggered.
-         * It prompts the user to choose language then applies the language change
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-            Locale.setDefault(new Locale(prefs.get("language", "sp"), 
-            prefs.get("country","SP")));
-    
-            bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
-
-            try {
-                Andie.frame.setJMenuBar(Andie.CreateMenuBar());
-                Andie.frame.pack();
-                Andie.frame.setVisible(true);
-            } catch (Exception e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-            
-        }
-
-    }
-
-    public class LanguageChangeFrenchAction extends ImageAction {
-
-        /**
-         * <p>
-         * Create a new Language Change action.
-         * </p>
-         * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
-         */
-        LanguageChangeFrenchAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * <p>
-         * This method is called whenever the LanguageChangeAction is triggered.
-         * It prompts the user to choose language then applies the language change
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-            Locale.setDefault(new Locale(prefs.get("language", "fr"), 
-            prefs.get("country","FR")));
-    
-            bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
-
-            try {
-                Andie.frame.setJMenuBar(Andie.CreateMenuBar());
+                Andie.frame.setJMenuBar(null);
+                Andie.frame.setJMenuBar(Andie.createMenuBar());
                 Andie.frame.pack();
                 Andie.frame.setVisible(true);
             } catch (Exception e1) {
@@ -207,7 +123,7 @@ public class SettingsActions {
 
         /**
          * <p>
-         * Create a new Language Change action.
+         * Create a new Language Change Maori action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -221,21 +137,100 @@ public class SettingsActions {
 
         /**
          * <p>
-         * This method is called whenever the LanguageChangeAction is triggered.
-         * It prompts the user to choose language then applies the language change
+         * This method is called whenever the LanguageChangeMaoriAction is triggered.
+         * It changes the display language to Maori.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-            Locale.setDefault(new Locale(prefs.get("language", "mi"), 
-            prefs.get("country","NZ")));
-    
-            bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+
+            bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle_mi_NZ");
 
             try {
-                Andie.frame.setJMenuBar(Andie.CreateMenuBar());
+                Andie.frame.setJMenuBar(Andie.createMenuBar());
+                Andie.frame.pack();
+                Andie.frame.setVisible(true);
+            } catch (Exception e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            
+        }
+
+    }
+
+    public class LanguageChangeFrenchAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new Language Change French action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        LanguageChangeFrenchAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * This method is called whenever the LanguageChangeFrenchAction is triggered.
+         * It changes the display language to French.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+    
+            bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle_fr_FR");
+
+            try {
+                Andie.frame.setJMenuBar(Andie.createMenuBar());
+                Andie.frame.pack();
+                Andie.frame.setVisible(true);
+            } catch (Exception e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            
+        }
+
+    }
+
+    public class LanguageChangeSpanishAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new Language Change Spanish action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        LanguageChangeSpanishAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * This method is called whenever the LanguageChangeSpanishAction is triggered.
+         * It changes the display language to Spanish.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle_sp_SP");
+
+            try {
+                Andie.frame.setJMenuBar(Andie.createMenuBar());
                 Andie.frame.pack();
                 Andie.frame.setVisible(true);
             } catch (Exception e1) {
@@ -243,9 +238,13 @@ public class SettingsActions {
                 e1.printStackTrace();
             }
 
-
-            
         }
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 }

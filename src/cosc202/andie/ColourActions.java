@@ -51,7 +51,7 @@ public class ColourActions {
      * @return The colour menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Colour");
+        JMenu fileMenu = new JMenu(SettingsActions.bundle.getString("Colour"));
 
         for(Action action: actions) {
             fileMenu.add(new JMenuItem(action));
@@ -167,7 +167,7 @@ public class ColourActions {
               
 
             JComponent[] labels = new JComponent[]  {brightnessSlider, brightnessLabel, contrastSlider, contrastLabel};
-            int optionBrightness = JOptionPane.showOptionDialog(null, labels, "Enter brightness and contrast", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+            int optionBrightness = JOptionPane.showOptionDialog(null, labels, SettingsActions.bundle.getString("EnterBrightnessAndContrast"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
         
             // Check the return value from the dialog box.
             if (optionBrightness == JOptionPane.CANCEL_OPTION) {

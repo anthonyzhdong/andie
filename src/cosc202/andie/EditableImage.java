@@ -212,6 +212,24 @@ class EditableImage {
         this.opsFilename = imageFilename + ".ops";
         save();
     }
+    
+   /**
+     * <p>
+     * Export an image to a speficied file.
+     * </p>
+     * 
+     * <p>
+     * Exports current image to the file provided as a parameter.
+     * </p>
+     * 
+     * @param imageFilename The file location to save the image to.
+     * @throws Exception If something goes wrong.
+     */
+    public void export(String imageFilename) throws Exception {
+        this.imageFilename = imageFilename;
+        String extension = imageFilename.substring(1+imageFilename.lastIndexOf(".")).toLowerCase();
+        ImageIO.write(getCurrentImage(), extension, new File(imageFilename));
+    }
 
     /**
      * <p>
