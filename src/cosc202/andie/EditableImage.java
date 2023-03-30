@@ -36,7 +36,7 @@ class EditableImage {
     /** The original image. This should never be altered by ANDIE. */
     private BufferedImage original;
     /** The current image, the result of applying {@link ops} to {@link original}. */
-    private BufferedImage current;
+    private static BufferedImage current;
     /** The sequence of operations currently applied to the image. */
     private Stack<ImageOperation> ops;
     /** A memory of 'undone' operations to support 'redo'. */
@@ -71,7 +71,7 @@ class EditableImage {
      * 
      * @return True if there is an image, false otherwise.
      */
-    public boolean hasImage() {
+    public static boolean hasImage() {
         return current != null;
     }
 
@@ -211,6 +211,24 @@ class EditableImage {
         this.imageFilename = imageFilename;
         this.opsFilename = imageFilename + ".ops";
         save();
+    }
+    
+   /**
+     * <p>
+     * Export an image to a speficied file.
+     * </p>
+     * 
+     * <p>
+     * Exports current image to the file provided as a parameter.
+     * </p>
+     * 
+     * @param imageFilename The file location to save the image to.
+     * @throws Exception If something goes wrong.
+     */
+    public void export(String imageFilename) throws Exception {
+        this.imageFilename = imageFilename;
+        String extension = imageFilename.substring(1+imageFilename.lastIndexOf(".")).toLowerCase();
+        ImageIO.write(getCurrentImage(), extension, new File(imageFilename));
     }
 
     /**
