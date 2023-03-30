@@ -96,9 +96,13 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new ConvertToGrey());
-            target.repaint();
-            target.getParent().revalidate();
+            if(EditableImage.hasImage()){
+                target.getImage().apply(new ConvertToGrey());
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
         }
 
     }
@@ -123,29 +127,30 @@ public class ColourActions {
         
 
         public void actionPerformed(ActionEvent e) {
-            BufferedImage originalTarget = target.getImage().getCurrentImage();
-            BufferedImage copyTarget = target.getImage().getCurrentImage();
-            int oldBrightnessDegree = brightnessDegree;
-            int oldContrastDegree = contrastDegree;
-            
-            // Pop-up dialog box to ask for the radius value.
-            JSlider brightnessSlider = new JSlider((-100), 100, brightnessDegree);
-            JLabel brightnessLabel = new JLabel(brightnessDegree + "");
+            if(EditableImage.hasImage()){
+                BufferedImage originalTarget = target.getImage().getCurrentImage();
+                BufferedImage copyTarget = target.getImage().getCurrentImage();
+                int oldBrightnessDegree = brightnessDegree;
+                int oldContrastDegree = contrastDegree;
+                
+                // Pop-up dialog box to ask for the radius value.
+                JSlider brightnessSlider = new JSlider((-100), 100, brightnessDegree);
+                JLabel brightnessLabel = new JLabel(brightnessDegree + "");
 
-            JSlider contrastSlider = new JSlider((-100), 100, contrastDegree);
-            JLabel contrastLabel = new JLabel(contrastDegree + "");
+                JSlider contrastSlider = new JSlider((-100), 100, contrastDegree);
+                JLabel contrastLabel = new JLabel(contrastDegree + "");
 
-            class BrightnessSliderListener implements ChangeListener {
-            
-                public void stateChanged(ChangeEvent e) {
-                    brightnessDegree = brightnessSlider.getValue();
-                    brightnessLabel.setText(brightnessDegree + "");
-                    target.getImage().setCurrentImage(copyTarget);
-                    target.getImage().tempApplyBrightnessContrast(new BrightnessContrast(brightnessDegree, contrastDegree));
-                    target.repaint();
-                    target.getParent().revalidate();
+                class BrightnessSliderListener implements ChangeListener {
+                
+                    public void stateChanged(ChangeEvent e) {
+                        brightnessDegree = brightnessSlider.getValue();
+                        brightnessLabel.setText(brightnessDegree + "");
+                        target.getImage().setCurrentImage(copyTarget);
+                        target.getImage().tempApplyBrightnessContrast(new BrightnessContrast(brightnessDegree, contrastDegree));
+                        target.repaint();
+                        target.getParent().revalidate();
+                    }
                 }
-            }
 
             class ContrastSliderListener implements ChangeListener {
             
@@ -185,7 +190,9 @@ public class ColourActions {
                 target.repaint();
                 target.getParent().revalidate();
             }
-            
+        } else {
+            ErrorHandling.NoFileOpenError();
+        }
             
         }
     }

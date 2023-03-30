@@ -102,12 +102,13 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open(imageFilepath);
                 } catch (Exception ex) {
-                    ErrorHandling.OpenError();
+                    ErrorHandling.FileError();
                 }
             }
 
             target.repaint();
             target.getParent().revalidate();
+        
         }
 
     }
@@ -148,11 +149,15 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            if(EditableImage.hasImage()){
             try {
                 target.getImage().save();           
             } catch (Exception ex) {
-                System.exit(1);
+                ErrorHandling.NoFileOpenError();
             }
+        } else {
+            ErrorHandling.NoFileOpenError();
+        }
         }
 
     }
@@ -193,16 +198,20 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            JFileChooser fileChooser = new JFileChooser();
-            int result = fileChooser.showSaveDialog(target);
+            if(EditableImage.hasImage()){
+                JFileChooser fileChooser = new JFileChooser();
+                int result = fileChooser.showSaveDialog(target);
 
-            if (result == JFileChooser.APPROVE_OPTION) {
-                try {
-                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().saveAs(imageFilepath);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                        target.getImage().saveAs(imageFilepath);
                 } catch (Exception ex) {
-                    System.exit(1);
+                        ErrorHandling.NoFileOpenError();
                 }
+            }
+            } else {
+                ErrorHandling.NoFileOpenError();
             }
         }
 
@@ -284,6 +293,7 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            if(EditableImage.hasImage()){
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
 
@@ -292,9 +302,12 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().export(imageFilepath);
                 } catch (Exception ex) {
-                    System.exit(1);
+                    ErrorHandling.NoFileOpenError();
                 }
             }
+        } else {
+            ErrorHandling.NoFileOpenError();
+        }
         }
 
     }

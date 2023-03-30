@@ -95,26 +95,29 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            if(EditableImage.hasImage()){
+                // Determine the radius - ask the user.
+                int radius = 1;
 
-            // Determine the radius - ask the user.
-            int radius = 1;
+                // Pop-up dialog box to ask for the radius value.
+                SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+                JSpinner radiusSpinner = new JSpinner(radiusModel);
+                int option = JOptionPane.showOptionDialog(null, radiusSpinner, SettingsActions.bundle.getString("EnterFilterRadius"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
-            // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, SettingsActions.bundle.getString("EnterFilterRadius"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                radius = radiusModel.getNumber().intValue();
+                // Check the return value from the dialog box.
+                if (option == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else if (option == JOptionPane.OK_OPTION) {
+                    radius = radiusModel.getNumber().intValue();
+                }
+                
+                // Create and apply the filter
+                target.getImage().apply(new MeanFilter(radius));
+                target.repaint();
+                target.getParent().revalidate(); 
+            } else {
+                ErrorHandling.NoFileOpenError();
             }
-            
-            // Create and apply the filter
-            target.getImage().apply(new MeanFilter(radius));
-            target.repaint();
-            target.getParent().revalidate(); 
         }
 
     }
@@ -127,26 +130,34 @@ public class FilterActions {
         super(name, icon, desc, mnemonic);
         }
         public void actionPerformed(ActionEvent e) {
-        // Create and apply the filter
-        target.getImage().apply(new SoftBlur());
-        target.repaint();
-        target.getParent().revalidate();
-        }
-        }
+            if(EditableImage.hasImage()){
+            // Create and apply the filter
+                target.getImage().apply(new SoftBlur());
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
+        }   
+    }
 
     public class SharpenAction extends ImageAction {
-            SharpenAction(String name, ImageIcon icon,
-            String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
+        SharpenAction(String name, ImageIcon icon,
+        String desc, Integer mnemonic) {
+        super(name, icon, desc, mnemonic);
+        }
+        public void actionPerformed(ActionEvent e) {
+            if(EditableImage.hasImage()){
+                // Create and apply the filter
+                target.getImage().apply(new Sharpen());
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                ErrorHandling.NoFileOpenError();
             }
-            public void actionPerformed(ActionEvent e) {
-            // Create and apply the filter
-            target.getImage().apply(new Sharpen());
-            target.repaint();
-            target.getParent().revalidate();
-            }
-            }
-    
+        }
+    }
+        
 
 
     public class BrightnessAction extends ImageAction {
@@ -155,17 +166,21 @@ public class FilterActions {
             super(name, icon, desc, mnemonic);
         }
         public void actionPerformed(ActionEvent e) {
-            // Create and apply the filter
-            target.getImage().apply(new Brightness());
-            target.repaint();
-            target.getParent().revalidate();
+            if(EditableImage.hasImage()){   
+                // Create and apply the filter
+                target.getImage().apply(new Brightness());
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
         }
     }
 
 
 
 
-   public class GaussianFilterAction extends ImageAction {
+    public class GaussianFilterAction extends ImageAction {
 
        /**
         * <p>
@@ -177,9 +192,9 @@ public class FilterActions {
         * @param desc A brief description of the action  (ignored if null).
         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
         */
-       GaussianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-           super(name, icon, desc, mnemonic);
-       }
+        GaussianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
 
        /**
         * <p>
@@ -193,28 +208,31 @@ public class FilterActions {
         * 
         * @param e The event triggering this callback.
         */
-       public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
+            if(EditableImage.hasImage()){
+                // Determine the radius - ask the user.
+                int radius = 1;
 
-           // Determine the radius - ask the user.
-           int radius = 1;
+                // Pop-up dialog box to ask for the radius value.
+                SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+                JSpinner radiusSpinner = new JSpinner(radiusModel);
+                int option = JOptionPane.showOptionDialog(null, radiusSpinner, SettingsActions.bundle.getString("EnterFilterStrength"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
-           // Pop-up dialog box to ask for the radius value.
-           SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
-           JSpinner radiusSpinner = new JSpinner(radiusModel);
-           int option = JOptionPane.showOptionDialog(null, radiusSpinner, SettingsActions.bundle.getString("EnterFilterStrength"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                // Check the return value from the dialog box.
+                if (option == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else if (option == JOptionPane.OK_OPTION) {
+                    radius = radiusModel.getNumber().intValue();
+                }
 
-           // Check the return value from the dialog box.
-           if (option == JOptionPane.CANCEL_OPTION) {
-               return;
-           } else if (option == JOptionPane.OK_OPTION) {
-               radius = radiusModel.getNumber().intValue();
-           }
-
-           // Create and apply the filter
-           target.getImage().apply(new GaussianBlur(radius));
-           target.repaint();
-           target.getParent().revalidate();
-       }
+                // Create and apply the filter
+                target.getImage().apply(new GaussianBlur(radius));
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
+        }
 
    }
 }

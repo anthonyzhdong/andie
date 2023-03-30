@@ -36,7 +36,7 @@ class EditableImage {
     /** The original image. This should never be altered by ANDIE. */
     private BufferedImage original;
     /** The current image, the result of applying {@link ops} to {@link original}. */
-    private BufferedImage current;
+    private static BufferedImage current;
     /** The sequence of operations currently applied to the image. */
     private Stack<ImageOperation> ops;
     /** A memory of 'undone' operations to support 'redo'. */
@@ -71,7 +71,7 @@ class EditableImage {
      * 
      * @return True if there is an image, false otherwise.
      */
-    public boolean hasImage() {
+    public static boolean hasImage() {
         return current != null;
     }
 

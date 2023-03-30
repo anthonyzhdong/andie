@@ -6,10 +6,17 @@ import javax.swing.*;
 
 public class ErrorHandling {
     
-    public static void OpenError(){
+    public static void FileError(){
         JOptionPane.showMessageDialog(null,
-        "File Unsupported by ANDIE, please open image files only",
-        "Unsupported File Format",
+        SettingsActions.bundle.getString("UnsupportedFileMessage"),
+        SettingsActions.bundle.getString("UnsupportedFileTitle"),
         JOptionPane.ERROR_MESSAGE); 
+    }
+
+    public static void NoFileOpenError(){
+        JOptionPane.showMessageDialog(null,
+        SettingsActions.bundle.getString("NoCurrentImageMessage"),
+        SettingsActions.bundle.getString("PleaseOpenImageTitle"),
+        JOptionPane.ERROR_MESSAGE);
     }
 }
