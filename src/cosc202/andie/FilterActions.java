@@ -39,7 +39,6 @@ public class FilterActions {
         actions.add(new SharpenAction("Sharpen", null, "Apply a sharpen filter", Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new GaussianFilterAction("Gaussian Blur", null, "Apply a Gaussian Blur", Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new BrightnessAction("Brighten", null, "Increase the brightness", Integer.valueOf(KeyEvent.VK_M)));
     }
 
     /**
@@ -148,19 +147,6 @@ public class FilterActions {
             }
     
 
-
-    public class BrightnessAction extends ImageAction {
-        BrightnessAction(String name, ImageIcon icon,
-        String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-        public void actionPerformed(ActionEvent e) {
-            // Create and apply the filter
-            target.getImage().apply(new Brightness());
-            target.repaint();
-            target.getParent().revalidate();
-        }
-    }
 
 
 
