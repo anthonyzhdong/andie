@@ -34,6 +34,8 @@ public class AdjustmentActions{
      actions = new ArrayList<Action>();
      actions.add(new ResizeLarger("Increase Size", null, "Increases Image Size", Integer.valueOf(KeyEvent.VK_L)));
      actions.add(new RotationAction("Rotate", null, "Rotates image 90 degrees", Integer.valueOf(KeyEvent.VK_K)));
+     actions.add(new RotationAction("Flip", null, "Flips image", Integer.valueOf(KeyEvent.VK_F)));
+
  }
     /**
      * <p>
@@ -43,7 +45,7 @@ public class AdjustmentActions{
      * @return The adjustment menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Adjustments");
+        JMenu fileMenu = new JMenu(SettingsActions.bundle.getString("Adjustments"));
 
         for(Action action: actions) {
             fileMenu.add(new JMenuItem(action));
@@ -77,6 +79,18 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             target.getImage().apply(new Rotation());
+            target.repaint();
+            target.getParent().revalidate();
+            
+        }
+    }
+    public class FlipAction extends ImageAction{
+        FlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new Flip());
             target.repaint();
             target.getParent().revalidate();
             
