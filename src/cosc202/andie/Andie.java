@@ -43,8 +43,8 @@ public class Andie {
      * @see EditActions
      * @see ViewActions
      * @see FilterActions
-     * @see ColourActions
      * @see AdjustmentActions
+     * @see ColourActions
      * 
      * @throws Exception if something goes wrong.
      */
@@ -99,6 +99,9 @@ public class Andie {
         // Actions that affect the display or 'under the hood' components of Andie
         SettingsActions languageActions = new SettingsActions();
         menuBar.add(languageActions.createMenu());
+        
+
+    
 
         return menuBar;
     }
