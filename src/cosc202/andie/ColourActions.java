@@ -39,8 +39,8 @@ public class ColourActions {
      */
     public ColourActions() {
         actions = new ArrayList<Action>();
-        actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new BrightnessContrastAction("Brightness and Contrast", null, "Alter the brightness and contrast", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new ConvertToGreyAction(SettingsActions.bundle.getString("Greyscale"), null, SettingsActions.bundle.getString("GreyscaleConvert"), Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new BrightnessContrastAction(SettingsActions.bundle.getString("BrightnessContrast"), null, SettingsActions.bundle.getString("AlterBrightness"), Integer.valueOf(KeyEvent.VK_M)));
     }
 
     /**
@@ -51,7 +51,7 @@ public class ColourActions {
      * @return The colour menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Colour");
+        JMenu fileMenu = new JMenu(SettingsActions.bundle.getString("Colour"));
 
         for(Action action: actions) {
             fileMenu.add(new JMenuItem(action));
@@ -96,9 +96,13 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new ConvertToGrey());
-            target.repaint();
-            target.getParent().revalidate();
+            if(EditableImage.hasImage()){
+                target.getImage().apply(new ConvertToGrey());
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
         }
 
     }
@@ -123,27 +127,30 @@ public class ColourActions {
         
 
         public void actionPerformed(ActionEvent e) {
-            BufferedImage originalTarget = target.getImage().getCurrentImage();
-            BufferedImage copyTarget = target.getImage().getCurrentImage();
-            
-            // Pop-up dialog box to ask for the radius value.
-            JSlider brightnessSlider = new JSlider((-100), 100, brightnessDegree);
-            JLabel brightnessLabel = new JLabel("Brightness : " + brightnessDegree + "%");
+            if(EditableImage.hasImage()){
+                BufferedImage originalTarget = target.getImage().getCurrentImage();
+                BufferedImage copyTarget = target.getImage().getCurrentImage();
+                int oldBrightnessDegree = brightnessDegree;
+                int oldContrastDegree = contrastDegree;
+                
+                // Pop-up dialog box to ask for the radius value.
+                JSlider brightnessSlider = new JSlider((-100), 100, brightnessDegree);
+                JLabel brightnessLabel = new JLabel(brightnessDegree + "");
 
-            JSlider contrastSlider = new JSlider((-100), 100, contrastDegree);
-            JLabel contrastLabel = new JLabel("Contrast : " + contrastDegree + "%");
+                JSlider contrastSlider = new JSlider((-100), 100, contrastDegree);
+                JLabel contrastLabel = new JLabel(contrastDegree + "");
 
-            class BrightnessSliderListener implements ChangeListener {
-            
-                public void stateChanged(ChangeEvent e) {
-                    brightnessDegree = brightnessSlider.getValue();
-                    brightnessLabel.setText("Brightness : " + brightnessDegree + "%");
-                    target.getImage().setCurrentImage(copyTarget);
-                    target.getImage().tempApplyBrightnessContrast(new BrightnessContrast(brightnessDegree, contrastDegree));
-                    target.repaint();
-                    target.getParent().revalidate();
+                class BrightnessSliderListener implements ChangeListener {
+                
+                    public void stateChanged(ChangeEvent e) {
+                        brightnessDegree = brightnessSlider.getValue();
+                        brightnessLabel.setText(brightnessDegree + "");
+                        target.getImage().setCurrentImage(copyTarget);
+                        target.getImage().tempApplyBrightnessContrast(new BrightnessContrast(brightnessDegree, contrastDegree));
+                        target.repaint();
+                        target.getParent().revalidate();
+                    }
                 }
-            }
 
             class ContrastSliderListener implements ChangeListener {
             
@@ -164,8 +171,8 @@ public class ColourActions {
             contrastSlider.addChangeListener(ccl);
               
 
-            JComponent[] labels = new JComponent[]  {brightnessLabel, brightnessSlider, contrastLabel, contrastSlider};
-            int optionBrightness = JOptionPane.showOptionDialog(null, labels, "Enter brightness and contrast", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+            JComponent[] labels = new JComponent[]  {brightnessSlider, brightnessLabel, contrastSlider, contrastLabel};
+            int optionBrightness = JOptionPane.showOptionDialog(null, labels, SettingsActions.bundle.getString("EnterBrightnessAndContrast"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
         
             // Check the return value from the dialog box.
             if (optionBrightness == JOptionPane.CANCEL_OPTION) {
@@ -179,7 +186,9 @@ public class ColourActions {
                 target.repaint();
                 target.getParent().revalidate();
             }
-            
+        } else {
+            ErrorHandling.NoFileOpenError();
+        }
             
         }
     }

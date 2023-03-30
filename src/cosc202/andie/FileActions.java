@@ -34,10 +34,11 @@ public class FileActions {
      */
     public FileActions() {
         actions = new ArrayList<Action>();
-        actions.add(new FileOpenAction("Open", null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileSaveAction("Save", null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction("Save As", null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExitAction("Exit", null, "Exit the program", Integer.valueOf(0)));
+        actions.add(new FileOpenAction(SettingsActions.bundle.getString("Open"), null, SettingsActions.bundle.getString("OpenDesc"), Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new FileSaveAction(SettingsActions.bundle.getString("Save"), null, SettingsActions.bundle.getString("SaveDesc"), Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new FileSaveAsAction(SettingsActions.bundle.getString("SaveAs"), null, SettingsActions.bundle.getString("SaveAsDesc"), Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileExportAction(SettingsActions.bundle.getString("Export"), null, SettingsActions.bundle.getString("ExportDesc"), Integer.valueOf(0)));
+        actions.add(new FileExitAction(SettingsActions.bundle.getString("Exit"), null, SettingsActions.bundle.getString("ExitDesc"), Integer.valueOf(0)));
     }
 
     /**
@@ -48,7 +49,7 @@ public class FileActions {
      * @return The File menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("File");
+        JMenu fileMenu = new JMenu(SettingsActions.bundle.getString("File"));
 
         for(Action action: actions) {
             fileMenu.add(new JMenuItem(action));
@@ -101,12 +102,13 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open(imageFilepath);
                 } catch (Exception ex) {
-                    System.exit(1);
+                    ErrorHandling.FileError();
                 }
             }
 
             target.repaint();
             target.getParent().revalidate();
+        
         }
 
     }
@@ -147,11 +149,15 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            if(EditableImage.hasImage()){
             try {
                 target.getImage().save();           
             } catch (Exception ex) {
-                System.exit(1);
+                ErrorHandling.NoFileOpenError();
             }
+        } else {
+            ErrorHandling.NoFileOpenError();
+        }
         }
 
     }
@@ -192,16 +198,20 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            JFileChooser fileChooser = new JFileChooser();
-            int result = fileChooser.showSaveDialog(target);
+            if(EditableImage.hasImage()){
+                JFileChooser fileChooser = new JFileChooser();
+                int result = fileChooser.showSaveDialog(target);
 
-            if (result == JFileChooser.APPROVE_OPTION) {
-                try {
-                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().saveAs(imageFilepath);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                        target.getImage().saveAs(imageFilepath);
                 } catch (Exception ex) {
-                    System.exit(1);
+                        ErrorHandling.NoFileOpenError();
                 }
+            }
+            } else {
+                ErrorHandling.NoFileOpenError();
             }
         }
 
@@ -244,6 +254,60 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             System.exit(0);
+        }
+
+    }
+
+    /**
+     * <p>
+     * Action to export an image to a new file location.
+     * </p>
+     * 
+     */
+    public class FileExportAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new file-export action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        FileExportAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+         /**
+         * <p>
+         * Callback for when the file-export action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the FileExportAction is triggered.
+         * It prompts the user to select a file name and exports the image.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            if(EditableImage.hasImage()){
+            JFileChooser fileChooser = new JFileChooser();
+            int result = fileChooser.showSaveDialog(target);
+
+            if (result == JFileChooser.APPROVE_OPTION) {
+                try {
+                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                    target.getImage().export(imageFilepath);
+                } catch (Exception ex) {
+                    ErrorHandling.NoFileOpenError();
+                }
+            }
+        } else {
+            ErrorHandling.NoFileOpenError();
+        }
         }
 
     }
