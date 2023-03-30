@@ -7,7 +7,7 @@ import java.awt.geom.AffineTransform;
 public class Rotation implements ImageOperation, java.io.Serializable  {
 
     Rotation(){
-
+        
     
     }
     public BufferedImage apply(BufferedImage input){
@@ -27,4 +27,4 @@ public class Rotation implements ImageOperation, java.io.Serializable  {
         return rotatedImage; 
     }
 
-    }
+}
