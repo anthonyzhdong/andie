@@ -25,7 +25,7 @@ import javax.swing.*;
  */
 public class SettingsActions extends AbstractAction {
     
-    public static ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+    public static ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle_en_NZ");
     Preferences prefs = Preferences.userNodeForPackage(cosc202.andie.Andie.class);
     /** A list of actions for the Settings menu. */
     protected ArrayList<Action> actions;
