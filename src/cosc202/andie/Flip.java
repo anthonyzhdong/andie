@@ -10,18 +10,18 @@ public class Flip implements ImageOperation, java.io.Serializable{
     
     }
     public BufferedImage apply(BufferedImage input){
+        
         int width = input.getWidth();
         int height = input.getHeight();
 
-        BufferedImage FlippedImage = new BufferedImage(height,width,input.getType());
-        for(int x = 0; x<height;x++){
-            for(int l = 0,r=width-1;l<width;l++,r--){
-                int s = input.getRGB(l,x);
-                FlippedImage.setRGB(r,x,s);
+        BufferedImage FlippedImage = new BufferedImage(width,height,input.getType());
+
+        for(int x = 0; x<width;x++){
+            for(int y = 0; y<height;y++){
+                int rgb = input.getRGB(x,y);
+                FlippedImage.setRGB(width-x-1,y,rgb);
             }
-
         }
-
     return FlippedImage;
     }
 
