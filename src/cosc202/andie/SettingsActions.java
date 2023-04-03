@@ -39,7 +39,7 @@ public class SettingsActions extends AbstractAction {
         actions = new ArrayList<Action>();
         actions.add(new LanguageChangeEnglishAction("English", null, "Changes display language to English",null));
         actions.add(new LanguageChangeFrenchAction("French", null, "Changes display language to French",null));
-        actions.add(new LanguageChangeMaoriAction("Moari", null, "Changes display language to Maori",null));
+        actions.add(new LanguageChangeMaoriAction("Maori", null, "Changes display language to Maori",null));
         actions.add(new LanguageChangeSpanishAction("Spanish", null, "Changes display language to Spanish",null));
 
     }
