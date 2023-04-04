@@ -211,8 +211,13 @@ public class FileActions {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     try {
                         String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+<<<<<<< HEAD
                         target.getImage().saveAs(imageFilepath);
                     } catch (Exception ex) {
+=======
+                        target.getImage().saveAs(imageFilepath + ".jpg");
+                } catch (Exception ex) {
+>>>>>>> d68837a86eb0ce18e7da4b620e37a85f1475e94e
                         ErrorHandling.NoFileOpenError();
                     }
                 }
