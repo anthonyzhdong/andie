@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.Frame;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -23,9 +24,13 @@ import javax.swing.*;
  * @version 1.0
  */
 public class FileActions {
+
+    /** file type that user wishes to save */
+    public String fileTypeSelected;
     
     /** A list of actions for the File menu. */
     protected ArrayList<Action> actions;
+
 
     /**
      * <p>
@@ -108,7 +113,7 @@ public class FileActions {
 
             target.repaint();
             target.getParent().revalidate();
-        
+            
         }
 
     }
@@ -150,14 +155,14 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-            try {
-                target.getImage().save();           
-            } catch (Exception ex) {
+                try {
+                    target.getImage().save();           
+                } catch (Exception ex) {
+                    ErrorHandling.NoFileOpenError();
+                }
+            } else {
                 ErrorHandling.NoFileOpenError();
             }
-        } else {
-            ErrorHandling.NoFileOpenError();
-        }
         }
 
     }
@@ -198,6 +203,7 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+
             if(EditableImage.hasImage()){
                 JFileChooser fileChooser = new JFileChooser();
                 int result = fileChooser.showSaveDialog(target);
@@ -205,11 +211,16 @@ public class FileActions {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     try {
                         String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+<<<<<<< HEAD
+                        target.getImage().saveAs(imageFilepath);
+                    } catch (Exception ex) {
+=======
                         target.getImage().saveAs(imageFilepath + ".jpg");
                 } catch (Exception ex) {
+>>>>>>> d68837a86eb0ce18e7da4b620e37a85f1475e94e
                         ErrorHandling.NoFileOpenError();
+                    }
                 }
-            }
             } else {
                 ErrorHandling.NoFileOpenError();
             }
@@ -294,22 +305,47 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-            JFileChooser fileChooser = new JFileChooser();
-            int result = fileChooser.showSaveDialog(target);
+                fileTypeSelect();
+                if (fileTypeSelected != null){
+                    JFileChooser fileChooser = new JFileChooser();
+                    int result = fileChooser.showSaveDialog(target);
 
-            if (result == JFileChooser.APPROVE_OPTION) {
-                try {
-                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().export(imageFilepath);
-                } catch (Exception ex) {
-                    ErrorHandling.NoFileOpenError();
+                    if (result == JFileChooser.APPROVE_OPTION) {
+                        try {
+                            String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath().concat(fileTypeSelected);
+                            target.getImage().export(imageFilepath);
+                        } catch (Exception ex) {
+                            ErrorHandling.NoFileOpenError();
+                        }
+                    }
                 }
+            } else {
+                ErrorHandling.NoFileOpenError();
             }
-        } else {
-            ErrorHandling.NoFileOpenError();
+
+            fileTypeSelected = null;
         }
+  
+
+        /** Creates a diolog box to select what file type you would like to save as
+        * returns selected file type.
+
+        */
+        private String fileTypeSelect() {
+            JFrame frame = new JFrame(SettingsActions.bundle.getString("FileTypeSelectTitle"));
+            
+            Object[] fileTypes = {".jpg", ".png", ".gif"};
+            fileTypeSelected = (String)JOptionPane.showInputDialog(
+                                frame,
+                                SettingsActions.bundle.getString("FileTypeSelectMessage"),
+                                SettingsActions.bundle.getString("FileTypeSelectPrompt"),
+                                JOptionPane.PLAIN_MESSAGE,
+                                null,
+                                fileTypes,
+                                null);
+                
+            return fileTypeSelected;        
         }
 
     }
-
 }
