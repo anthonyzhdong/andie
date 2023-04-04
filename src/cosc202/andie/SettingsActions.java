@@ -27,10 +27,6 @@ import javax.swing.*;
  */
 public class SettingsActions extends AbstractAction {
 
-    private int checkFullScreenWidth(JFrame aFrame) {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        return screenSize.width;
-    }
     private int checkFullScreenHeight(JFrame aFrame) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         return screenSize.height;

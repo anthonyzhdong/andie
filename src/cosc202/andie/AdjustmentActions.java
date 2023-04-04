@@ -65,9 +65,13 @@ public class AdjustmentActions{
         }
 
         public void actionPerformed(ActionEvent e) {
+            if(EditableImage.hasImage()){
             //target.getImage().apply(ResizeLarger());
-            target.repaint();
-            target.getParent().revalidate();
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
             
         }
     }
@@ -78,9 +82,13 @@ public class AdjustmentActions{
         }
 
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new Rotation());
-            target.repaint();
-            target.getParent().revalidate();
+            if(EditableImage.hasImage()){
+                target.getImage().apply(new Rotation());
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                ErrorHandling.NoFileOpenError();
+        }
             
         }
     }
@@ -90,10 +98,13 @@ public class AdjustmentActions{
         }
 
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new Flip());
-            target.repaint();
-            target.getParent().revalidate();
-            
+            if(EditableImage.hasImage()){
+                target.getImage().apply(new Flip());
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
         }
     }
 }
