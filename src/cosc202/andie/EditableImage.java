@@ -45,6 +45,8 @@ class EditableImage {
     private String imageFilename;
     /** The file where the operation sequence is stored. */
     private String opsFilename;
+    /** The file where the operation sequence is stored. */
+
 
     /**
      * <p>
@@ -208,6 +210,7 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void saveAs(String imageFilename) throws Exception {
+        
         this.imageFilename = imageFilename;
         this.opsFilename = imageFilename + ".ops";
         save();
@@ -306,5 +309,7 @@ class EditableImage {
             current = op.apply(current);
         }
     }
+
+    
 
 }
