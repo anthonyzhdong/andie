@@ -27,8 +27,12 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
 
     /**
      * <p>
-     * Create a new BrightnessContrast operation.
+     * Create a new BrightnessContrast operation. 
      * </p>
+     * 
+     * @param brightnessDegree //percentage brightness change
+     * @param contrastDegree //percentage contrast change
+     * 
      */
     BrightnessContrast(int brightnessDegree, int contrastDegree) {
         this.brightnessDegree = brightnessDegree;
@@ -39,7 +43,20 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
         this.brightnessDegree = 0;
         this.contrastDegree = 0;
     }
-
+    /** 
+     * Implementation of apply method from ImageOperation interface
+     * Method to alter an images brightness + contrast
+     * <p>
+     * Creates copy in of passed in BufferedImage, iterates through every pixel in the image, 
+     * updating each with a percent change in the red, green and blue values using 
+     * an equation, and leaving the alpha value as is. Return the copy with the updated 
+     * rgb values. 
+     * </p>
+     * 
+     * @param input The image to have its brightness/contrast altered
+     * @return The resulting altered image.
+     * 
+     */
     public BufferedImage apply(BufferedImage input) {
         int brightnessValue = brightnessDegree;
         int contrastValue = contrastDegree;
@@ -65,7 +82,7 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
                     output.setRGB(i, j, c.getRGB());
                 }
                 
-                /* 
+                /* Old code, may be useful in future
                 rgb = output.getRaster().getPixel(i, j, new int[3]);
 
                 int red = rgb[0];
@@ -83,6 +100,19 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
 
         return output;
         }
+
+        /** 
+         * Truncates a int to between 0 and 255
+         * <p> 
+         * Takes a int parameter and checks it to see if it between
+         * 0 and 255. If within range, return value unchanged. If 
+         * greater than 255, set it to 255 and return. If less than
+         * 0, set value to 0 and return.
+         * </p>
+         * 
+         * @param value value to be checked
+         * @return checked value
+        */
 
         public static int Truncate(int value) {
             if (value < 0) {

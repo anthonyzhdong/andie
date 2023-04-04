@@ -124,7 +124,20 @@ public class ColourActions {
             super(name, icon, desc, mnemonic);
         }
 
-        
+        /**
+         * <p>
+         * Callback for when the BrightnessContrast action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the BrightnessContrastAction is triggered.
+         * It generates a pop-up that allows a user to use 2 sliders to input a brightness and 
+         * contrast respectively, with labels showing the percentage change. Generates a copy of 
+         * the image that is used in other methods to act as a preview for the user.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
@@ -138,8 +151,24 @@ public class ColourActions {
                 JSlider contrastSlider = new JSlider((-100), 100, contrastDegree);
                 JLabel contrastLabel = new JLabel("Contrast : " + contrastDegree + "%");
 
+
+
                 class BrightnessSliderListener implements ChangeListener {
-                
+                    
+                    /**
+                     * <p>
+                     * Callback for when the BrightnessSliderListener is triggered.
+                     * </p>
+                     * 
+                     * <p>
+                     * This method is called whenever the BrightnessSliderListener is triggered.
+                     * Updates brightnessLabel and applies the current value of the brightness and contrast
+                     * sliders to the copy of the image, as a sort of preview.
+                     * </p>
+                     * 
+                     * @param e The event triggering this callback.
+                     */
+
                     public void stateChanged(ChangeEvent e) {
                         brightnessDegree = brightnessSlider.getValue();
                         brightnessLabel.setText("Brightness : " + brightnessDegree + "%");
@@ -151,6 +180,21 @@ public class ColourActions {
                 }
 
                 class ContrastSliderListener implements ChangeListener {
+
+                    /**
+                     * <p>
+                     * Callback for when the BrightnessSliderListener is triggered.
+                     * </p>
+                     * 
+                     * <p>
+                     * This method is called whenever the ContrastSliderListener is triggered.
+                     * Updates contrastLabel and applies the current value of the brightness and contrast
+                     * sliders to the copy of the image, as a sort of preview.
+                     * </p>
+                     * 
+                     * @param e The event triggering this callback.
+                     */
+
                 
                     public void stateChanged(ChangeEvent e) {
                         contrastDegree = contrastSlider.getValue();
@@ -173,6 +217,12 @@ public class ColourActions {
                 int optionBrightness = JOptionPane.showOptionDialog(null, labels, SettingsActions.bundle.getString("EnterBrightnessAndContrast"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
             
                 // Check the return value from the dialog box.
+                /* if cancel is chosen, revert image to the original image, and change
+                 * values back to 0 for brightness and contrast
+                 * 
+                 * if ok is chosen apply the current brightness and contrast values in the slider 
+                 * to the original image.
+                 */
                 if (optionBrightness == JOptionPane.CANCEL_OPTION) {
                     target.getImage().setCurrentImage(originalTarget);
                     brightnessDegree = 0;
