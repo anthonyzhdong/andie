@@ -96,9 +96,6 @@ public class Andie {
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
 
-        AdjustmentActions adjustmentActions = new AdjustmentActions();
-        menuBar.add(adjustmentActions.createMenu());
-
         // Actions that affect the display or 'under the hood' components of Andie
         AdjustmentActions adjustmentActions = new AdjustmentActions();
         menuBar.add(adjustmentActions.createMenu());

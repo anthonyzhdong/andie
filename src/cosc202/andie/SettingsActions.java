@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.util.*;
 import java.util.prefs.Preferences;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -24,6 +26,15 @@ import javax.swing.*;
  * @version 1.0
  */
 public class SettingsActions extends AbstractAction {
+
+    private int checkFullScreenWidth(JFrame aFrame) {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        return screenSize.width;
+    }
+    private int checkFullScreenHeight(JFrame aFrame) {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        return screenSize.height;
+    }
     
     public static ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle_en_NZ");
     Preferences prefs = Preferences.userNodeForPackage(cosc202.andie.Andie.class);
@@ -108,7 +119,10 @@ public class SettingsActions extends AbstractAction {
             try {
                 Andie.frame.setJMenuBar(null);
                 Andie.frame.setJMenuBar(Andie.createMenuBar());
+                if (checkFullScreenHeight(Andie.frame) >= Andie.frame.getSize().height){
+                } else {
                 Andie.frame.pack();
+                }
                 Andie.frame.setVisible(true);
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
@@ -149,7 +163,10 @@ public class SettingsActions extends AbstractAction {
 
             try {
                 Andie.frame.setJMenuBar(Andie.createMenuBar());
+                if (checkFullScreenHeight(Andie.frame) >= Andie.frame.getSize().height){
+                } else {
                 Andie.frame.pack();
+                }
                 Andie.frame.setVisible(true);
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
@@ -190,7 +207,10 @@ public class SettingsActions extends AbstractAction {
 
             try {
                 Andie.frame.setJMenuBar(Andie.createMenuBar());
+                if (checkFullScreenHeight(Andie.frame) >= Andie.frame.getSize().height){
+                } else {
                 Andie.frame.pack();
+                }
                 Andie.frame.setVisible(true);
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
@@ -231,7 +251,10 @@ public class SettingsActions extends AbstractAction {
 
             try {
                 Andie.frame.setJMenuBar(Andie.createMenuBar());
+                if (checkFullScreenHeight(Andie.frame) >= Andie.frame.getSize().height){
+                } else {
                 Andie.frame.pack();
+                }
                 Andie.frame.setVisible(true);
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
