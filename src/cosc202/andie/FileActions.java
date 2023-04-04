@@ -205,7 +205,7 @@ public class FileActions {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     try {
                         String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                        target.getImage().saveAs(imageFilepath);
+                        target.getImage().saveAs(imageFilepath + ".jpg");
                 } catch (Exception ex) {
                         ErrorHandling.NoFileOpenError();
                 }

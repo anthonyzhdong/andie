@@ -1,6 +1,6 @@
 package cosc202.andie;
 import java.awt.image.*;
-
+import java.awt.Color;
 public class BrightnessContrast implements ImageOperation, java.io.Serializable {
 
     private int brightnessDegree;
@@ -18,12 +18,36 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
     }
 
     public BufferedImage apply (BufferedImage input) {
-        int[] rgb;
         int brightnessValue = brightnessDegree;
         int contrastValue = contrastDegree;
+        System.out.println(input.getColorModel().toString());
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
         for(int i = 0; i < input.getWidth(); i++) {
             for(int j = 0; j < input.getHeight(); j++) {
+
+                
+
+                Color c = new Color(output.getRGB(i, j), true);
+                int r = c.getRed();
+                int g = c.getGreen();
+                int b = c.getBlue();
+                
+                int a = c.getAlpha();
+                
+                if(i == 0 && j == 0) {
+                    System.out.println(a);
+                }
+                if(a != -1) {
+                    r = Truncate((int)((1 + contrastValue / 100.0) * (r - 127.5) + (127.5 * (1 + brightnessValue / 100.0))));
+                    g = Truncate((int)((1 + contrastValue / 100.0) * (g - 127.5) + (127.5 * (1 + brightnessValue / 100.0))));
+                    b = Truncate((int)((1 + contrastValue / 100.0) * (b - 127.5) + (127.5 * (1 + brightnessValue / 100.0))));
+                    
+                    c = new Color(r, g, b, a);
+
+                    output.setRGB(i, j, c.getRGB());
+                }
+                
+                /* 
                 rgb = output.getRaster().getPixel(i, j, new int[3]);
 
                 int red = rgb[0];
@@ -35,6 +59,7 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
                 blue = Truncate((int)((1 + contrastValue / 100.0) * (blue - 127.5) + (127.5 * (1 + brightnessValue / 100.0))));
                 int arr[] = {red, green, blue};
                 output.getRaster().setPixel(i, j, arr);
+                */
             }
         }
 
