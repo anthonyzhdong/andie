@@ -59,14 +59,14 @@ public class AdjustmentActions{
      * Action to quit the ANDIE application.
      * </p>
      */
-    public class ResizeLarger extends ImageAction{
-        ResizeLarger(String name, ImageIcon icon, String desc, Integer mnemonic) {
+    public class ResizeLargerAction extends ImageAction{
+        ResizeLargerAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-            //target.getImage().apply(ResizeLarger());
+                target.getImage().apply(new ResizeLarger());
                 target.repaint();
                 target.getParent().revalidate();
             } else {
