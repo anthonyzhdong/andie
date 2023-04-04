@@ -100,12 +100,13 @@ public class Andie {
         menuBar.add(adjustmentActions.createMenu());
 
         // Actions that affect the display or 'under the hood' components of Andie
+        AdjustmentActions adjustmentActions = new AdjustmentActions();
+        menuBar.add(adjustmentActions.createMenu());
+
+        // Actions that affect the display or 'under the hood' components of Andie
         SettingsActions languageActions = new SettingsActions();
         menuBar.add(languageActions.createMenu());
 
-        
-
-    
 
         return menuBar;
     }

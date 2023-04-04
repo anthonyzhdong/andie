@@ -32,9 +32,9 @@ public class AdjustmentActions{
   */
  public AdjustmentActions() {
      actions = new ArrayList<Action>();
-     actions.add(new ResizeLarger("Increase Size", null, "Increases Image Size", Integer.valueOf(KeyEvent.VK_L)));
-     actions.add(new RotationAction("Rotate", null, "Rotates image 90 degrees", Integer.valueOf(KeyEvent.VK_K)));
-     actions.add(new FlipAction("Flip", null, "Flips image", Integer.valueOf(KeyEvent.VK_F)));
+     actions.add(new ResizeLarger(SettingsActions.bundle.getString("IncreaseSize"), null, SettingsActions.bundle.getString("IncreaseSizeMessage"), Integer.valueOf(KeyEvent.VK_L)));
+     actions.add(new RotationAction(SettingsActions.bundle.getString("Rotate"), null, SettingsActions.bundle.getString("RotateMessage"), Integer.valueOf(KeyEvent.VK_K)));
+     actions.add(new FlipAction(SettingsActions.bundle.getString("Flip"), null, SettingsActions.bundle.getString("FlipDesc"), Integer.valueOf(KeyEvent.VK_F)));
 
  }
     /**
@@ -45,7 +45,7 @@ public class AdjustmentActions{
      * @return The adjustment menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Adjustments");
+        JMenu fileMenu = new JMenu(SettingsActions.bundle.getString("Adjustments"));
 
         for(Action action: actions) {
             fileMenu.add(new JMenuItem(action));
