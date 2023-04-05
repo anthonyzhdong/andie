@@ -150,6 +150,8 @@ Code was mainly tested through brute force methods rather than JUnit testing, a 
 
 As for brute force testing, a lot of it was done with print statements, and passing in images to ANDIE to check if our methods were working correctly, rather than using JUnit testing. Lachlan went through and tried to break ANDIE repeatedly, and we found several more errors from that.
 
+In future, testing will be a much larger part of our operative workflow.
+
 ---
 
 ## Versions
