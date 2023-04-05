@@ -39,7 +39,7 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
         this.contrastDegree = contrastDegree;
     }
     //Default Constructor
-    BrightnessContrast() {
+    public BrightnessContrast() {
         this.brightnessDegree = 0;
         this.contrastDegree = 0;
     }
@@ -64,8 +64,6 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
         for(int i = 0; i < input.getWidth(); i++) {
             for(int j = 0; j < input.getHeight(); j++) {
 
-                
-
                 Color c = new Color(output.getRGB(i, j), true);
                 
                 int r = c.getRed();
@@ -81,20 +79,6 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
 
                     output.setRGB(i, j, c.getRGB());
                 }
-                
-                /* Old code, may be useful in future
-                rgb = output.getRaster().getPixel(i, j, new int[3]);
-
-                int red = rgb[0];
-                int green = rgb[1];
-                int blue = rgb[2];
-
-                red = Truncate((int)((1 + contrastValue / 100.0) * (red - 127.5) + (127.5 * (1 + brightnessValue / 100.0))));
-                green = Truncate((int)((1 + contrastValue / 100.0) * (green - 127.5) + (127.5 * (1 + brightnessValue / 100.0))));
-                blue = Truncate((int)((1 + contrastValue / 100.0) * (blue - 127.5) + (127.5 * (1 + brightnessValue / 100.0))));
-                int arr[] = {red, green, blue};
-                output.getRaster().setPixel(i, j, arr);
-                */
             }
         }
 
@@ -122,6 +106,23 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
                 value = 255;
             }
             return value;
+        }
+
+        /**
+         * Getter method that returns the brightnessDegree
+         * @return brightnessDegree
+         */
+
+        public int getBrightnessDegree() {
+            return brightnessDegree;
+        }
+
+        /**
+         * Getter method that returns the contrastDegree
+         * @return contrastDegree
+         */
+        public int getContrastDegree() {
+            return contrastDegree;
         }
         
 }
