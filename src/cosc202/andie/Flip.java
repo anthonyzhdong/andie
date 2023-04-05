@@ -14,7 +14,7 @@ public class Flip implements ImageOperation, java.io.Serializable{
         int width = input.getWidth();
         int height = input.getHeight();
 
-        BufferedImage FlippedImage = new BufferedImage(width,height,input.getType());
+        BufferedImage FlippedImage = new BufferedImage(width,height,input.TYPE_INT_ARGB);
 
         for(int x = 0; x<width;x++){
             for(int y = 0; y<height;y++){

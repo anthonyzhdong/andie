@@ -14,7 +14,7 @@ public class Rotation implements ImageOperation, java.io.Serializable  {
         int width = input.getWidth();
         int height = input.getHeight();
 
-        BufferedImage rotatedImage = new BufferedImage(height,width,input.getType());
+        BufferedImage rotatedImage = new BufferedImage(height,width,input.TYPE_INT_ARGB);
         Graphics2D graphic = rotatedImage.createGraphics();
         AffineTransform transform = new AffineTransform();
         transform.translate(height,0);
