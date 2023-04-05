@@ -149,6 +149,7 @@ Liam completed Brightness and Contrast, writing the README documentation and som
 Code was mainly tested through brute force methods rather than JUnit testing, a fact that we will change for the next submission. After implementing some JUnit testing very late into our developement of ANDIE for the first milestone, we discovered how useful having unit tests to check previous bits of code could be. We will be implementing them for the next part of ANDIE. Lachlan in particular did the bulk of the brute force testing, as he was developing the error handling. 
 
 As for brute force testing, a lot of it was done with print statements, and passing in images to ANDIE to check if our methods were working correctly, rather than using JUnit testing. Lachlan went through and tried to break ANDIE repeatedly, and we found several more errors from that.
+
 ---
 
 ## Versions
