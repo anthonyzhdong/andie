@@ -136,7 +136,7 @@ SOFTWARE.
 ### Milestone 1
 
 **Who did what**
-Carinn completed Sharpen, Soft Blur, Gaussian Blur, and mean filter.
+Carinn completed Sharpen, Soft Blur, Gaussian Blur, and Median filter.
 
 Anthony completed Change Size, Rotate Image and Image Flip. 
 
