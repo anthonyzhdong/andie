@@ -140,7 +140,7 @@ Carinn completed Sharpen, Soft Blur, Gaussian Blur, and mean filter.
 
 Anthony completed Change Size, Rotate Image and Image Flip. 
 
-Lachlan completed Multilingual Support and Error Handling. 
+Lachlan completed Multilingual Support, Image Export and Error Handling. 
 
 Liam completed Brightness and Contrast, writing the README documentation and some JUnit testing.
 
