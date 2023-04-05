@@ -91,9 +91,18 @@ public class EditActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().undo();
-            target.repaint();
-            target.getParent().revalidate();
+            if(target.checkImage() == false) {
+                ErrorHandling.NoFileOpenError();
+                return;
+            }
+            try {
+                target.getImage().undo();
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex) {
+                ErrorHandling.NoUndoError();
+            }
+            
         }
     }
 
@@ -134,9 +143,17 @@ public class EditActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().redo();
-            target.repaint();
-            target.getParent().revalidate();
+            if(target.checkImage() == false) {
+                ErrorHandling.NoFileOpenError();
+                return;
+            }
+            try {
+                target.getImage().redo();
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex) {
+                ErrorHandling.NoRedoError();
+            }
         }
     }
 

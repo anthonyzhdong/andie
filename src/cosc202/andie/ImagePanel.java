@@ -138,4 +138,10 @@ public class ImagePanel extends JPanel {
             g2.dispose();
         }
     }
+
+
+    
+    public boolean checkImage() {
+        return image.hasImage();
+    }
 }

@@ -19,4 +19,18 @@ public class ErrorHandling {
         SettingsActions.bundle.getString("PleaseOpenImageTitle"),
         JOptionPane.ERROR_MESSAGE);
     }
+
+    public static void NoUndoError(){
+        JOptionPane.showMessageDialog(null,
+        SettingsActions.bundle.getString("NoUndoMessage"),
+        SettingsActions.bundle.getString("OpsStackEmptyTitle"),
+        JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void NoRedoError(){
+        JOptionPane.showMessageDialog(null,
+        SettingsActions.bundle.getString("NoRedoMessage"),
+        SettingsActions.bundle.getString("OpsStackEmptyTitle"),
+        JOptionPane.ERROR_MESSAGE);
+    }
 }

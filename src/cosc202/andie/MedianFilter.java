@@ -89,7 +89,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
         int[] red = new int[size];
         int[] green = new int[size];
         int[] blue = new int[size];
-
+        Color c = new Color(input.getRGB(0, 0), true);
         
         for (int y = 1; y < input.getHeight(); ++y) {
             for (int x = 1; x < input.getWidth(); ++x) {
@@ -98,11 +98,21 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
                 for(int kernalY = 0; kernalY < (2*radius+1); kernalY++) {
                     for(int kernalX = 0; kernalX < (2*radius+1); kernalX++) {
 
-                        if(y = input.getHeight() - (2*radius+1)) {
-                            Color c = new Color(input.getRGB(x-kernalX, y-kernalY), true);
-                        } else {
-                            Color c = new Color(input.getRGB(x+kernalX-1, y+kernalY-1), true);
+                        
+
+                        if(y >= input.getHeight() - (2*radius+1) - 1 && x <= input.getWidth() - (2*radius+1) - 1) {
+                            c = new Color(input.getRGB(x+kernalX-1, y-kernalY), true);
+                        } 
+                        else if(x >= input.getWidth() - (2*radius+1) - 1 && y <= input.getHeight() - (2*radius+1) - 1) {
+                            c = new Color(input.getRGB(x-kernalX, y+kernalY-1), true);
+                        } 
+                        else if(x >= input.getWidth() - (2*radius+1) - 1 && y >= input.getHeight() - (2*radius+1) - 1) {
+                            c = new Color(input.getRGB(x-kernalX, y-kernalY), true);
                         }
+                        else {
+                            c = new Color(input.getRGB(x+kernalX-1, y+kernalY-1), true);
+                        }
+                       
                 
                         int r = c.getRed();
                         int g = c.getGreen();
