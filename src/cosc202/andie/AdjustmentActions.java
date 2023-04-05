@@ -32,7 +32,7 @@ public class AdjustmentActions{
   */
  public AdjustmentActions() {
      actions = new ArrayList<Action>();
-     actions.add(new ResizeLarger(SettingsActions.bundle.getString("IncreaseSize"), null, SettingsActions.bundle.getString("IncreaseSizeMessage"), Integer.valueOf(KeyEvent.VK_L)));
+     actions.add(new ResizeLargerAction(SettingsActions.bundle.getString("IncreaseSize"), null, SettingsActions.bundle.getString("IncreaseSizeMessage"), Integer.valueOf(KeyEvent.VK_L)));
      actions.add(new RotationAction(SettingsActions.bundle.getString("Rotate"), null, SettingsActions.bundle.getString("RotateMessage"), Integer.valueOf(KeyEvent.VK_K)));
      actions.add(new FlipAction(SettingsActions.bundle.getString("Flip"), null, SettingsActions.bundle.getString("FlipDesc"), Integer.valueOf(KeyEvent.VK_F)));
 
