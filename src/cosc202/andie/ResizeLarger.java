@@ -7,30 +7,33 @@ import java.awt.image.BufferedImage;
 
 public class ResizeLarger implements ImageOperation, java.io.Serializable  {
 
-    private int scale;
-    ResizeLarger(int scale){
-        this.scale = scale;
+    private double scale;
 
-    
+    ResizeLarger(int scale){
+        if(scale == 0){
+            this.scale = 1;
+        }else{
+        this.scale = scale;
+        }
     }
     ResizeLarger(){
-        this.scale = 0;
+        this.scale = 1;
     }
+
     public BufferedImage apply(BufferedImage input){
-        scale = 2;
-        int scaleNum = scale;
+        double scaleNum = scale/100;
+        System.out.println(scaleNum);
 
-        int newWidth = (input.getWidth() * scaleNum);
-        int newHeight = (input.getHeight() * scaleNum);
+        int newWidth = (int)(input.getWidth() * scaleNum);
+        int newHeight = (int)(input.getHeight() * scaleNum);
+
         BufferedImage image = new BufferedImage(newWidth,newHeight,input.TYPE_INT_ARGB);
-
         Graphics2D g = image.createGraphics();
         g.drawImage(input,0,0,newWidth,newHeight,null);
         g.dispose();
 
         return image;
     }
-
     }
     
 

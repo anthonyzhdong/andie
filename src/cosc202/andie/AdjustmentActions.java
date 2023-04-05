@@ -74,17 +74,19 @@ public class AdjustmentActions{
                 BufferedImage copyTarget = target.getImage().getCurrentImage();
                 
                 // Pop-up dialog box to ask for the radius value.
-                JSlider sizeSlider = new JSlider(0, 100, scale);
-                JLabel sizeLabel = new JLabel("Size : " + scale + "%");
+                JSlider sizeSlider = new JSlider(0, 200, 100);
+                JLabel sizeLabel = new JLabel("Size : " + 100 + "%");
 
                 class SizeSliderListener implements ChangeListener {
                 
-
                     public void stateChanged(ChangeEvent e) {
                         scale = sizeSlider.getValue();
+                        if(scale == 0){
+                            scale = 1;
+                        }
                         sizeLabel.setText("Size : " + scale + "%");
                         target.getImage().setCurrentImage(copyTarget);
-                       // target.getImage().tempApplyBrightnessContrast(new Resizelarger(scale));
+                        target.getImage().tempApplyBrightnessContrast(new ResizeLarger(scale));
                         target.repaint();
                         target.getParent().revalidate();
                     }
@@ -117,6 +119,7 @@ public class AdjustmentActions{
             } else {
                 ErrorHandling.NoFileOpenError();
             }
+            //Exception in thread "AWT-EventQueue-0" java.lang.IllegalArgumentException: Width (0) and height (0) cannot be <= 0
             
         }
     }
