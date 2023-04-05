@@ -79,7 +79,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         float oInt = (float) 0.3333 * radius;
         int x = 0 - radius;
         int y = 0 - radius;
-        int squares = radius *2 + 1;
+        int squares = radius*2 + 1;
         int counting = 0;
         float total = 0;
 
