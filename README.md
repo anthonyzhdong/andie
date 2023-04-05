@@ -133,8 +133,9 @@ SOFTWARE.
 
 ## Milestones
 
-**Milestone 1**
+### Milestone 1
 
+**Who did what**
 Carinn completed Sharpen, Soft Blur, Gaussian Blur, and mean filter.
 
 Anthony completed Change Size, Rotate Image and Image Flip. 
@@ -143,6 +144,8 @@ Lachlan completed Multilingual Support and Error Handling.
 
 Liam completed Brightness and Contrast, writing the README documentation and some JUnit testing.
 
+**Code Testing** 
+Code was mainly tested through brute force methods rather than JUnit testing, a fact that we will change for the next submission. After implementing some JUnit testing very late into our developement of ANDIE for the first milestone, we discovered how useful having unit tests to check previous bits of code could be. We will be implementing them for the next part of ANDIE. Lachlan in particular did the bulk of the brute force testing, as he was developing the error handling. 
 ---
 
 ## Versions
