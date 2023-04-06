@@ -47,7 +47,7 @@ class EditableImage {
     private String opsFilename;
     /** The file where the operation sequence is stored. */
 
-
+    
     /**
      * <p>
      * Create a new EditableImage.

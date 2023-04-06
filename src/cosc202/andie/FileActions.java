@@ -99,6 +99,7 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(target);
 
@@ -259,6 +260,7 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            System.out.println("huhuhuhu");
             System.exit(0);
         }
 
@@ -266,7 +268,7 @@ public class FileActions {
 
     /**
      * <p>
-     * Action to export an image to a new file location.
+     * Action to export an image to a new file location optionally a new file type.
      * </p>
      * 
      */
@@ -293,7 +295,7 @@ public class FileActions {
          * 
          * <p>
          * This method is called whenever the FileExportAction is triggered.
-         * It prompts the user to select a file name and exports the image.
+         * It prompts the user to select a file name and type and exports the image.
          * </p>
          * 
          * @param e The event triggering this callback.

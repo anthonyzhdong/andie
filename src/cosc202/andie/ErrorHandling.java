@@ -33,4 +33,19 @@ public class ErrorHandling {
         SettingsActions.bundle.getString("OpsStackEmptyTitle"),
         JOptionPane.ERROR_MESSAGE);
     }
+
+    public static void PleaseSaveBeforeExit(){
+        //Custom button text
+        Object[] options = {"Yes",
+        "No",
+        "Cancel"};
+        int n = JOptionPane.showOptionDialog(null,
+        SettingsActions.bundle.getString("SaveBeforeExitMessage"),
+        SettingsActions.bundle.getString("SaveBeforeExitTitle"),
+        JOptionPane.YES_NO_CANCEL_OPTION,
+        JOptionPane.QUESTION_MESSAGE,
+        null,
+        options,
+        options[2]);
+    }
 }
