@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 import java.awt.image.*;
 import javax.imageio.*;
+import javax.swing.*;
 
 /**
  * <p>
@@ -42,11 +43,11 @@ class EditableImage {
     /** A memory of 'undone' operations to support 'redo'. */
     private Stack<ImageOperation> redoOps;
     /** The file where the original image is stored/ */
-    private String imageFilename;
+    private String imageFilename;   
     /** The file where the operation sequence is stored. */
     private String opsFilename;
     /** The file where the operation sequence is stored. */
-
+    private static boolean saved = true;
 
     /**
      * <p>
@@ -135,6 +136,15 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void open(String filePath) throws Exception {
+        if(saved == false) {
+            int option =  JOptionPane.showConfirmDialog(null, SettingsActions.bundle.getString("NotSavedMessage"), SettingsActions.bundle.getString("WantToSaveTitle"), JOptionPane.YES_NO_CANCEL_OPTION);
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.YES_OPTION) {
+                save();
+                saved = true;
+            } 
+        }
         imageFilename = filePath;
         opsFilename = imageFilename + ".ops";
         File imageFile = new File(imageFilename);
@@ -159,6 +169,7 @@ class EditableImage {
             objIn.close();
             fileIn.close();
         } catch (Exception ex) {
+            ops.clear();
             // Could be no file or something else. Carry on for now.
         }
         this.refresh();
@@ -244,8 +255,9 @@ class EditableImage {
     public void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
+        saved = false;
     }
-    //Seperate option for birhgtness functionality
+    //Seperate option for brightness functionality
     public void tempApplyBrightnessContrast(ImageOperation op) {
         current = op.apply(current);
     }
@@ -309,6 +321,8 @@ class EditableImage {
             current = op.apply(current);
         }
     }
+
+
 
     
 

@@ -33,4 +33,8 @@ public class ErrorHandling {
         SettingsActions.bundle.getString("OpsStackEmptyTitle"),
         JOptionPane.ERROR_MESSAGE);
     }
+
+    public static void notSavedError() {
+        
+    }
 }
