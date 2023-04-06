@@ -3,8 +3,23 @@ package cosc202.andie;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-
-
+/**
+ * <p>
+ * ImageOperation to change the size of the image.
+ * </p>
+ * 
+ * <p>
+ * This method uses a scale to create the dimensions for the new (resized) image.
+ * </p>
+ * 
+ * <p> 
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * </p>
+ * 
+ * @see java.awt.image.ConvolveOp
+ * @author Steven Mills
+ * @version 1.0
+ */
 public class ResizeLarger implements ImageOperation, java.io.Serializable  {
     /**
      * The percentage to scale the image by.
@@ -20,7 +35,8 @@ public class ResizeLarger implements ImageOperation, java.io.Serializable  {
 
     /**
      * <p>
-     * Resize an image to be larger
+     * Calculates the new dimensions by multiplying the initial dimensions by the scale,
+     * then creates a new buffered image with new given dimensions.
      * </p>
      * 
      * 
