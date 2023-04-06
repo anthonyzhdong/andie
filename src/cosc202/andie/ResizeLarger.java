@@ -29,7 +29,6 @@ public class ResizeLarger implements ImageOperation, java.io.Serializable  {
      */
     public BufferedImage apply(BufferedImage input){
         double scaleNum = scale/100;
-        System.out.println(scaleNum);
 
         int newWidth = (int)(input.getWidth() * scaleNum);
         int newHeight = (int)(input.getHeight() * scaleNum);

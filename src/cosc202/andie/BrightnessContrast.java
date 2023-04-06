@@ -81,7 +81,6 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
                 }
             }
         }
-        System.out.println(output.getRGB(output.getHeight() / 2, output.getWidth() / 2));
         return output;
         }
 
