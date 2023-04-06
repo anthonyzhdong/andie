@@ -5,11 +5,18 @@ import java.awt.image.BufferedImage;
 import java.awt.geom.AffineTransform;
 
 public class Rotation implements ImageOperation, java.io.Serializable  {
+    Rotation () {}
 
-    Rotation(){
-        
-    
-    }
+
+    /**
+     * <p>
+     * Rotate an image by 90* at a time
+     * </p>
+     * 
+     * 
+     * @param input The image to apply the rotation to.
+     * @return The resulting (rotated) image.
+     */
     public BufferedImage apply(BufferedImage input){
         int width = input.getWidth();
         int height = input.getHeight();

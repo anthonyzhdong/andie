@@ -1,14 +1,22 @@
 package cosc202.andie;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Flip implements ImageOperation, java.io.Serializable{
 
-    Flip(){
-    
-    
-    }
+
+public class Flip implements ImageOperation, java.io.Serializable{
+    Flip(){}
+
+
+    /**
+     * <p>
+     * Flips an image horizontally
+     * </p>
+     * 
+     * 
+     * @param input The image to apply the flip to.
+     * @return The resulting (flipped) image.
+     */
     public BufferedImage apply(BufferedImage input){
         
         int width = input.getWidth();

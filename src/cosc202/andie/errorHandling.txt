@@ -1,0 +1,4 @@
+UnsupportedFileMessage, UnsupportedFileTitle
+NoCurrentImageMessage, PleaseOpenImageTitle
+NoUndoMessage, OpsStackEmptyTitle
+NoRedoMessage, OpsStackEmptyTitle
