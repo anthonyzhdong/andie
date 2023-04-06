@@ -14,7 +14,8 @@ import javax.swing.event.ChangeEvent;
  * </p>
  * 
  * <p>
- * 
+ * The Adjustments menu contains actions which change the dimensions of the image.
+ * This includes image resize, image rotation and also the ability to flip an image.
  * 
  * </p>
  * 
@@ -31,17 +32,22 @@ public class AdjustmentActions{
  private int scale;
  /**
   * <p>
-  * Create a set of Colour menu actions.
+  * Create a set of Adjustment menu actions.
   * </p>
   */
  public AdjustmentActions() {
      actions = new ArrayList<Action>();
-     actions.add(new ResizeLargerAction(SettingsActions.bundle.getString("IncreaseSize"), null, SettingsActions.bundle.getString("IncreaseSizeMessage"), Integer.valueOf(KeyEvent.VK_L)));
-     actions.add(new RotationAction(SettingsActions.bundle.getString("Rotate"), null, SettingsActions.bundle.getString("RotateMessage"), Integer.valueOf(KeyEvent.VK_K)));
-     actions.add(new FlipAction(SettingsActions.bundle.getString("Flip"), null, SettingsActions.bundle.getString("FlipDesc"), Integer.valueOf(KeyEvent.VK_F)));
+     actions.add(new ResizeLargerAction(SettingsActions.bundle.getString("IncreaseSize"), null, SettingsActions.bundle.getString("IncreaseSizeMessage"), Integer.valueOf(KeyEvent.VK_S)));
+     actions.add(new RotationRightAction(SettingsActions.bundle.getString("RotateRight"), null, SettingsActions.bundle.getString("RotateRightMessage"), Integer.valueOf(KeyEvent.VK_R)));
+     actions.add(new RotationLeftAction(SettingsActions.bundle.getString("RotateLeft"), null, SettingsActions.bundle.getString("RotateLeftMessage"), Integer.valueOf(KeyEvent.VK_L)));
+     actions.add(new FlipHorizontalAction(SettingsActions.bundle.getString("FlipHorizontally"), null, SettingsActions.bundle.getString("FlipHorizontalMessage"), Integer.valueOf(KeyEvent.VK_H)));
+     actions.add(new FlipVerticalAction(SettingsActions.bundle.getString("FlipVertically"), null, SettingsActions.bundle.getString("FlipVerticalMessage"), Integer.valueOf(KeyEvent.VK_V)));
+     
 
+//rotate 90 to left
+//rotate 180
  }
-    /**
+     /**
      * <p>
      * Create a menu contianing the list of Adjustment actions.
      * </p>
@@ -60,13 +66,38 @@ public class AdjustmentActions{
 
      /**
      * <p>
-     * Action to quit the ANDIE application.
+     * Action to resize image.
      * </p>
+     * 
+     * @see ResizeLarger
      */
     public class ResizeLargerAction extends ImageAction{
+
+           /**
+         * <p>
+         * Create a new convert-to-grey action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
         ResizeLargerAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
+         /**
+         * <p>
+         * Callback for when the resize larger action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the resize larger is triggered.
+         * It changes the image size.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
@@ -111,27 +142,45 @@ public class AdjustmentActions{
                     target.repaint();
                     target.getParent().revalidate();
                 }
-                /** 
-                target.getImage().apply(new ResizeLarger());
-                target.repaint();
-                target.getParent().revalidate();
-                */
+    
             } else {
                 ErrorHandling.NoFileOpenError();
             }
-            //Exception in thread "AWT-EventQueue-0" java.lang.IllegalArgumentException: Width (0) and height (0) cannot be <= 0
-            
+           
         }
     }
 
-    public class RotationAction extends ImageAction{
-        RotationAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+    public class RotationRightAction extends ImageAction{
+        /**
+         * <p>
+         * Create a new brightness action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        RotationRightAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
+                /**
+         * <p>
+         * Callback for when the Rotation action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the RotationRightAction is triggered.
+         * It rotates the image.
+         * 
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.getImage().apply(new Rotation());
+                target.getImage().apply(new RotationRight());
                 target.repaint();
                 target.getParent().revalidate();
             } else {
@@ -140,14 +189,79 @@ public class AdjustmentActions{
             
         }
     }
-    public class FlipAction extends ImageAction{
-        FlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+    public class RotationLeftAction extends ImageAction{
+        /**
+         * <p>
+         * Create a new brightness action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        RotationLeftAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
+                /**
+         * <p>
+         * Callback for when the Rotation action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the RotationLeftAction is triggered.
+         * It rotates the image.
+         * 
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.getImage().apply(new Flip());
+                target.getImage().apply(new RotationLeft());
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                ErrorHandling.NoFileOpenError();
+        }
+            
+        }
+    }
+    public class FlipHorizontalAction
+     extends ImageAction{
+         /**
+         * <p>
+         * Create a new brightness action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        FlipHorizontalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+          /**
+         * <p>
+         * Callback for when the Flip action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the FlipHorizontalAction
+         *  is triggered.
+         * It flips the image.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+
+
+        public void actionPerformed(ActionEvent e) {
+            if(EditableImage.hasImage()){
+                target.getImage().apply(new FlipHorizontal());
                 target.repaint();
                 target.getParent().revalidate();
             } else {
@@ -155,4 +269,45 @@ public class AdjustmentActions{
             }
         }
     }
+
+    public class FlipVerticalAction extends ImageAction{
+        /**
+        * <p>
+        * Create a new brightness action.
+        * </p>
+        * 
+        * @param name The name of the action (ignored if null).
+        * @param icon An icon to use to represent the action (ignored if null).
+        * @param desc A brief description of the action  (ignored if null).
+        * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+        */
+       FlipVerticalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+           super(name, icon, desc, mnemonic);
+       }
+
+         /**
+        * <p>
+        * Callback for when the Flip action is triggered.
+        * </p>
+        * 
+        * <p>
+        * This method is called whenever the FlipHorizontalAction
+        *  is triggered.
+        * It flips the image.
+        * </p>
+        * 
+        * @param e The event triggering this callback.
+        */
+
+
+       public void actionPerformed(ActionEvent e) {
+           if(EditableImage.hasImage()){
+               target.getImage().apply(new FlipVertical());
+               target.repaint();
+               target.getParent().revalidate();
+           } else {
+               ErrorHandling.NoFileOpenError();
+           }
+       }
+   }
 }

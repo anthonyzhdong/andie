@@ -22,18 +22,27 @@ import javax.swing.*;
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
  * </p>
  * 
- * @author Steven Mills
+ * @author Lachlan Graham
  * @version 1.0
  */
 public class SettingsActions extends AbstractAction {
 
+      /**
+     * <p>
+     * Checks the height of the full screen from the main display.
+     * </p>
+     * 
+     * @return Screen height.
+     */
     private int checkFullScreenHeight(JFrame aFrame) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         return screenSize.height;
     }
     
+    /** Creation of bundle fro langauge save */
     public static ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle_en_NZ");
     Preferences prefs = Preferences.userNodeForPackage(cosc202.andie.Andie.class);
+
     /** A list of actions for the Settings menu. */
     protected ArrayList<Action> actions;
 
@@ -74,7 +83,7 @@ public class SettingsActions extends AbstractAction {
 
     /**
      * <p>
-     * Action to change the display language of Andie.
+     * Action to change the display language of Andie to English.
      * </p>
      * 
      * @see 
@@ -129,6 +138,14 @@ public class SettingsActions extends AbstractAction {
 
     }
 
+
+        /**
+     * <p>
+     * Action to change the display language of Andie to Maori.
+     * </p>
+     * 
+     * @see 
+     */
     public class LanguageChangeMaoriAction extends ImageAction {
 
         /**
@@ -173,6 +190,14 @@ public class SettingsActions extends AbstractAction {
 
     }
 
+
+        /**
+     * <p>
+     * Action to change the display language of Andie to French.
+     * </p>
+     * 
+     * @see 
+     */
     public class LanguageChangeFrenchAction extends ImageAction {
 
         /**
@@ -217,6 +242,14 @@ public class SettingsActions extends AbstractAction {
 
     }
 
+
+        /**
+     * <p>
+     * Action to change the display language of Andie to Spanish.
+     * </p>
+     * 
+     * @see 
+     */
     public class LanguageChangeSpanishAction extends ImageAction {
 
         /**
