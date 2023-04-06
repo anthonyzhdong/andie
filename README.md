@@ -125,9 +125,9 @@ SOFTWARE.
 
 - Make the image greyscale and alter its brightness and contrast
 
-- Increase an images size, rotate the image by 90 degrees, and flip the image
+- Increase/decrease an images size, rotate the image by 90 degrees (left & right) and 180 degrees, and flip the image vertically/horizontally
 
-- And change the language of the editor to either English (default), Maori, French or Spanish.
+- And change the language of the editor to either English (default), Maori, French or Spanish
  
 --- 
 
