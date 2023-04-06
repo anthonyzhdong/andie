@@ -6,20 +6,27 @@ import java.awt.image.BufferedImage;
 
 
 public class ResizeLarger implements ImageOperation, java.io.Serializable  {
-
+    /**
+     * The percentage to scale the image by.
+     */
     private double scale;
 
     ResizeLarger(int scale){
-        if(scale == 0){
-            this.scale = 1;
-        }else{
-        this.scale = scale;
-        }
-    }
-    ResizeLarger(){
-        this.scale = 1;
+        if(scale == 0){this.scale = 1;} 
+        else {this.scale = scale;}
     }
 
+    ResizeLarger() {this.scale = 1;}
+
+    /**
+     * <p>
+     * Resize an image to be larger
+     * </p>
+     * 
+     * 
+     * @param input The image to apply the resizing to.
+     * @return The resulting (resized) image.
+     */
     public BufferedImage apply(BufferedImage input){
         double scaleNum = scale/100;
         System.out.println(scaleNum);

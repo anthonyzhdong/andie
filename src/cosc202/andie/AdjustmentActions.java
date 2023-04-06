@@ -38,14 +38,12 @@ public class AdjustmentActions{
  public AdjustmentActions() {
      actions = new ArrayList<Action>();
      actions.add(new ResizeLargerAction(SettingsActions.bundle.getString("IncreaseSize"), null, SettingsActions.bundle.getString("IncreaseSizeMessage"), Integer.valueOf(KeyEvent.VK_S)));
+     actions.add(new Rotation180Action(SettingsActions.bundle.getString("Rotate180"), null, SettingsActions.bundle.getString("Rotate180Message"), Integer.valueOf(KeyEvent.VK_O)));
      actions.add(new RotationRightAction(SettingsActions.bundle.getString("RotateRight"), null, SettingsActions.bundle.getString("RotateRightMessage"), Integer.valueOf(KeyEvent.VK_R)));
      actions.add(new RotationLeftAction(SettingsActions.bundle.getString("RotateLeft"), null, SettingsActions.bundle.getString("RotateLeftMessage"), Integer.valueOf(KeyEvent.VK_L)));
      actions.add(new FlipHorizontalAction(SettingsActions.bundle.getString("FlipHorizontally"), null, SettingsActions.bundle.getString("FlipHorizontalMessage"), Integer.valueOf(KeyEvent.VK_H)));
      actions.add(new FlipVerticalAction(SettingsActions.bundle.getString("FlipVertically"), null, SettingsActions.bundle.getString("FlipVerticalMessage"), Integer.valueOf(KeyEvent.VK_V)));
      
-
-//rotate 90 to left
-//rotate 180
  }
      /**
      * <p>
@@ -75,7 +73,7 @@ public class AdjustmentActions{
 
            /**
          * <p>
-         * Create a new convert-to-grey action.
+         * Create a new ResizeLarger action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -93,7 +91,8 @@ public class AdjustmentActions{
          * 
          * <p>
          * This method is called whenever the resize larger is triggered.
-         * It changes the image size.
+         * It creates a slider for the user to use so they can choose their prefered size for the image.
+         * This includes making the image smaller(to 0.1x) or larger (2x).
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -149,11 +148,49 @@ public class AdjustmentActions{
            
         }
     }
+    public class Rotation180Action extends ImageAction{
+        /**
+         * <p>
+         * Create a new Rotate180 action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        Rotation180Action(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+                /**
+         * <p>
+         * Callback for when the Rotation180 action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the Rotation180Action is triggered.
+         * It rotates the image 180 degrees.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+
+        public void actionPerformed(ActionEvent e) {
+            if(EditableImage.hasImage()){
+                target.getImage().apply(new Rotation180());
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                ErrorHandling.NoFileOpenError();
+        }
+            
+        }
+    }
 
     public class RotationRightAction extends ImageAction{
         /**
          * <p>
-         * Create a new brightness action.
+         * Create a new RotationRight action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -166,12 +203,12 @@ public class AdjustmentActions{
         }
                 /**
          * <p>
-         * Callback for when the Rotation action is triggered.
+         * Callback for when the RotationRight action is triggered.
          * </p>
          * 
          * <p>
          * This method is called whenever the RotationRightAction is triggered.
-         * It rotates the image.
+         * It rotates the image to the right by 90 degrees.
          * 
          * </p>
          * 
@@ -192,7 +229,7 @@ public class AdjustmentActions{
     public class RotationLeftAction extends ImageAction{
         /**
          * <p>
-         * Create a new brightness action.
+         * Create a new RotationLeft action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).

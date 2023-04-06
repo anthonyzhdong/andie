@@ -6,16 +6,13 @@ import java.lang.Math.*;
 
 /**
  * <p>
- * ImageOperation to apply a Mean (simple blur) filter.
+ * ImageOperation to apply a gaussian blur
  * </p>
  * 
  * <p>
- * A Mean filter blurs an image by replacing each pixel by the average of the
- * pixels in a surrounding neighbourhood, and can be implemented by a convoloution.
+ * A gaussian blur blurs an image by changing each pixel by a set amount
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
  * </p>
  * 
  * @see java.awt.image.ConvolveOp
@@ -31,7 +28,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Construct a Mean filter with the given size.
+     * Construct a gaussian blur with the given size.
      * </p>
      * 
      * <p>
@@ -40,7 +37,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
      * Larger filters give a stronger blurring effect.
      * </p>
      * 
-     * @param radius The radius of the newly constructed MeanFilter
+     * @param radius The radius of the newly constructed gaussian blur
      */
     GaussianBlur(int radius) {
         this.radius = radius;    
@@ -48,14 +45,14 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Construct a Mean filter with the default size.
+     * Construct a gaussian blur with the default size.
      * </p
      * >
      * <p>
-     * By default, a Mean filter has radius 1.
+     * By default, a gaussian blur has radius 1.
      * </p>
      * 
-     * @see MeanFilter(int)
+     * @see GaussianBlur(int)
      */
     GaussianBlur() {
         this(1);
@@ -63,19 +60,20 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Apply a Mean filter to an image.
+     * Apply a gaussian blur to an image.
      * </p>
      * 
      * <p>
-     * As with many filters, the Mean filter is implemented via convolution.
+     * As with many filters, the gaussian blur is implemented via convolution.
      * The size of the convolution kernel is specified by the {@link radius}.  
-     * Larger radii lead to stronger blurring.
+     * Larger radii leads to a stronger gaussian blur effect.
      * </p>
      * 
-     * @param input The image to apply the Mean filter to.
+     * @param input The image to apply the gaussian blur to.
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
+        // Set the values for use
         float oInt = (float) 0.3333 * radius;
         int x = 0 - radius;
         int y = 0 - radius;
@@ -89,7 +87,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         // Go over each array
         for (int e1 = 0; e1 < array.length; e1++) {
             // Apply the equation to that array number
-            float test2 = (float) Math.pow(oInt, 2); //working
+            float test2 = (float) Math.pow(oInt, 2); 
             float test3 = (float)(Math.pow(x, 2) + (float)Math.pow(y,2));
             float test = (test3)/(2 * test2); 
 
