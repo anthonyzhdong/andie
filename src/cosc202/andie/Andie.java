@@ -47,7 +47,7 @@ public class Andie {
      * @see AdjustmentActions
      * @see ColourActions
      * 
-     * @throws Exception if something goes wrong.
+     * @throws IOException if something goes wrong.
      */
 
     //Launches GUI frame for application (outside so accessable for other classes)
@@ -119,7 +119,7 @@ public class Andie {
      * </p>
      * 
      * @param args Command line arguments, not currently used
-     * @throws IOException If something goes awry
+     * @throws Exception If something goes awry
      * @see #createAndShowGUI()
      */
     public static void main(String[] args) throws Exception {
