@@ -242,12 +242,12 @@ public class AdjustmentActions{
         }
                 /**
          * <p>
-         * Callback for when the Rotation action is triggered.
+         * Callback for when the RotationLeft action is triggered.
          * </p>
          * 
          * <p>
          * This method is called whenever the RotationLeftAction is triggered.
-         * It rotates the image.
+         * It rotates the image 90 degrees to the left.
          * 
          * </p>
          * 
@@ -269,7 +269,7 @@ public class AdjustmentActions{
      extends ImageAction{
          /**
          * <p>
-         * Create a new brightness action.
+         * Create a new FlipHorizontal action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -283,13 +283,12 @@ public class AdjustmentActions{
 
           /**
          * <p>
-         * Callback for when the Flip action is triggered.
+         * Callback for when the FlipHorizontal action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the FlipHorizontalAction
-         *  is triggered.
-         * It flips the image.
+         * This method is called whenever the FlipHorizontalAction is triggered.
+         * It flips the image pixels horizontally.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -310,7 +309,7 @@ public class AdjustmentActions{
     public class FlipVerticalAction extends ImageAction{
         /**
         * <p>
-        * Create a new brightness action.
+        * Create a new FlipVertical action.
         * </p>
         * 
         * @param name The name of the action (ignored if null).
@@ -324,13 +323,12 @@ public class AdjustmentActions{
 
          /**
         * <p>
-        * Callback for when the Flip action is triggered.
+        * Callback for when the FlipVerticalAction is triggered.
         * </p>
         * 
         * <p>
-        * This method is called whenever the FlipHorizontalAction
-        *  is triggered.
-        * It flips the image.
+        * This method is called whenever the FlipVerticalAction is triggered.
+        * It flips the image pixels vertically.
         * </p>
         * 
         * @param e The event triggering this callback.
