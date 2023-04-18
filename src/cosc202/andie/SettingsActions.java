@@ -86,7 +86,7 @@ public class SettingsActions extends AbstractAction {
      * Action to change the display language of Andie to English.
      * </p>
      * 
-     * @see cosc201.ImageAction ImageAction
+     * @see cosc202.andie.ImageAction ImageAction
      */
     public class LanguageChangeEnglishAction extends ImageAction {
 
@@ -144,7 +144,7 @@ public class SettingsActions extends AbstractAction {
      * Action to change the display language of Andie to Maori.
      * </p>
      * 
-     * @see cosc201.ImageAction ImageAction
+     * @see cosc202.andie.ImageAction ImageAction
      */
     public class LanguageChangeMaoriAction extends ImageAction {
 
@@ -196,7 +196,7 @@ public class SettingsActions extends AbstractAction {
      * Action to change the display language of Andie to French.
      * </p>
      * 
-     * @see cosc201.ImageAction ImageAction
+     * @see cosc202.andie.ImageAction ImageAction
      */
     public class LanguageChangeFrenchAction extends ImageAction {
 
@@ -248,7 +248,7 @@ public class SettingsActions extends AbstractAction {
      * Action to change the display language of Andie to Spanish.
      * </p>
      * 
-     * @see cosc201.ImageAction ImageAction 
+     * @see cosc202.andie.ImageAction ImageAction 
      */
     public class LanguageChangeSpanishAction extends ImageAction {
 
