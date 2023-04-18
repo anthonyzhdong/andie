@@ -39,7 +39,7 @@ public class SettingsActions extends AbstractAction {
         return screenSize.height;
     }
     
-    /** Creation of bundle fro langauge save */
+    /** Creation of bundle fro language save */
     public static ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle_en_NZ");
     Preferences prefs = Preferences.userNodeForPackage(cosc202.andie.Andie.class);
 
@@ -62,7 +62,7 @@ public class SettingsActions extends AbstractAction {
 
     /**
      * <p>
-     * Create a menu contianing the list of Settings actions.
+     * Create a menu containing the list of Settings actions.
      * </p>
      * 
      * @return The Settings menu UI element.
@@ -86,7 +86,7 @@ public class SettingsActions extends AbstractAction {
      * Action to change the display language of Andie to English.
      * </p>
      * 
-     * @see 
+     * @see cosc201.ImageAction ImageAction
      */
     public class LanguageChangeEnglishAction extends ImageAction {
 
@@ -144,7 +144,7 @@ public class SettingsActions extends AbstractAction {
      * Action to change the display language of Andie to Maori.
      * </p>
      * 
-     * @see 
+     * @see cosc201.ImageAction ImageAction
      */
     public class LanguageChangeMaoriAction extends ImageAction {
 
@@ -196,7 +196,7 @@ public class SettingsActions extends AbstractAction {
      * Action to change the display language of Andie to French.
      * </p>
      * 
-     * @see 
+     * @see cosc201.ImageAction ImageAction
      */
     public class LanguageChangeFrenchAction extends ImageAction {
 
@@ -248,7 +248,7 @@ public class SettingsActions extends AbstractAction {
      * Action to change the display language of Andie to Spanish.
      * </p>
      * 
-     * @see 
+     * @see cosc201.ImageAction ImageAction 
      */
     public class LanguageChangeSpanishAction extends ImageAction {
 
