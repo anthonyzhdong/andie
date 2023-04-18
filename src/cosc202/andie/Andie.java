@@ -3,6 +3,7 @@ package cosc202.andie;
 import java.awt.*;
 import javax.swing.*;
 import javax.imageio.*;
+import java.io.*;
 
 /**
  * test
@@ -52,7 +53,7 @@ public class Andie {
     //Launches GUI frame for application (outside so accessable for other classes)
     public static JFrame frame = new JFrame("ANDIE");
 
-    public static void createAndShowGUI() throws Exception {
+    public static void createAndShowGUI() throws IOException {
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
         frame.setIconImage(image);
@@ -118,6 +119,7 @@ public class Andie {
      * </p>
      * 
      * @param args Command line arguments, not currently used
+     * @throws Exception If something goes awry
      * @see #createAndShowGUI()
      */
     public static void main(String[] args) throws Exception {
