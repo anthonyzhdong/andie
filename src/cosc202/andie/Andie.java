@@ -119,7 +119,7 @@ public class Andie {
      * </p>
      * 
      * @param args Command line arguments, not currently used
-     * @throws Exception If something goes awry
+     * @throws IOException If something goes awry
      * @see #createAndShowGUI()
      */
     public static void main(String[] args) throws Exception {
