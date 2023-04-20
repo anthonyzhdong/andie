@@ -45,8 +45,7 @@ public class Andie {
      * @see FilterActions
      * @see AdjustmentActions
      * @see ColourActions
-     * 
-     * @throws Exception if something goes wrong.
+     * .
      */
 
     //Launches GUI frame for application (outside so accessable for other classes)
