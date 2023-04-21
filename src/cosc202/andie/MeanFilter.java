@@ -23,6 +23,7 @@ import java.util.*;
  */
 public class MeanFilter implements ImageOperation, java.io.Serializable {
     
+    
     /**
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
@@ -79,8 +80,9 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
         float [] array = new float[size];
         Arrays.fill(array, 1.0f/size);
 
+
         Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
-        ConvolveOp convOp = new ConvolveOp(kernel);
+        ConvolveOp convOp = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
         convOp.filter(input, output);
 
