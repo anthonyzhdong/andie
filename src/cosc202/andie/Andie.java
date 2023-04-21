@@ -6,6 +6,7 @@ import javax.imageio.*;
 
 /**
  * test
+ * test
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
  * </p>
@@ -45,7 +46,8 @@ public class Andie {
      * @see FilterActions
      * @see AdjustmentActions
      * @see ColourActions
-     * .
+     * 
+     * @throws Exception if something goes wrong.
      */
 
     //Launches GUI frame for application (outside so accessable for other classes)
