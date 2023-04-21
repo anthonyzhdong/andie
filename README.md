@@ -125,9 +125,9 @@ SOFTWARE.
 
 - Make the image greyscale and alter its brightness and contrast
 
-- Increase an images size, rotate the image by 90 degrees, and flip the image
+- Increase/decrease an images size, rotate the image by 90 degrees (left & right) and 180 degrees, and flip the image vertically/horizontally
 
-- And change the language of the editor to either English (default), Maori, French or Spanish.
+- And change the language of the editor to either English (default), Maori, French or Spanish
  
 --- 
 
@@ -148,10 +148,11 @@ Liam completed Brightness and Contrast, writing the README documentation and som
 
 Code was mainly tested through brute force methods rather than JUnit testing, a fact that we will change for the next submission. After implementing some JUnit testing very late into our developement of ANDIE for the first milestone, we discovered how useful having unit tests to check previous bits of code could be. We will be implementing them for the next part of ANDIE. Lachlan in particular did the bulk of the brute force testing, as he was developing the error handling. 
 
-As for brute force testing, a lot of it was done with print statements, and passing in images to ANDIE to check if our methods were working correctly, rather than using JUnit testing. This was done on an individual basis, as each team member worked on their part of the project, they would test and ensure their piece of software was working correctly. Lachlan went through and tried to break ANDIE repeatedly, and we found several more errors from that.
+As for brute force testing, a lot of it was done with print statements, and passing in images to ANDIE to check if our methods were working correctly, rather than using JUnit testing. This was done on an individual basis, as each team member worked on their part of the project, they would test and ensure their piece of software was working correctly. Lachlan went through and tried to break ANDIE repeatedly, and we found several more errors from that. We had a set of images we used for testing ANDIE, a couple .jpg files, a couple .png files with some transparent background to ensure our software could handle ARGB input, and a .gif file to test how ANDIE handles it. 
 
-In future, testing will be a much larger part of our operative workflow.
+The reason we did far more brute force testing was because of the fact that ANDIE is a pretty self diagnosing program, as in when something is wrong with an filter alogrithm for instance, it was pretty obvious there is an error there, and often one could guess what part of the filter was going wrong. So often the easiest method of testing was just running ANDIE and seeing what happened. 
 
+However, in the next part of developing ANDIE, more unit testing will be used, as it is extremely useful and fast once completed to ensure an algorithm is still functioning as expected. Currently, there are only 2 proper testing files, being for BrightnessContrast and ImagePanel. 
 ---
 
 ## Versions

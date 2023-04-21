@@ -34,7 +34,7 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
      * @param contrastDegree //percentage contrast change
      * 
      */
-    BrightnessContrast(int brightnessDegree, int contrastDegree) {
+    public BrightnessContrast(int brightnessDegree, int contrastDegree) {
         this.brightnessDegree = brightnessDegree;
         this.contrastDegree = contrastDegree;
     }
@@ -81,7 +81,6 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
                 }
             }
         }
-
         return output;
         }
 

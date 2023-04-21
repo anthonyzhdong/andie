@@ -13,7 +13,7 @@ import java.lang.Math.*;
  * A gaussian blur blurs an image by changing each pixel by a set amount
  * </p>
  * 
- * </p>
+ * 
  * 
  * @see java.awt.image.ConvolveOp
  * @author Steven Mills
