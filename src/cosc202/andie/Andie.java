@@ -25,6 +25,12 @@ import javax.imageio.*;
  */
 public class Andie {
     //Testing branch use
+    
+
+    //Launches GUI frame for application (outside so accessable for other classes)
+    
+    public static JFrame frame = new JFrame("ANDIE");
+
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -48,11 +54,8 @@ public class Andie {
      * @see ColourActions
      * 
      * @throws Exception if something goes wrong.
+     * 
      */
-
-    //Launches GUI frame for application (outside so accessable for other classes)
-    public static JFrame frame = new JFrame("ANDIE");
-
     public static void createAndShowGUI() throws Exception {
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
