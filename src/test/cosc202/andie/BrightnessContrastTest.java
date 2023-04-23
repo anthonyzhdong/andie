@@ -34,7 +34,7 @@ public class BrightnessContrastTest {
     @Test
     void testBrightness() {
         BrightnessContrast testBC = new BrightnessContrast(50, 0);
-        String filePath = "kisspng-mexico-cinco-de-mayo-battle-of-puebla-clip-art-cactus-png-transparent-image-5a76395ade6596.6807686615176973709109";
+        String filePath = "J:.2nd Year.Semester 1.COSC202.Andie_Git.andie.assets.imageskisspng-mexico-cinco-de-mayo-battle-of-puebla-clip-art-cactus-png-transparent-image-5a76395ade6596.6807686615176973709109";
         try {
             File imageFile = new File(filePath);
             BufferedImage original = ImageIO.read(imageFile);
@@ -54,7 +54,7 @@ public class BrightnessContrastTest {
     @Test
     void testContrast() {
         BrightnessContrast testBC = new BrightnessContrast(0, 50);
-        String filePath = "kisspng-mexico-cinco-de-mayo-battle-of-puebla-clip-art-cactus-png-transparent-image-5a76395ade6596.6807686615176973709109";
+        String filePath = "J:.2nd Year.Semester 1.COSC202.Andie_Git.andie.assets.imageskisspng-mexico-cinco-de-mayo-battle-of-puebla-clip-art-cactus-png-transparent-image-5a76395ade6596.6807686615176973709109";
         try {
             File imageFile = new File(filePath);
             BufferedImage original = ImageIO.read(imageFile);

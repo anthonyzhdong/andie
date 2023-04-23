@@ -46,6 +46,13 @@ public class SettingsActions extends AbstractAction {
     /** A list of actions for the Settings menu. */
     protected ArrayList<Action> actions;
 
+    public ArrayList<Action> getActions(){
+        return actions;
+    }
+
+    public void activateAction(Action a) {
+        a.setEnabled(true);
+    }
     /**
      * <p>
      * Create a set of Settings menu actions.
@@ -68,6 +75,7 @@ public class SettingsActions extends AbstractAction {
      * @return The Settings menu UI element.
      */
     public JMenu createMenu() {
+        System.out.println(bundle.getBaseBundleName());
         JMenu SettingsMenu = new JMenu(SettingsActions.bundle.getString("Settings"));
         JMenu LanguageSubMenu = new JMenu(SettingsActions.bundle.getString("LanguageSelect"));
 
