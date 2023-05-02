@@ -33,6 +33,10 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
     private Integer radius;
+    private int[] alpha;
+    private int[] red;
+    private int[] green;
+    private int[] blue;
 
     /**
      * <p>
@@ -84,49 +88,52 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
     public BufferedImage apply(BufferedImage input) {
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
         
-        //Integer size = (2*radius+1) * (2*radius+1);
-
-        ArrayList<Integer> alpha = new ArrayList<Integer>();
-        ArrayList<Integer> red = new ArrayList<Integer>();
-        ArrayList<Integer> green = new ArrayList<Integer>();
-        ArrayList<Integer> blue = new ArrayList<Integer>();
-        Color c = new Color(input.getRGB(0, 0), true);
+        int size = (2*radius+1) * (2*radius+1);
         
-        for (Integer y = 1; y < input.getHeight(); ++y) {
-            for (Integer x = 1; x < input.getWidth(); ++x) {
+        Color c = new Color(input.getRGB(0, 0), true);
+
+        for (int y = 1; y < input.getHeight(); ++y) {
+            for (int x = 1; x < input.getWidth(); ++x) {
+                alpha = new int[size];
+                red = new int[size];
+                green = new int[size];
+                blue = new int[size];
                 
-                for(Integer kernalY = -(2*radius+1)/2; kernalY < (2*radius+1); kernalY++) {
-                    for(Integer kernalX = -(2*radius+1)/2; kernalX < (2*radius+1); kernalX++) {
+                int kernalIterator = 0;
+                for(int kernalY = -radius; kernalY < radius + 1; kernalY++) {
+                    for(int kernalX = -radius; kernalX < radius + 1; kernalX++) {
                         
-                        if(y + kernalY <= 0) {
-                            System.out.println(y + kernalY);
-                            continue;
-                        }
-                        if(x + kernalX <= 0) {
-                            System.out.println(x + kernalX);
-                            continue;
-                        }
-                        if(y + kernalY > input.getHeight()) continue;
-                        if(x + kernalX > input.getWidth()) continue;
+                        if(y + kernalY <= 0) continue;
+                        if(x + kernalX <= 0) continue;
+                        if(y + kernalY >= input.getHeight()) continue;
+                        if(x + kernalX >= input.getWidth()) continue;
 
-                        c = new Color(input.getRGB(x+kernalX, y+kernalY), true);
-                
-                        Integer r = c.getRed();
-                        Integer g = c.getGreen();
-                        Integer b = c.getBlue();
-                        Integer a = c.getAlpha();
+                        int r = c.getRed();
+                        int g = c.getGreen();
+                        int b = c.getBlue();
+                        int a = c.getAlpha();
 
-                        alpha.add(a);
-                        red.add(r);
-                        green.add(g);
-                        blue.add(b);
+                        alpha[kernalIterator] = a;
+                        red[kernalIterator] = r;
+                        green[kernalIterator] = g;
+                        blue[kernalIterator] = b;
+
+                        kernalIterator++;
                     }
                 }  
-                Collections.sort(alpha);
-                Collections.sort(red);
-                Collections.sort(green);
-                Collections.sort(blue);
-                Color newC = new Color((red.get(red.size()/2)), (green.get(green.size()/2)), (blue.get(blue.size()/2)), (alpha.get(alpha.size()/2)));
+                kernalIterator++;
+
+                alpha = Arrays.copyOf(alpha, kernalIterator);
+                red = Arrays.copyOf(red, kernalIterator);
+                green = Arrays.copyOf(green, kernalIterator);
+                blue = Arrays.copyOf(blue, kernalIterator);
+
+                Arrays.sort(alpha);
+                Arrays.sort(red);
+                Arrays.sort(green);
+                Arrays.sort(blue);
+                if(x == 1 && y == 1) System.out.println(Arrays.toString(red));
+                Color newC = new Color((red[red.length / 2]), (green[green.length / 2]), (blue[blue.length / 2]), (alpha[alpha.length / 2]));
                 output.setRGB(x, y, newC.getRGB());
             }
         }
