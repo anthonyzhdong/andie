@@ -2,8 +2,9 @@ package cosc202.andie;
 
 import java.awt.image.*;
 import java.util.Arrays;
+import java.util.Collections;
 import java.awt.Color;
-
+import java.util.ArrayList;
 /**
  * <p>
  * Credit to https://stackoverflow.com/questions/29074735/mean-and-median-image-filtering-in-java article
@@ -31,7 +32,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
     /**
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
-    private int radius;
+    private Integer radius;
 
     /**
      * <p>
@@ -46,7 +47,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * 
      * @param radius The radius of the newly constructed MedianFilter
      */
-    MedianFilter(int radius) {
+    MedianFilter(Integer radius) {
         this.radius = radius;    
     }
 
@@ -83,54 +84,49 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
     public BufferedImage apply(BufferedImage input) {
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
         
-        int size = (2*radius+1) * (2*radius+1);
+        //Integer size = (2*radius+1) * (2*radius+1);
 
-        int[] alpha = new int[size];
-        int[] red = new int[size];
-        int[] green = new int[size];
-        int[] blue = new int[size];
+        ArrayList<Integer> alpha = new ArrayList<Integer>();
+        ArrayList<Integer> red = new ArrayList<Integer>();
+        ArrayList<Integer> green = new ArrayList<Integer>();
+        ArrayList<Integer> blue = new ArrayList<Integer>();
         Color c = new Color(input.getRGB(0, 0), true);
         
-        for (int y = 1; y < input.getHeight(); ++y) {
-            for (int x = 1; x < input.getWidth(); ++x) {
+        for (Integer y = 1; y < input.getHeight(); ++y) {
+            for (Integer x = 1; x < input.getWidth(); ++x) {
                 
-                int kernalIterator = 0;
-                for(int kernalY = 0; kernalY < (2*radius+1); kernalY++) {
-                    for(int kernalX = 0; kernalX < (2*radius+1); kernalX++) {
-
+                for(Integer kernalY = -(2*radius+1)/2; kernalY < (2*radius+1); kernalY++) {
+                    for(Integer kernalX = -(2*radius+1)/2; kernalX < (2*radius+1); kernalX++) {
                         
+                        if(y + kernalY <= 0) {
+                            System.out.println(y + kernalY);
+                            continue;
+                        }
+                        if(x + kernalX <= 0) {
+                            System.out.println(x + kernalX);
+                            continue;
+                        }
+                        if(y + kernalY > input.getHeight()) continue;
+                        if(x + kernalX > input.getWidth()) continue;
 
-                        if(y >= input.getHeight() - (2*radius+1) - 1 && x <= input.getWidth() - (2*radius+1) - 1) {
-                            c = new Color(input.getRGB(x+kernalX-1, y-kernalY), true);
-                        } 
-                        else if(x >= input.getWidth() - (2*radius+1) - 1 && y <= input.getHeight() - (2*radius+1) - 1) {
-                            c = new Color(input.getRGB(x-kernalX, y+kernalY-1), true);
-                        } 
-                        else if(x >= input.getWidth() - (2*radius+1) - 1 && y >= input.getHeight() - (2*radius+1) - 1) {
-                            c = new Color(input.getRGB(x-kernalX, y-kernalY), true);
-                        }
-                        else {
-                            c = new Color(input.getRGB(x+kernalX-1, y+kernalY-1), true);
-                        }
-                       
+                        c = new Color(input.getRGB(x+kernalX, y+kernalY), true);
                 
-                        int r = c.getRed();
-                        int g = c.getGreen();
-                        int b = c.getBlue();
-                        int a = c.getAlpha();
+                        Integer r = c.getRed();
+                        Integer g = c.getGreen();
+                        Integer b = c.getBlue();
+                        Integer a = c.getAlpha();
 
-                        alpha[kernalIterator] = a;
-                        red[kernalIterator] = r;
-                        green[kernalIterator] = g;
-                        blue[kernalIterator] = b;
-                        kernalIterator++;
+                        alpha.add(a);
+                        red.add(r);
+                        green.add(g);
+                        blue.add(b);
                     }
                 }  
-                Arrays.sort(alpha);
-                Arrays.sort(red);
-                Arrays.sort(green);
-                Arrays.sort(blue);
-                Color newC = new Color((red[radius+1]), (green[radius+1]), (blue[radius+1]), (alpha[radius+1]));
+                Collections.sort(alpha);
+                Collections.sort(red);
+                Collections.sort(green);
+                Collections.sort(blue);
+                Color newC = new Color((red.get(red.size()/2)), (green.get(green.size()/2)), (blue.get(blue.size()/2)), (alpha.get(alpha.size()/2)));
                 output.setRGB(x, y, newC.getRGB());
             }
         }
