@@ -40,6 +40,7 @@ public class FilterActions {
         actions.add(new MeanFilterAction(SettingsActions.bundle.getString("MeanFilter"), null, SettingsActions.bundle.getString("ApplyMeanFilter"), Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new MedianFilterAction(SettingsActions.bundle.getString("MedianFilter"), null, SettingsActions.bundle.getString("ApplyMedianFilter"), Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new GaussianFilterAction(SettingsActions.bundle.getString("GaussianBlur"), null, SettingsActions.bundle.getString("ApplyGaussianBlur"), Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new BlotchBlurAction(SettingsActions.bundle.getString("GaussianBlur"), null, SettingsActions.bundle.getString("ApplyGaussianBlur"), Integer.valueOf(KeyEvent.VK_G)));
     }
 
     /**
@@ -221,7 +222,61 @@ public class FilterActions {
     }
         
 
+    public class BlotchBlurAction extends ImageAction {
 
+        /**
+         * <p>
+         * Create a new mean-filter action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        BlotchBlurAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+             super(name, icon, desc, mnemonic);
+         }
+ 
+        /**
+         * <p>
+         * Callback for when the convert-to-grey action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the MeanFilterAction is triggered.
+         * It prompts the user for a filter radius, then applys an appropriately sized {@link MeanFilter}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+         public void actionPerformed(ActionEvent e) {
+             if(EditableImage.hasImage()){
+                 // Determine the radius - ask the user.
+                 int radius = 1;
+ 
+                 // Pop-up dialog box to ask for the radius value.
+                 SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+                 JSpinner radiusSpinner = new JSpinner(radiusModel);
+                 int option = JOptionPane.showOptionDialog(null, radiusSpinner, SettingsActions.bundle.getString("EnterFilterStrength"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+ 
+                 // Check the return value from the dialog box.
+                 if (option == JOptionPane.CANCEL_OPTION) {
+                     return;
+                 } else if (option == JOptionPane.OK_OPTION) {
+                     radius = radiusModel.getNumber().intValue();
+                 }
+ 
+                 // Create and apply the filter
+                 target.getImage().apply(new BlotchBlur(radius));
+                 target.repaint();
+                 target.getParent().revalidate();
+             } else {
+                 ErrorHandling.NoFileOpenError();
+             }
+         }
+ 
+    }
 
 
 
