@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.image.*;
 
 /**
  * <p>
@@ -53,6 +54,12 @@ public class ImagePanel extends JPanel {
         scale = 1.0;
     }
 
+    public ImagePanel(BufferedImage bi) {
+        image = new EditableImage();
+        image.setCurrentImage(bi);
+        scale = 1.0;
+    }
+
     /**
      * <p>
      * Get the currently displayed image
@@ -63,6 +70,7 @@ public class ImagePanel extends JPanel {
     public EditableImage getImage() {
         return image;
     }
+
 
     /**
      * <p>
@@ -143,5 +151,9 @@ public class ImagePanel extends JPanel {
     
     public boolean checkImage() {
         return image.hasImage();
+    }
+
+    public void setImage(EditableImage image) {
+        this.image = image;
     }
 }
