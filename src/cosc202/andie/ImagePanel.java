@@ -1,8 +1,12 @@
 package cosc202.andie;
 
 import java.awt.*;
+
 import javax.swing.*;
 import java.awt.image.*;
+import java.awt.event.*;
+
+import javax.swing.event.*;
 
 /**
  * <p>
@@ -28,6 +32,10 @@ public class ImagePanel extends JPanel {
      */
     private EditableImage image;
 
+
+    private Rectangle captureRectangle;
+    Rectangle rectToDraw = null;
+    Rectangle previousRectDrawn = new Rectangle();
     /**
      * <p>
      * The zoom-level of the current view.
@@ -52,12 +60,18 @@ public class ImagePanel extends JPanel {
     public ImagePanel() {
         image = new EditableImage();
         scale = 1.0;
+        MyListener myListener = new MyListener();
+        addMouseListener(myListener);
+        addMouseMotionListener(myListener);
     }
 
     public ImagePanel(BufferedImage bi) {
         image = new EditableImage();
         image.setCurrentImage(bi);
         scale = 1.0;
+        MyListener myListener = new MyListener();
+        addMouseListener(myListener);
+        addMouseMotionListener(myListener);
     }
 
     /**
@@ -143,6 +157,14 @@ public class ImagePanel extends JPanel {
             Graphics2D g2  = (Graphics2D) g.create();
             g2.scale(scale, scale);
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
+            if (captureRectangle != null) {
+                //Draw a rectangle on top of the image.
+                g2.setColor(Color.white); //Color of line varies depending on image colors
+                Rectangle r = new Rectangle(rectToDraw.x, rectToDraw.y, rectToDraw.width - 1, rectToDraw.height - 1);
+                g2.draw(r);
+                g2.fill(r);
+    
+            }
             g2.dispose();
         }
     }
@@ -156,4 +178,95 @@ public class ImagePanel extends JPanel {
     public void setImage(EditableImage image) {
         this.image = image;
     }
+
+
+    /** https://docs.oracle.com/javase/tutorial/uiswing/events/mousemotionlistener.html was used to help create the intital rectangle selection 
+     * for imagePanel. From there it was adpated to suit ANDIE.
+     */
+    private class MyListener extends MouseInputAdapter {
+        public void mouseClicked(MouseEvent e) {
+        }
+
+        public void mouseDragged(MouseEvent e) {
+            updateSize(e);
+        }
+
+        public void mouseEntered(MouseEvent e) {
+                
+        }
+
+        public void mouseExited(MouseEvent e) {
+                
+        }
+
+        public void mouseMoved(MouseEvent e) {
+            
+        }
+
+        public void mousePressed(MouseEvent e) {
+            int x = e.getX();
+            int y = e.getY();
+            captureRectangle = new Rectangle(x, y, 0, 0);
+            updateDrawableRect(getWidth(), getHeight());
+            repaint();
+        }
+
+        public void mouseReleased(MouseEvent e) {
+            updateSize(e);
+
+        }
+
+        void updateSize(MouseEvent e) {
+            int x = e.getX();
+            int y = e.getY();
+            captureRectangle.setSize(x - captureRectangle.x, y - captureRectangle.y);
+            updateDrawableRect(getWidth(), getHeight());
+            Rectangle totalRepaint = rectToDraw.union(previousRectDrawn);
+            repaint(totalRepaint.x, totalRepaint.y, totalRepaint.width, totalRepaint.height);
+        }
+    }
+    
+    private void updateDrawableRect(int compWidth, int compHeight) {
+        int x = captureRectangle.x;
+        int y = captureRectangle.y;
+        int width = captureRectangle.width;
+        int height = captureRectangle.height;
+
+        //Make the width and height positive, if necessary.
+        if (width < 0) {
+            width = 0 - width;
+            x = x - width + 1; 
+            if (x < 0) {
+                width += x; 
+                x = 0;
+            }
+        }
+        if (height < 0) {
+            height = 0 - height;
+            y = y - height + 1; 
+            if (y < 0) {
+                height += y; 
+                y = 0;
+            }
+        }
+
+        //The rectangle shouldn't extend past the drawing area.
+        if ((x + width) > compWidth) {
+            width = compWidth - x;
+        }
+        if ((y + height) > compHeight) {
+            height = compHeight - y;
+        }
+
+        //Update rectToDraw after saving old value.
+        if (rectToDraw != null) {
+            previousRectDrawn.setBounds(
+                        rectToDraw.x, rectToDraw.y, 
+                        rectToDraw.width, rectToDraw.height);
+            rectToDraw.setBounds(x, y, width, height);
+        } else {
+            rectToDraw = new Rectangle(x, y, width, height);
+        }
+    }
+
 }

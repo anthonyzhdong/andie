@@ -64,14 +64,18 @@ public class Andie {
 
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
+        
+        
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
+        
         
         frame.setJMenuBar(createMenuBar());
         frame.pack();
         frame.setVisible(true);
     }
+
 
     //Split menu bar out of createAndShowGUI for language change purposes without losing functionality of menubar
     public static JMenuBar createMenuBar(){
