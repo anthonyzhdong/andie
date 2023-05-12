@@ -30,12 +30,12 @@ public class ImagePanel extends JPanel {
     /**
      * The image to display in the ImagePanel.
      */
-    private EditableImage image;
+    private static EditableImage image;
 
 
-    private Rectangle captureRectangle;
-    Rectangle rectToDraw = null;
-    Rectangle previousRectDrawn = new Rectangle();
+    private Rectangle initialRectangle = null;
+    private Rectangle rectToDraw = null;
+    private Rectangle currentRectangle = null;
     /**
      * <p>
      * The zoom-level of the current view.
@@ -157,21 +157,20 @@ public class ImagePanel extends JPanel {
             Graphics2D g2  = (Graphics2D) g.create();
             g2.scale(scale, scale);
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
-            if (captureRectangle != null) {
+            if (initialRectangle != null) {
                 //Draw a rectangle on top of the image.
-                g2.setColor(Color.white); //Color of line varies depending on image colors
-                Rectangle r = new Rectangle(rectToDraw.x, rectToDraw.y, rectToDraw.width - 1, rectToDraw.height - 1);
-                g2.draw(r);
-                g2.fill(r);
-    
+                g.setXORMode(Color.white);; //Color of line varies depending on image colors
+                g.drawRect(rectToDraw.x, rectToDraw.y, rectToDraw.width - 1, rectToDraw.height - 1);
             }
             g2.dispose();
         }
     }
 
-
+    public Rectangle getinitialRectangle() {
+        return currentRectangle;
+    }
     
-    public boolean checkImage() {
+    public static boolean checkImage() {
         return image.hasImage();
     }
 
@@ -206,31 +205,30 @@ public class ImagePanel extends JPanel {
         public void mousePressed(MouseEvent e) {
             int x = e.getX();
             int y = e.getY();
-            captureRectangle = new Rectangle(x, y, 0, 0);
+            initialRectangle = new Rectangle(x, y, 0, 0);
             updateDrawableRect(getWidth(), getHeight());
             repaint();
         }
 
         public void mouseReleased(MouseEvent e) {
             updateSize(e);
-
         }
 
         void updateSize(MouseEvent e) {
             int x = e.getX();
             int y = e.getY();
-            captureRectangle.setSize(x - captureRectangle.x, y - captureRectangle.y);
+            initialRectangle.setSize(x - initialRectangle.x, y - initialRectangle.y);
             updateDrawableRect(getWidth(), getHeight());
-            Rectangle totalRepaint = rectToDraw.union(previousRectDrawn);
-            repaint(totalRepaint.x, totalRepaint.y, totalRepaint.width, totalRepaint.height);
+            repaint();
+            currentRectangle = new Rectangle(rectToDraw);
         }
     }
     
     private void updateDrawableRect(int compWidth, int compHeight) {
-        int x = captureRectangle.x;
-        int y = captureRectangle.y;
-        int width = captureRectangle.width;
-        int height = captureRectangle.height;
+        int x = initialRectangle.x;
+        int y = initialRectangle.y;
+        int width = initialRectangle.width;
+        int height = initialRectangle.height;
 
         //Make the width and height positive, if necessary.
         if (width < 0) {
@@ -248,8 +246,7 @@ public class ImagePanel extends JPanel {
                 height += y; 
                 y = 0;
             }
-        }
-
+        } 
         //The rectangle shouldn't extend past the drawing area.
         if ((x + width) > compWidth) {
             width = compWidth - x;
@@ -257,16 +254,9 @@ public class ImagePanel extends JPanel {
         if ((y + height) > compHeight) {
             height = compHeight - y;
         }
-
+        rectToDraw = new Rectangle(x, y, width, height);
         //Update rectToDraw after saving old value.
-        if (rectToDraw != null) {
-            previousRectDrawn.setBounds(
-                        rectToDraw.x, rectToDraw.y, 
-                        rectToDraw.width, rectToDraw.height);
-            rectToDraw.setBounds(x, y, width, height);
-        } else {
-            rectToDraw = new Rectangle(x, y, width, height);
-        }
+        
     }
 
 }
