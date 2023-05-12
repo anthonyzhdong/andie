@@ -40,8 +40,9 @@ public class FilterActions {
         actions.add(new MeanFilterAction(SettingsActions.bundle.getString("MeanFilter"), null, SettingsActions.bundle.getString("ApplyMeanFilter"), Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new MedianFilterAction(SettingsActions.bundle.getString("MedianFilter"), null, SettingsActions.bundle.getString("ApplyMedianFilter"), Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new GaussianFilterAction(SettingsActions.bundle.getString("GaussianBlur"), null, SettingsActions.bundle.getString("ApplyGaussianBlur"), Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new BlotchBlurAction(SettingsActions.bundle.getString("GaussianBlur"), null, SettingsActions.bundle.getString("ApplyGaussianBlur"), Integer.valueOf(KeyEvent.VK_G)));
-    }
+        actions.add(new BlotchBlurAction(SettingsActions.bundle.getString("BlotchBlur"), null, SettingsActions.bundle.getString("ApplyBlotchBlur"), Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new EmbossAction(SettingsActions.bundle.getString("EmbossFilter"), null, SettingsActions.bundle.getString("ApplyEmbossFilter"),Integer.valueOf(KeyEvent.VK_B)));
+    }   
 
     /**
      * <p>
@@ -278,7 +279,22 @@ public class FilterActions {
  
     }
 
-
+    public class EmbossAction extends ImageAction {
+        EmbossAction(String name, ImageIcon icon,
+        String desc, Integer mnemonic) {
+        super(name, icon, desc, mnemonic);
+        }
+        public void actionPerformed(ActionEvent e) {
+            if(EditableImage.hasImage()){
+                // Create and apply the filter
+                target.getImage().apply(new EmbossFilter());
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
+        }
+    }
 
     public class GaussianFilterAction extends ImageAction {
 
