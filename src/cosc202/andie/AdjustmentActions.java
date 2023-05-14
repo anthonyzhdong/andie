@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
+import java.lang.Runnable;
+
 /**
  * <p>
  * Actions provided by the Adjustments menu.
@@ -378,9 +380,11 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                Andie.setMenuBarStatus(false);
                 target.getImage().apply(new ImageCrop());
                 target.repaint();
                 target.getParent().revalidate();
+                Andie.setMenuBarStatus(true);
             } else {
                 ErrorHandling.NoFileOpenError();
             }

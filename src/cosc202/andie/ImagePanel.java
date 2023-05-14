@@ -32,6 +32,7 @@ public class ImagePanel extends JPanel {
      */
     private static EditableImage image;
 
+    private boolean process;
 
     private Rectangle initialRectangle = null;
     private Rectangle rectToDraw = null;
@@ -166,7 +167,7 @@ public class ImagePanel extends JPanel {
         }
     }
 
-    public Rectangle getinitialRectangle() {
+    public Rectangle getCurrentRectangle() {
         return currentRectangle;
     }
     
@@ -178,6 +179,10 @@ public class ImagePanel extends JPanel {
         this.image = image;
     }
 
+    public void updateProcess(boolean process) {
+        this.process = process;
+    }
+
 
     /** https://docs.oracle.com/javase/tutorial/uiswing/events/mousemotionlistener.html was used to help create the intital rectangle selection 
      * for imagePanel. From there it was adpated to suit ANDIE.
@@ -187,7 +192,8 @@ public class ImagePanel extends JPanel {
         }
 
         public void mouseDragged(MouseEvent e) {
-            updateSize(e);
+            if(process == false) updateSize(e);
+            
         }
 
         public void mouseEntered(MouseEvent e) {
@@ -203,15 +209,20 @@ public class ImagePanel extends JPanel {
         }
 
         public void mousePressed(MouseEvent e) {
-            int x = e.getX();
-            int y = e.getY();
-            initialRectangle = new Rectangle(x, y, 0, 0);
-            updateDrawableRect(getWidth(), getHeight());
-            repaint();
+            if(process == false) {
+                int x = e.getX();
+                int y = e.getY();
+                initialRectangle = new Rectangle(x, y, 0, 0);
+                updateDrawableRect(getWidth(), getHeight());
+                repaint();
+            }    
         }
 
         public void mouseReleased(MouseEvent e) {
-            updateSize(e);
+            if(process == false) {
+                updateDrawableRect(0, 0);
+                repaint();
+            }
         }
 
         void updateSize(MouseEvent e) {
@@ -220,7 +231,7 @@ public class ImagePanel extends JPanel {
             initialRectangle.setSize(x - initialRectangle.x, y - initialRectangle.y);
             updateDrawableRect(getWidth(), getHeight());
             repaint();
-            currentRectangle = new Rectangle(rectToDraw);
+            if(Andie.getMenuBarStatus() == false) currentRectangle = new Rectangle(rectToDraw);
         }
     }
     
@@ -257,6 +268,10 @@ public class ImagePanel extends JPanel {
         rectToDraw = new Rectangle(x, y, width, height);
         //Update rectToDraw after saving old value.
         
+    }
+
+    public void setCurrentRectangleToNull() {
+        currentRectangle = null;
     }
 
 }

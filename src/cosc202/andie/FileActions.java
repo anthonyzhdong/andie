@@ -31,7 +31,6 @@ public class FileActions {
     /** A list of actions for the File menu. */
     protected ArrayList<Action> actions;
 
-
     /**
      * <p>
      * Create a set of File menu actions.
@@ -45,6 +44,7 @@ public class FileActions {
         actions.add(new FileExportAction(SettingsActions.bundle.getString("Export"), null, SettingsActions.bundle.getString("ExportDesc"), Integer.valueOf(0)));
         actions.add(new FileExitAction(SettingsActions.bundle.getString("Exit"), null, SettingsActions.bundle.getString("ExitDesc"), Integer.valueOf(0)));
     }
+
 
     /**
      * <p>
@@ -114,7 +114,6 @@ public class FileActions {
 
             target.repaint();
             target.getParent().revalidate();
-            
         }
 
     }

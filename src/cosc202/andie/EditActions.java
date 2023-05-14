@@ -26,6 +26,8 @@ public class EditActions {
     
     /** A list of actions for the Edit menu. */
     protected ArrayList<Action> actions;
+    private boolean process;
+
 
     /**
      * <p>
@@ -156,5 +158,4 @@ public class EditActions {
             }
         }
     }
-
 }
