@@ -389,19 +389,18 @@ public class AdjustmentActions{
                 jd.setLocationRelativeTo(imp);
                 jd.setVisible(true);
                 jd.setModal(true);
-                Integer selected = 0;
-                while(selected == 1) {
+                Integer selected = (Integer)jop.getValue();
+                while(selected == JOptionPane.NO_OPTION) {
                     selected = (Integer)jop.getValue();
                     imp.setRectanglesToNull();
                     jd.setVisible(true);
                 } 
-                if(selected == 0) {
+                if(selected == JOptionPane.YES_OPTION) {
                     Rectangle r = imp.getCurrentRectangle();
                     target.getImage().apply(new ImageCrop(r));
                     target.repaint();
                     target.getParent().revalidate();
                 } 
-                
                 Andie.setMenuBarStatus(true);
             } else {
                 ErrorHandling.NoFileOpenError();
