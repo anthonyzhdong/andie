@@ -25,7 +25,7 @@ import javax.swing.event.*;
  * @author Steven Mills
  * @version 1.0
  */
-public class ImagePanel extends JPanel {
+public class ImagePanelCrop extends JPanel {
     
     /**
      * The image to display in the ImagePanel.
@@ -34,9 +34,9 @@ public class ImagePanel extends JPanel {
 
     private boolean process;
 
-    private Rectangle initialRectangle = null;
-    private Rectangle rectToDraw = null;
-    private Rectangle currentRectangle = null;
+    private Rectangle initialRectangle = new Rectangle(0, 0, 0, 0);
+    private Rectangle rectToDraw = new Rectangle(0, 0, 0, 0);
+    private Rectangle currentRectangle = new Rectangle(0, 0, 0, 0);
     /**
      * <p>
      * The zoom-level of the current view.
@@ -58,7 +58,7 @@ public class ImagePanel extends JPanel {
      * Newly created ImagePanels have a default zoom level of 100%
      * </p>
      */
-    public ImagePanel() {
+    public ImagePanelCrop() {
         image = new EditableImage();
         scale = 1.0;
         MyListener myListener = new MyListener();
@@ -66,7 +66,7 @@ public class ImagePanel extends JPanel {
         addMouseMotionListener(myListener);
     }
 
-    public ImagePanel(BufferedImage bi) {
+    public ImagePanelCrop(BufferedImage bi) {
         image = new EditableImage();
         image.setCurrentImage(bi);
         scale = 1.0;
@@ -193,7 +193,7 @@ public class ImagePanel extends JPanel {
         }
 
         public void mouseDragged(MouseEvent e) {
-            updateSize(e);
+            if(currentRectangle.getWidth() == 0) updateSize(e);
             
         }
 
@@ -210,16 +210,18 @@ public class ImagePanel extends JPanel {
         }
 
         public void mousePressed(MouseEvent e) {
-            int x = e.getX();
-            int y = e.getY();
-            initialRectangle = new Rectangle(x, y, 0, 0);
-            updateDrawableRect(getWidth(), getHeight());
-            repaint();
+            if(currentRectangle.getWidth() == 0) {
+                int x = e.getX();
+                int y = e.getY();
+                initialRectangle = new Rectangle(x, y, 0, 0);
+                updateDrawableRect(getWidth(), getHeight());
+                repaint();
+            }
         }
 
         public void mouseReleased(MouseEvent e) {
-            updateDrawableRect(0, 0);
-            repaint();
+            if(currentRectangle.getWidth() == 0) updateSize(e);
+            currentRectangle = new Rectangle(rectToDraw);
         }
 
         void updateSize(MouseEvent e) {
@@ -228,7 +230,6 @@ public class ImagePanel extends JPanel {
             initialRectangle.setSize(x - initialRectangle.x, y - initialRectangle.y);
             updateDrawableRect(getWidth(), getHeight());
             repaint();
-            if(Andie.getMenuBarStatus() == false) currentRectangle = new Rectangle(rectToDraw);
         }
     }
     
@@ -269,6 +270,12 @@ public class ImagePanel extends JPanel {
 
     public void setCurrentRectangleToNull() {
         currentRectangle = null;
+    }
+
+    public void setRectanglesToNull() {
+        rectToDraw.setBounds(0, 0, 0, 0);;
+        currentRectangle.setBounds(0, 0, 0, 0);;
+        repaint();
     }
 
 }

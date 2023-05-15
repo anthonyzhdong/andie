@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
@@ -381,9 +382,26 @@ public class AdjustmentActions{
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
                 Andie.setMenuBarStatus(false);
-                target.getImage().apply(new ImageCrop());
-                target.repaint();
-                target.getParent().revalidate();
+                ImagePanelCrop imp = new ImagePanelCrop(target.getImage().getCurrentImage());
+                JOptionPane jop = new JOptionPane(imp, 0, 1);
+                JDialog jd = jop.createDialog(target.getParent().getParent().getParent().getParent().getParent().getParent(), "Please select an area to crop");
+                
+                jd.setLocationRelativeTo(imp);
+                jd.setVisible(true);
+                jd.setModal(true);
+                Integer selected = 0;
+                while(selected == 1) {
+                    selected = (Integer)jop.getValue();
+                    imp.setRectanglesToNull();
+                    jd.setVisible(true);
+                } 
+                if(selected == 0) {
+                    Rectangle r = imp.getCurrentRectangle();
+                    target.getImage().apply(new ImageCrop(r));
+                    target.repaint();
+                    target.getParent().revalidate();
+                } 
+                
                 Andie.setMenuBarStatus(true);
             } else {
                 ErrorHandling.NoFileOpenError();

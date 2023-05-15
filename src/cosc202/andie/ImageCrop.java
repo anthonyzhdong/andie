@@ -9,7 +9,14 @@ import java.awt.event.*;
 import javax.swing.event.*;
 
 public class ImageCrop implements ImageOperation, java.io.Serializable {
-    public ImageCrop() {}
+
+    private BufferedImage output;
+    private Rectangle toChange;
+
+    public ImageCrop(Rectangle r) {
+        toChange = r;
+    }
+
 
     /**
      * <p>
@@ -22,25 +29,19 @@ public class ImageCrop implements ImageOperation, java.io.Serializable {
      * @return The resulting rotated (270 degree) image.
      */
     public BufferedImage apply(BufferedImage input){
-
-
-        ImagePanel ip = ImageAction.getTarget();
-        JDialog jd = new JDialog((Frame)(ip.getParent().getParent().getParent().getParent().getParent().getParent()), false);
-        jd.setLocationRelativeTo(ip);
-        jd.setTitle("Please select an area to crop");
-        jd.setVisible(true);
-        Rectangle selectedArea = ImageAction.getTarget().getCurrentRectangle();
-        BufferedImage output = new BufferedImage((int)selectedArea.getWidth(), (int)selectedArea.getHeight(), 2);
+        output = new BufferedImage((int)toChange.getWidth(), (int)toChange.getHeight(), 2);
         int outputX = 0;
-        for(int x = (int)selectedArea.getX(); x < (int)(selectedArea.getX() + selectedArea.getWidth()); x++) {
+        for(int x = (int)toChange.getX(); x < (int)(toChange.getX() + toChange.getWidth()); x++) {
             int outputY = 0;
-            for(int y = (int)selectedArea.getY(); y < (int)(selectedArea.getY() + selectedArea.getHeight()); y++) {
+            for(int y = (int)toChange.getY(); y < (int)(toChange.getY() + toChange.getHeight()); y++) {
                 output.setRGB(outputX, outputY, input.getRGB(x, y));
                 outputY++;
             }
             outputX++;
         }
-        //ip.setCurrentRectangleToNull();
+        //original.setCurrentRectangleToNull();
+
+
         return output;
     }
 
