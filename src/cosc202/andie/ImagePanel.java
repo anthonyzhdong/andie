@@ -32,11 +32,11 @@ public class ImagePanel extends JPanel {
      */
     private static EditableImage image;
 
-    private boolean process;
+    private boolean select;
 
-    private Rectangle initialRectangle = null;
-    private Rectangle rectToDraw = null;
-    private Rectangle currentRectangle = null;
+    private Rectangle initialRectangle = new Rectangle(0, 0, 0, 0);
+    private Rectangle rectToDraw = new Rectangle(0, 0, 0, 0);
+    private Rectangle currentRectangle = new Rectangle(0, 0, 0, 0);
     /**
      * <p>
      * The zoom-level of the current view.
@@ -61,18 +61,12 @@ public class ImagePanel extends JPanel {
     public ImagePanel() {
         image = new EditableImage();
         scale = 1.0;
-        MyListener myListener = new MyListener();
-        addMouseListener(myListener);
-        addMouseMotionListener(myListener);
     }
 
     public ImagePanel(BufferedImage bi) {
         image = new EditableImage();
         image.setCurrentImage(bi);
         scale = 1.0;
-        MyListener myListener = new MyListener();
-        addMouseListener(myListener);
-        addMouseMotionListener(myListener);
     }
 
     /**
@@ -179,8 +173,21 @@ public class ImagePanel extends JPanel {
         this.image = image;
     }
 
-    public void updateProcess(boolean process) {
-        this.process = process;
+    public void addListeners() {
+        MyListener myListener = new MyListener();
+        addMouseListener(myListener);
+        addMouseMotionListener(myListener);
+    }
+
+    public void removeListeners() {
+        MouseListener mlListener = (getMouseListeners())[0];
+        MouseMotionListener mmListener = (getMouseMotionListeners())[0];
+        removeMouseListener(mlListener);
+        removeMouseMotionListener(mmListener);
+    }
+
+    public void updateSelect(boolean b) {
+        select = b;
     }
 
 
@@ -218,8 +225,12 @@ public class ImagePanel extends JPanel {
         }
 
         public void mouseReleased(MouseEvent e) {
-            updateDrawableRect(0, 0);
-            repaint();
+            if(select) {
+                updateSize(e);
+            } else {
+                updateDrawableRect(0, 0);
+                repaint();
+            }
         }
 
         void updateSize(MouseEvent e) {
@@ -228,7 +239,7 @@ public class ImagePanel extends JPanel {
             initialRectangle.setSize(x - initialRectangle.x, y - initialRectangle.y);
             updateDrawableRect(getWidth(), getHeight());
             repaint();
-            if(Andie.getMenuBarStatus() == false) currentRectangle = new Rectangle(rectToDraw);
+            if(select) currentRectangle = new Rectangle(rectToDraw);
         }
     }
     
@@ -267,8 +278,10 @@ public class ImagePanel extends JPanel {
         
     }
 
-    public void setCurrentRectangleToNull() {
-        currentRectangle = null;
+    public void setRectanglesToZero() {
+        currentRectangle = new Rectangle(0, 0, 0, 0);
+        rectToDraw = new Rectangle(0, 0, 0, 0);
+        initialRectangle = new Rectangle(0, 0, 0, 0);
     }
 
 }

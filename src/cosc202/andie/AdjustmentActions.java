@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.util.Formatter.BigDecimalLayoutForm;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -10,6 +11,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
 import java.lang.Runnable;
+import java.math.BigInteger;
 
 /**
  * <p>
@@ -33,6 +35,7 @@ public class AdjustmentActions{
  /** A list of actions for the Adjustments menu. */
  protected ArrayList<Action> actions;
  private int scale;
+ private boolean rectangularSelectEnabled;
  /**
   * <p>
   * Create a set of Adjustment menu actions.
@@ -47,7 +50,7 @@ public class AdjustmentActions{
      actions.add(new FlipHorizontalAction(SettingsActions.bundle.getString("FlipHorizontally"), null, SettingsActions.bundle.getString("FlipHorizontalMessage"), Integer.valueOf(KeyEvent.VK_H)));
      actions.add(new FlipVerticalAction(SettingsActions.bundle.getString("FlipVertically"), null, SettingsActions.bundle.getString("FlipVerticalMessage"), Integer.valueOf(KeyEvent.VK_V)));
      actions.add(new ImageCropAction(SettingsActions.bundle.getString("ImageCrop"), null, SettingsActions.bundle.getString("ImageCropMessage"), Integer.valueOf(KeyEvent.VK_V)));
-
+     actions.add(new RectangularSelectAction(SettingsActions.bundle.getString("RectangularSelect"), null, SettingsActions.bundle.getString("RectangularSelectMessage"), Integer.valueOf(KeyEvent.VK_V)));
  }
      /**
      * <p>
@@ -348,12 +351,59 @@ public class AdjustmentActions{
                ErrorHandling.NoFileOpenError();
            }
        }
-   }
+   } 
+
+   public class RectangularSelectAction extends ImageAction{
+    /**
+    * <p>
+    * Create a new ImageCrop action.
+    * </p>
+    * 
+    * @param name The name of the action (ignored if null).
+    * @param icon An icon to use to represent the action (ignored if null).
+    * @param desc A brief description of the action  (ignored if null).
+    * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+    */
+    RectangularSelectAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        super(name, icon, desc, mnemonic);
+    }
+
+    /**
+    * <p>
+    * Callback for when the FlipVerticalAction is triggered.
+    * </p>
+    * 
+    * <p>
+    * This method is called whenever the FlipVerticalAction is triggered.
+    * It flips the image pixels vertically.
+    * </p>
+    * 
+    * @param e The event triggering this callback.
+    */
+
+
+    public void actionPerformed(ActionEvent e) {
+        if(EditableImage.hasImage()){
+            if(rectangularSelectEnabled) return;
+            target.addListeners();
+            target.updateSelect(true);
+            rectangularSelectEnabled = true;
+        } else {
+            ErrorHandling.NoFileOpenError();
+        }
+    }
+}
+
+
+
+
+
+
 
     public class ImageCropAction extends ImageAction{
         /**
         * <p>
-        * Create a new FlipVertical action.
+        * Create a new ImageCrop action.
         * </p>
         * 
         * @param name The name of the action (ignored if null).
@@ -381,8 +431,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                Andie.setMenuBarStatus(false);
-                ImagePanelCrop imp = new ImagePanelCrop(target.getImage().getCurrentImage());
+                /* Pop-up Version
                 JOptionPane jop = new JOptionPane(imp, 0, 1);
                 JDialog jd = jop.createDialog(target.getParent().getParent().getParent().getParent().getParent().getParent(), "Please select an area to crop");
                 
@@ -391,9 +440,9 @@ public class AdjustmentActions{
                 jd.setModal(true);
                 Integer selected = (Integer)jop.getValue();
                 while(selected == JOptionPane.NO_OPTION) {
-                    selected = (Integer)jop.getValue();
                     imp.setRectanglesToNull();
                     jd.setVisible(true);
+                    selected = (Integer)jop.getValue();
                 } 
                 if(selected == JOptionPane.YES_OPTION) {
                     Rectangle r = imp.getCurrentRectangle();
@@ -401,7 +450,13 @@ public class AdjustmentActions{
                     target.repaint();
                     target.getParent().revalidate();
                 } 
-                Andie.setMenuBarStatus(true);
+                */
+                target.getImage().apply(new ImageCrop(target.getCurrentRectangle()));
+                target.updateSelect(false);
+                target.removeListeners();
+                target.setRectanglesToZero();
+                target.repaint();
+                target.getParent().revalidate();
             } else {
                 ErrorHandling.NoFileOpenError();
             }
