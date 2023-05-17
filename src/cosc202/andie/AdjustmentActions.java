@@ -50,6 +50,7 @@ public class AdjustmentActions{
      actions.add(new FlipVerticalAction(SettingsActions.bundle.getString("FlipVertically"), null, SettingsActions.bundle.getString("FlipVerticalMessage"), Integer.valueOf(KeyEvent.VK_V)));
      actions.add(new ImageCropAction(SettingsActions.bundle.getString("ImageCrop"), null, SettingsActions.bundle.getString("ImageCropMessage"), Integer.valueOf(KeyEvent.VK_V)));
      actions.add(new RectangularSelectAction(SettingsActions.bundle.getString("RectangularSelect"), null, SettingsActions.bundle.getString("RectangularSelectMessage"), Integer.valueOf(KeyEvent.VK_V)));
+     actions.add(new DrawRectangleAction(SettingsActions.bundle.getString("DrawRectangle"),null,SettingsActions.bundle.getString("DrawRectangleMessage"), Integer.valueOf(KeyEvent.VK_R)));
  }
      /**
      * <p>
@@ -460,6 +461,48 @@ public class AdjustmentActions{
             }
         }
     }
+<<<<<<< HEAD
 
 
+=======
+    public class DrawRectangleAction extends ImageAction{
+        /**
+         * <p>
+         * Create a new RotationLeft action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        DrawRectangleAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+                /**
+         * <p>
+         * Callback for when the RotationLeft action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the RotationLeftAction is triggered.
+         * It rotates the image 90 degrees to the left.
+         * 
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+
+        public void actionPerformed(ActionEvent e) {
+            if(EditableImage.hasImage()){
+                //target.getImage().apply(new RotationLeft());
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                ErrorHandling.NoFileOpenError();
+        }
+            
+        }
+    }
+>>>>>>> e8aa291 (created DrawRectangle class)
 }
