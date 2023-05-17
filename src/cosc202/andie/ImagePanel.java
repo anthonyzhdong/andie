@@ -4,9 +4,6 @@ import java.awt.*;
 
 import javax.swing.*;
 import java.awt.image.*;
-import java.awt.event.*;
-
-import javax.swing.event.*;
 
 /**
  * <p>
@@ -31,12 +28,9 @@ public class ImagePanel extends JPanel {
      * The image to display in the ImagePanel.
      */
     private static EditableImage image;
-
-    private boolean select;
-
-    private Rectangle initialRectangle = new Rectangle(0, 0, 0, 0);
-    private Rectangle rectToDraw = new Rectangle(0, 0, 0, 0);
-    private Rectangle currentRectangle = new Rectangle(0, 0, 0, 0);
+    private RectangleListener rectangleListener = new RectangleListener(this);
+    private RectangleCreateListener rectangleCreateListener = new RectangleCreateListener(this);
+    
     /**
      * <p>
      * The zoom-level of the current view.
@@ -152,18 +146,24 @@ public class ImagePanel extends JPanel {
             Graphics2D g2  = (Graphics2D) g.create();
             g2.scale(scale, scale);
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
-            if (initialRectangle != null) {
-                //Draw a rectangle on top of the image.
-                g.setXORMode(Color.white);; //Color of line varies depending on image colors
-                g.drawRect(rectToDraw.x, rectToDraw.y, rectToDraw.width - 1, rectToDraw.height - 1);
-            }
+            paintRectangleSelect(g2);
             g2.dispose();
         }
     }
 
-    public Rectangle getCurrentRectangle() {
-        return currentRectangle;
+    private void paintRectangleSelect(Graphics2D g2) {
+        if (rectangleListener.getInitialRectangle() != null) {
+            //Draw a rectangle on top of the image.
+            g2.setXORMode(Color.white); //Color of line varies depending on image colors
+            g2.drawRect(rectangleListener.getRectToDraw().x, rectangleListener.getRectToDraw().y, rectangleListener.getRectToDraw().width - 1, rectangleListener.getRectToDraw().height - 1);
+        }
     }
+
+    private void paintRectangle(Graphics2D g2) {
+
+    }
+
+    
     
     public static boolean checkImage() {
         return image.hasImage(); 
@@ -174,114 +174,18 @@ public class ImagePanel extends JPanel {
     }
 
     public void addListeners() {
-        RectangleListener rectangleListener = new RectangleListener();
         addMouseListener(rectangleListener);
         addMouseMotionListener(rectangleListener);
     }
 
     public void removeListeners() {
-        MouseListener mlListener = (getMouseListeners())[0];
-        MouseMotionListener mmListener = (getMouseMotionListeners())[0];
-        removeMouseListener(mlListener);
-        removeMouseMotionListener(mmListener);
+        removeMouseListener(rectangleListener);
+        removeMouseMotionListener(rectangleListener);
     }
 
-    public void updateSelect(boolean b) {
-        select = b;
-    }
-
-
-
-    /** https://docs.oracle.com/javase/tutorial/uiswing/events/mousemotionlistener.html was used to help create the intital rectangle selection 
-     * for imagePanel. From there it was adpated to suit ANDIE.
-     */
-    private class RectangleListener extends MouseInputAdapter {
-        public void mouseClicked(MouseEvent e) {
-        }
-
-        public void mouseDragged(MouseEvent e) {
-            updateSize(e);
-            
-        }
-
-        public void mouseEntered(MouseEvent e) {
-                
-        }
-
-        public void mouseExited(MouseEvent e) {
-                
-        }
-
-        public void mouseMoved(MouseEvent e) {
-            
-        }
-
-        public void mousePressed(MouseEvent e) {
-            int x = e.getX();
-            int y = e.getY();
-            initialRectangle = new Rectangle(x, y, 0, 0);
-            updateDrawableRect(getWidth(), getHeight());
-            repaint();
-        }
-
-        public void mouseReleased(MouseEvent e) {
-            if(select) {
-                updateSize(e);
-            } else {
-                updateDrawableRect(0, 0);
-                repaint();
-            }
-        }
-
-        void updateSize(MouseEvent e) {
-            int x = e.getX();
-            int y = e.getY();
-            initialRectangle.setSize(x - initialRectangle.x, y - initialRectangle.y);
-            updateDrawableRect(getWidth(), getHeight());
-            repaint();
-            if(select) currentRectangle = new Rectangle(rectToDraw);
-        }
+    public RectangleListener getRectangleListener() {
+        return rectangleListener;
     }
     
-    private void updateDrawableRect(int compWidth, int compHeight) {
-        int x = initialRectangle.x;
-        int y = initialRectangle.y;
-        int width = initialRectangle.width;
-        int height = initialRectangle.height;
-
-        //Make the width and height positive, if necessary.
-        if (width < 0) {
-            width = 0 - width;
-            x = x - width + 1; 
-            if (x < 0) {
-                width += x; 
-                x = 0;
-            }
-        }
-        if (height < 0) {
-            height = 0 - height;
-            y = y - height + 1; 
-            if (y < 0) {
-                height += y; 
-                y = 0;
-            }
-        } 
-        //The rectangle shouldn't extend past the drawing area.
-        if ((x + width) > compWidth) {
-            width = compWidth - x;
-        }
-        if ((y + height) > compHeight) {
-            height = compHeight - y;
-        }
-        rectToDraw = new Rectangle(x, y, width, height);
-        //Update rectToDraw after saving old value.
-        
-    }
-
-    public void setRectanglesToZero() {
-        currentRectangle = new Rectangle(0, 0, 0, 0);
-        rectToDraw = new Rectangle(0, 0, 0, 0);
-        initialRectangle = new Rectangle(0, 0, 0, 0);
-    }
 
 }
