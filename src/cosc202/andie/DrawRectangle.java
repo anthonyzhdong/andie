@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import javax.swing.*;
 
 /**
  * <p>
@@ -25,8 +26,12 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
      * The percentage to scale the image by.
      */
 
-    DrawRectangle() {};
-
+     private BufferedImage output;
+     private Rectangle rect;
+ 
+     public DrawRectangle(Rectangle r) {
+         rect = r;
+     }
     /**
      * <p>
      * Calculates the new dimensions by multiplying the initial dimensions by the scale,
@@ -38,17 +43,22 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
      * @return The resulting (resized) image.
      */
     public BufferedImage apply(BufferedImage input){
-        int scale = 1;
-     double scaleNum = scale/100;
+        int width = input.getWidth();
+        int height = input.getHeight();
 
-        int newWidth = (int)(input.getWidth() * scaleNum);
-        int newHeight = (int)(input.getHeight() * scaleNum);
+        BufferedImage image = new BufferedImage(width,height,input.TYPE_INT_ARGB);
 
-        BufferedImage image = new BufferedImage(newWidth,newHeight,input.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
-        g.drawImage(input,0,0,newWidth,newHeight,null);
+        g.drawImage(input,0,0,null);
+        g.setColor(Color.GREEN);
+        // to change thickness
+        //g.setStroke(new BasicStroke(THICKNESSVARIABLE));
+        g.setStroke(new BasicStroke(50));
+        //fills rectangle w colour above
+       // g.fillRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
+        //shows outline
+        g.drawRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
         g.dispose();
-
         return image;
     }
     }

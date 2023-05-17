@@ -461,10 +461,6 @@ public class AdjustmentActions{
             }
         }
     }
-<<<<<<< HEAD
-
-
-=======
     public class DrawRectangleAction extends ImageAction{
         /**
          * <p>
@@ -495,7 +491,10 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                //target.getImage().apply(new RotationLeft());
+                target.getImage().apply(new DrawRectangle(target.getRectangleListener().getCurrentRectangle()));
+                target.getRectangleListener().updateSelect(false);
+                target.removeListeners();
+                target.getRectangleListener().setRectanglesToZero();
                 target.repaint();
                 target.getParent().revalidate();
             } else {
@@ -504,5 +503,4 @@ public class AdjustmentActions{
             
         }
     }
->>>>>>> e8aa291 (created DrawRectangle class)
 }
