@@ -174,9 +174,9 @@ public class ImagePanel extends JPanel {
     }
 
     public void addListeners() {
-        MyListener myListener = new MyListener();
-        addMouseListener(myListener);
-        addMouseMotionListener(myListener);
+        RectangleListener rectangleListener = new RectangleListener();
+        addMouseListener(rectangleListener);
+        addMouseMotionListener(rectangleListener);
     }
 
     public void removeListeners() {
@@ -195,7 +195,7 @@ public class ImagePanel extends JPanel {
     /** https://docs.oracle.com/javase/tutorial/uiswing/events/mousemotionlistener.html was used to help create the intital rectangle selection 
      * for imagePanel. From there it was adpated to suit ANDIE.
      */
-    private class MyListener extends MouseInputAdapter {
+    private class RectangleListener extends MouseInputAdapter {
         public void mouseClicked(MouseEvent e) {
         }
 
