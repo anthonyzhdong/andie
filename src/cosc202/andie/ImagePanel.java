@@ -29,7 +29,6 @@ public class ImagePanel extends JPanel {
      */
     private static EditableImage image;
     private RectangleListener rectangleListener = new RectangleListener(this);
-    private RectangleCreateListener rectangleCreateListener = new RectangleCreateListener(this);
     
     /**
      * <p>
