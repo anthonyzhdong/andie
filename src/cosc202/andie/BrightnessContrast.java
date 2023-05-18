@@ -43,6 +43,7 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
         this.brightnessDegree = 0;
         this.contrastDegree = 0;
     }
+    
     /** 
      * Implementation of apply method from ImageOperation interface
      * Method to alter an images brightness + contrast

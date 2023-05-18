@@ -4,8 +4,6 @@ import java.awt.*;
 
 import javax.swing.*;
 import java.awt.image.*;
-import java.net.http.WebSocket.Listener;
-
 /**
  * <p>
  * UI display element for {@link EditableImage}s.

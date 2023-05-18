@@ -391,11 +391,11 @@ public class AdjustmentActions{
 
 
     public void actionPerformed(ActionEvent e) {
+        if(target.getShapeListener() != null) target.removeShapeListener();
         if(EditableImage.hasImage()){
             RectangleListener r = new RectangleListener(target);
-            if(target.getShapeListener() != null) r = (RectangleListener)target.getShapeListener();
-            if(r.getSelect() == true) return;
-            r.setSelect(true);
+            if(RectangleListener.getSelect() == true) return;
+            RectangleListener.setSelect(true);
             target.addShapeListener(r);
         } else {
             ErrorHandling.NoFileOpenError();
@@ -480,6 +480,7 @@ public class AdjustmentActions{
          */
 
         public void actionPerformed(ActionEvent e) {
+            if(target.getShapeListener() != null) target.removeShapeListener();
             if(EditableImage.hasImage()){
                 target.addShapeListener(new RectangleDrawListener(target));
             } else {
@@ -519,6 +520,7 @@ public class AdjustmentActions{
          */
 
         public void actionPerformed(ActionEvent e) {
+            if(target.getShapeListener() != null) target.removeShapeListener();
             if(EditableImage.hasImage()){
                 target.addShapeListener(new OvalListener(target));
             } else {
@@ -557,6 +559,7 @@ public class AdjustmentActions{
          */
 
         public void actionPerformed(ActionEvent e) {
+            if(target.getShapeListener() != null) target.removeShapeListener();
             if(EditableImage.hasImage()) {
                 target.addShapeListener(new LineListener(target));
             } else {
