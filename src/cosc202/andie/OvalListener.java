@@ -65,7 +65,7 @@ public class OvalListener extends ShapeListener {
         currentOval.setFrame(ovalToDraw.getBounds());
         target.getImage().apply(new DrawOval(currentOval));
         this.setShapesToZero();
-        target.removeOvalListener();
+        target.removeShapeListener();
         target.repaint();
     }
     void updateSize(MouseEvent e) {
@@ -127,6 +127,14 @@ public class OvalListener extends ShapeListener {
         currentOval = new Ellipse2D.Double(0, 0, 0, 0);
         ovalToDraw = new Ellipse2D.Double(0, 0, 0, 0);
         initialOval = new Ellipse2D.Double(0, 0, 0, 0);
+    }
+
+    protected void paintShape(Graphics2D g2) {
+        if (initialOval != null) {
+            //Draw a rectangle on top of the image.
+            g2.setXORMode(Color.white); //Color of line varies depending on image colors
+            g2.drawOval((int)getOvalToDraw().getX(), (int)getOvalToDraw().getY(), (int)getOvalToDraw().getWidth() - 1, (int)getOvalToDraw().getHeight() - 1);
+        }
     }
 }
         

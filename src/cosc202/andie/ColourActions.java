@@ -97,7 +97,7 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.removeAllListeners();
+                target.removeShapeListener();;
                 target.getImage().apply(new ConvertToGrey());
                 target.repaint();
                 target.getParent().revalidate();
@@ -142,7 +142,7 @@ public class ColourActions {
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.removeAllListeners();
+                target.removeShapeListener();;
                 BufferedImage originalTarget = target.getImage().getCurrentImage();
                 BufferedImage copyTarget = target.getImage().getCurrentImage();
                 

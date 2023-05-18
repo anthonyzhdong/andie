@@ -66,7 +66,7 @@ public class LineListener extends ShapeListener {
         currentLine.setLine(initialPoint, finalPoint);
         target.getImage().apply(new DrawLine(currentLine));
         this.setShapesToZero();
-        target.removeLineListener();
+        target.removeShapeListener();
         target.repaint();
     }
 
@@ -99,6 +99,14 @@ public class LineListener extends ShapeListener {
         pointToDraw = new Point(0, 0);
         finalPoint = new Point(0, 0);
         currentLine = new Line2D.Double(0, 0, 0, 0);
+    }
+
+    protected void paintShape(Graphics2D g2) {
+        if (initialPoint != null) {
+            //Draw a rectangle on top of the image.
+            g2.setXORMode(Color.white); //Color of line varies depending on image colors
+            g2.drawLine((int)getInitialPoint().getX(), (int)getInitialPoint().getY(), (int)getPointToDraw().getX(), (int)getPointToDraw().getY());
+        }
     }
 }
         

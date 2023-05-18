@@ -64,7 +64,7 @@ public class RectangleDrawListener extends ShapeListener {
         currentRectangle.setBounds(rectToDraw);
         target.getImage().apply(new DrawRectangle(currentRectangle));
         this.setShapesToZero();
-        target.removeRectangleDrawListener();
+        target.removeShapeListener();
         target.repaint();
     }
 
@@ -128,6 +128,14 @@ public class RectangleDrawListener extends ShapeListener {
         currentRectangle = new Rectangle(0, 0, 0, 0);
         rectToDraw = new Rectangle(0, 0, 0, 0);
         initialRectangle = new Rectangle(0, 0, 0, 0);
+    }
+
+    protected void paintShape(Graphics2D g2) {
+        if (initialRectangle != null) {
+            //Draw a rectangle on top of the image.
+            g2.setXORMode(Color.white); //Color of line varies depending on image colors
+            g2.drawRect(getRectToDraw().x, getRectToDraw().y, getRectToDraw().width - 1, getRectToDraw().height - 1);
+        }
     }
 }
         

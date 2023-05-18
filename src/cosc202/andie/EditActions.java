@@ -97,7 +97,7 @@ public class EditActions {
                 ErrorHandling.NoFileOpenError();
                 return;
             }
-            target.removeAllListeners();
+            target.removeShapeListener();
             try {
                 target.getImage().undo();
                 target.repaint();
@@ -150,7 +150,7 @@ public class EditActions {
                 ErrorHandling.NoFileOpenError();
                 return;
             }
-            target.removeAllListeners();
+            target.removeShapeListener();
             try {
                 target.getImage().redo();
                 target.repaint();

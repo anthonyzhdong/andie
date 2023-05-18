@@ -109,7 +109,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.removeAllListeners();
+                target.removeShapeListener();
                 BufferedImage originalTarget = target.getImage().getCurrentImage();
                 BufferedImage copyTarget = target.getImage().getCurrentImage();
                 
@@ -187,7 +187,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.removeAllListeners();
+                target.removeShapeListener();
                 target.getImage().apply(new Rotation180());
                 target.repaint();
                 target.getParent().revalidate();
@@ -228,7 +228,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.removeAllListeners();
+                target.removeShapeListener();
                 target.getImage().apply(new RotationRight());
                 target.repaint();
                 target.getParent().revalidate();
@@ -268,7 +268,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.removeAllListeners();
+                target.removeShapeListener();
                 target.getImage().apply(new RotationLeft());
                 target.repaint();
                 target.getParent().revalidate();
@@ -310,7 +310,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.removeAllListeners();
+                target.removeShapeListener();
                 target.getImage().apply(new FlipHorizontal());
                 target.repaint();
                 target.getParent().revalidate();
@@ -351,7 +351,7 @@ public class AdjustmentActions{
 
        public void actionPerformed(ActionEvent e) {
            if(EditableImage.hasImage()){
-                target.removeAllListeners();
+                target.removeShapeListener();
                target.getImage().apply(new FlipVertical());
                target.repaint();
                target.getParent().revalidate();
@@ -392,9 +392,11 @@ public class AdjustmentActions{
 
     public void actionPerformed(ActionEvent e) {
         if(EditableImage.hasImage()){
-            if(target.getRectangleListener().getSelect() == true) return;
-            target.getRectangleListener().setSelect(true);
-            target.addRectangleSelectListener();
+            RectangleListener r = new RectangleListener(target);
+            if(target.getShapeListener() != null) r = (RectangleListener)target.getShapeListener();
+            if(r.getSelect() == true) return;
+            r.setSelect(true);
+            target.addShapeListener(r);
         } else {
             ErrorHandling.NoFileOpenError();
         }
@@ -438,9 +440,10 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.getImage().apply(new ImageCrop(target.getRectangleListener().getCurrentRectangle()));
-                target.getRectangleListener().setShapesToZero();
-                target.removeAllListeners();
+                RectangleListener r = new RectangleListener(target);
+                target.getImage().apply(new ImageCrop(r.getCurrentRectangle()));
+                target.getShapeListener().setShapesToZero();
+                target.removeShapeListener();
                 target.repaint();
                 target.getParent().revalidate();
             } else {
@@ -478,7 +481,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.addRectangleDrawListener();
+                target.addShapeListener(new RectangleDrawListener(target));
             } else {
                 ErrorHandling.NoFileOpenError();
             }
@@ -517,7 +520,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.addOvalListener();
+                target.addShapeListener(new OvalListener(target));
             } else {
                 ErrorHandling.NoFileOpenError();
             }
@@ -555,7 +558,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()) {
-                target.addLineListener();
+                target.addShapeListener(new LineListener(target));
             } else {
                 ErrorHandling.NoFileOpenError();
             }

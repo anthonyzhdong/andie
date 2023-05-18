@@ -13,9 +13,6 @@ import javax.swing.event.*;
 public abstract class ShapeListener extends MouseInputAdapter {
 
     protected ImagePanel target;
-    protected Shape initialShape;
-    protected Shape shapeToDraw;
-    protected Shape currentShape;
 
     public ShapeListener(ImagePanel target) {
         this.target = target;
