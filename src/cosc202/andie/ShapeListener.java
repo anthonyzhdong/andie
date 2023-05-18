@@ -39,6 +39,7 @@ public abstract class ShapeListener extends MouseInputAdapter {
     public abstract void setShapesToZero();
 
     protected abstract void paintShape(Graphics2D g2);
+
 }
         
 

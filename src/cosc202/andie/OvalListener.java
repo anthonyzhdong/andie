@@ -9,7 +9,7 @@ import java.awt.geom.Ellipse2D;
 
 import javax.swing.event.*;
 
-
+ 
 /** https://docs.oracle.com/javase/tutorial/uiswing/events/mousemotionlistener.html was used to help create the intital oval selection 
      * for imagePanel. From there it was adpated to suit ANDIE.
      */
@@ -68,6 +68,7 @@ public class OvalListener extends ShapeListener {
         target.removeShapeListener();
         target.repaint();
     }
+    
     void updateSize(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();

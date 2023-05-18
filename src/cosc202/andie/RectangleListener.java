@@ -19,23 +19,14 @@ public class RectangleListener extends ShapeListener {
 
     private static boolean select;
 
-    private BufferedImage original = target.getImage().getCurrentImage();
-    private BufferedImage prior = target.getImage().getCurrentImage();
-    private BufferedImage altered = target.getImage().getCurrentImage();
-
     public RectangleListener(ImagePanel target) {
         super(target);
-        if(select != true) altered = new BrightnessContrast(-50, -50).apply(altered);
-        target.getImage().setCurrentImage(altered);
-        prior = new BufferedImage(altered.getColorModel(), altered.getRaster(), altered.getColorModel().isAlphaPremultiplied(), null);
-        target.repaint();
     }
 
 
     public void mouseClicked(MouseEvent e) {
-        target.getImage().setCurrentImage(original);
-        RectangleListener.setSelect(false);
         setShapesToZero();
+        target.repaint();
     }
 
     public void mouseDragged(MouseEvent e) {
@@ -56,7 +47,6 @@ public class RectangleListener extends ShapeListener {
     }
 
     public void mousePressed(MouseEvent e) {
-        altered = prior = new BufferedImage(prior.getColorModel(), prior.getRaster(), prior.getColorModel().isAlphaPremultiplied(), null);
         int x = e.getX();
         int y = e.getY();
         initialRectangle = new Rectangle(x, y, 0, 0);
@@ -142,16 +132,13 @@ public class RectangleListener extends ShapeListener {
         initialRectangle = new Rectangle(0, 0, 0, 0);
     }
 
+    
+
     protected void paintShape(Graphics2D g2) {
         if (initialRectangle != null) {
-            altered = prior;
             //Draw a rectangle on top of the image.
-            for(int x = (int)rectToDraw.getX(); x < rectToDraw.width; x++) {
-                for(int y = (int)rectToDraw.getY(); y < rectToDraw.height; y++) {
-                    altered.setRGB(x, y, original.getRGB(x, y));
-                }
-            }
-            target.repaint();
+            g2.setXORMode(Color.white); //Color of line varies depending on image colors
+            g2.drawRect(rectToDraw.x, rectToDraw.y, (int)rectToDraw.getWidth(), (int)rectToDraw.getHeight());
         }
     }
 }

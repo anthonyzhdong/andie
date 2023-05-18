@@ -97,7 +97,7 @@ public class EditActions {
                 ErrorHandling.NoFileOpenError();
                 return;
             }
-            target.removeShapeListener();
+            if(target.getShapeListener() != null) target.removeShapeListener();
             try {
                 target.getImage().undo();
                 target.repaint();
@@ -105,7 +105,6 @@ public class EditActions {
             } catch(Exception ex) {
                 ErrorHandling.NoUndoError();
             }
-            
         }
     }
 
@@ -150,7 +149,7 @@ public class EditActions {
                 ErrorHandling.NoFileOpenError();
                 return;
             }
-            target.removeShapeListener();
+            if(target.getShapeListener() != null) target.removeShapeListener();
             try {
                 target.getImage().redo();
                 target.repaint();

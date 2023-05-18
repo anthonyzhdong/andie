@@ -109,7 +109,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.removeShapeListener();
+                if(target.getShapeListener() != null) target.removeShapeListener();
                 BufferedImage originalTarget = target.getImage().getCurrentImage();
                 BufferedImage copyTarget = target.getImage().getCurrentImage();
                 
@@ -187,14 +187,13 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.removeShapeListener();
+                if(target.getShapeListener() != null) target.removeShapeListener();
                 target.getImage().apply(new Rotation180());
                 target.repaint();
                 target.getParent().revalidate();
             } else {
                 ErrorHandling.NoFileOpenError();
         }
-            
         }
     }
 
@@ -228,14 +227,13 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.removeShapeListener();
+                if(target.getShapeListener() != null) target.removeShapeListener();
                 target.getImage().apply(new RotationRight());
                 target.repaint();
                 target.getParent().revalidate();
             } else {
                 ErrorHandling.NoFileOpenError();
         }
-            
         }
     }
     public class RotationLeftAction extends ImageAction{
@@ -268,14 +266,13 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.removeShapeListener();
+                if(target.getShapeListener() != null) target.removeShapeListener();
                 target.getImage().apply(new RotationLeft());
                 target.repaint();
                 target.getParent().revalidate();
             } else {
                 ErrorHandling.NoFileOpenError();
         }
-            
         }
     }
     public class FlipHorizontalAction
@@ -310,7 +307,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.removeShapeListener();
+                if(target.getShapeListener() != null) target.removeShapeListener();
                 target.getImage().apply(new FlipHorizontal());
                 target.repaint();
                 target.getParent().revalidate();
@@ -351,7 +348,7 @@ public class AdjustmentActions{
 
        public void actionPerformed(ActionEvent e) {
            if(EditableImage.hasImage()){
-                target.removeShapeListener();
+                if(target.getShapeListener() != null) target.removeShapeListener();
                target.getImage().apply(new FlipVertical());
                target.repaint();
                target.getParent().revalidate();
@@ -392,7 +389,7 @@ public class AdjustmentActions{
 
     public void actionPerformed(ActionEvent e) {
         if(target.getShapeListener() != null) target.removeShapeListener();
-        if(EditableImage.hasImage()){
+        if(EditableImage.hasImage()) {
             RectangleListener r = new RectangleListener(target);
             if(RectangleListener.getSelect() == true) return;
             RectangleListener.setSelect(true);
@@ -441,7 +438,9 @@ public class AdjustmentActions{
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
                 RectangleListener r = new RectangleListener(target);
+                if(target.getShapeListener() != null) r = (RectangleListener)target.getShapeListener();
                 target.getImage().apply(new ImageCrop(r.getCurrentRectangle()));
+                RectangleListener.setSelect(false);
                 target.getShapeListener().setShapesToZero();
                 target.removeShapeListener();
                 target.repaint();
@@ -486,7 +485,6 @@ public class AdjustmentActions{
             } else {
                 ErrorHandling.NoFileOpenError();
             }
-            
         }
 
         
@@ -526,7 +524,6 @@ public class AdjustmentActions{
             } else {
                 ErrorHandling.NoFileOpenError();
             }
-            
         }
     }
 

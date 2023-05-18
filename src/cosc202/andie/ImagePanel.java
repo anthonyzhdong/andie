@@ -171,6 +171,7 @@ public class ImagePanel extends JPanel {
     public void removeShapeListener() {
         removeMouseListener(shapeListener);
         removeMouseMotionListener(shapeListener);
+        shapeListener = null;
     }
 
     public ShapeListener getShapeListener() {

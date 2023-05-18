@@ -111,7 +111,7 @@ public class FileActions {
                     ErrorHandling.FileError();
                 }
             }
-
+            
             target.repaint();
             target.getParent().revalidate();
         }
@@ -155,7 +155,7 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.removeShapeListener();
+                if(target.getShapeListener() != null) target.removeShapeListener();
                 try {
                     target.getImage().save();           
                 } catch (Exception ex) {
@@ -206,7 +206,7 @@ public class FileActions {
         public void actionPerformed(ActionEvent e) {
 
             if(EditableImage.hasImage()){
-                target.removeShapeListener();
+                if(target.getShapeListener() != null) target.removeShapeListener();
                 JFileChooser fileChooser = new JFileChooser();
                 int result = fileChooser.showSaveDialog(target);
 
