@@ -19,6 +19,14 @@ public class OvalListener extends ShapeListener {
     private Ellipse2D initialOval = new Ellipse2D.Double(0, 0, 0, 0);
     private Ellipse2D ovalToDraw = new Ellipse2D.Double(0, 0, 0, 0);
     private Ellipse2D currentOval = new Ellipse2D.Double(0, 0, 0, 0);
+    private Color shapeColor;
+    private float lineWidth;
+
+    public OvalListener(ImagePanel target, Color shapeColor, float lineWidth) {
+        super(target);
+        this.shapeColor = shapeColor;
+        this.lineWidth = lineWidth;
+    }
 
     public OvalListener(ImagePanel target) {
         super(target);
@@ -59,7 +67,6 @@ public class OvalListener extends ShapeListener {
         this.setShapesToZero();
         target.removeOvalListener();
         target.repaint();
-        select = false;
     }
     void updateSize(MouseEvent e) {
         int x = e.getX();

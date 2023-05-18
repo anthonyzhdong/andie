@@ -18,6 +18,14 @@ public class RectangleDrawListener extends ShapeListener {
     private Rectangle initialRectangle = new Rectangle(0, 0, 0, 0);
     private Rectangle rectToDraw = new Rectangle(0, 0, 0, 0);
     private Rectangle currentRectangle = new Rectangle(0, 0, 0, 0);
+    private Color shapeColor;
+    private float lineWidth;
+
+    public RectangleDrawListener(ImagePanel target, Color shapeColor, float lineWidth) {
+        super(target);
+        this.shapeColor = shapeColor;
+        this.lineWidth = lineWidth;
+    }
 
     public RectangleDrawListener(ImagePanel target) {
         super(target);
@@ -58,7 +66,6 @@ public class RectangleDrawListener extends ShapeListener {
         this.setShapesToZero();
         target.removeRectangleDrawListener();
         target.repaint();
-        select = false;
     }
 
     void updateSize(MouseEvent e) {

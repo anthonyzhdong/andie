@@ -20,7 +20,15 @@ public class LineListener extends ShapeListener {
     private Point initialPoint = new Point(0, 0);
     private Point pointToDraw = new Point(0, 0);
     private Point finalPoint = new Point(0, 0);
-    Line2D currentLine = new Line2D.Double(initialPoint, pointToDraw);
+    private Line2D currentLine = new Line2D.Double(initialPoint, pointToDraw);
+    private Color shapeColor;
+    private float lineWidth;
+
+    public LineListener(ImagePanel target, Color shapeColor, float lineWidth) {
+        super(target);
+        this.shapeColor = shapeColor;
+        this.lineWidth = lineWidth;
+    }
 
     public LineListener(ImagePanel target) {
         super(target);
@@ -51,8 +59,6 @@ public class LineListener extends ShapeListener {
         int x = e.getX();
         int y = e.getY();
         initialPoint = new Point(x, y);
-        updateDrawableShape(target.getImage().getCurrentImage().getWidth(), target.getImage().getCurrentImage().getHeight());
-        target.repaint();
     }
 
     public void mouseReleased(MouseEvent e) {
@@ -62,7 +68,6 @@ public class LineListener extends ShapeListener {
         this.setShapesToZero();
         target.removeLineListener();
         target.repaint();
-        select = false;
     }
 
     void updateSize(MouseEvent e) {
@@ -70,7 +75,6 @@ public class LineListener extends ShapeListener {
         int y = e.getY();
         pointToDraw.setLocation(x, y);
         currentLine = new Line2D.Double(initialPoint, pointToDraw);
-        updateDrawableShape(target.getImage().getCurrentImage().getWidth(), target.getImage().getCurrentImage().getHeight());
         target.repaint();
     }
 

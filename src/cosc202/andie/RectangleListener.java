@@ -16,6 +16,7 @@ public class RectangleListener extends ShapeListener {
     private Rectangle initialRectangle = new Rectangle(0, 0, 0, 0);
     private Rectangle rectToDraw = new Rectangle(0, 0, 0, 0);
     private Rectangle currentRectangle = new Rectangle(0, 0, 0, 0);
+    private boolean select;
 
     public RectangleListener(ImagePanel target) {
         super(target);
@@ -64,7 +65,7 @@ public class RectangleListener extends ShapeListener {
         initialRectangle.setSize(x - initialRectangle.x, y - initialRectangle.y);
         updateDrawableShape(target.getImage().getCurrentImage().getWidth(), target.getImage().getCurrentImage().getHeight());
         target.repaint();
-        if(select) currentRectangle = new Rectangle(rectToDraw);
+        currentRectangle = new Rectangle(rectToDraw);
     }
 
     protected void updateDrawableShape(double compWidth, double compHeight) {
@@ -114,11 +115,26 @@ public class RectangleListener extends ShapeListener {
         return rectToDraw;
     }
 
+    public void setSelect(boolean b) {
+        select = b;
+    }
+
+    public boolean getSelect() {
+        return select;
+    }
 
     public void setShapesToZero() {
         currentRectangle = new Rectangle(0, 0, 0, 0);
         rectToDraw = new Rectangle(0, 0, 0, 0);
         initialRectangle = new Rectangle(0, 0, 0, 0);
+    }
+
+    protected void paintShape(Graphics2D g2) {
+        if (initialRectangle != null) {
+            //Draw a rectangle on top of the image.
+            g2.setXORMode(Color.white); //Color of line varies depending on image colors
+            g2.drawRect(getRectToDraw().x, getRectToDraw().y, getRectToDraw().width - 1, getRectToDraw().height - 1);
+        }
     }
 }
         

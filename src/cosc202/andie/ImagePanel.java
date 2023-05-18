@@ -149,7 +149,7 @@ public class ImagePanel extends JPanel {
             Graphics2D g2  = (Graphics2D) g.create();
             g2.scale(scale, scale);
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
-            paintRectangleSelect(g2);
+            rectangleListener.paintShape(g2);
             paintOvalSelect(g2);
             paintRectangleDraw(g2);
             paintLine(g2);
@@ -157,13 +157,7 @@ public class ImagePanel extends JPanel {
         }
     }
 
-    private void paintRectangleSelect(Graphics2D g2) {
-        if (rectangleListener.getInitialRectangle() != null) {
-            //Draw a rectangle on top of the image.
-            g2.setXORMode(Color.white); //Color of line varies depending on image colors
-            g2.drawRect(rectangleListener.getRectToDraw().x, rectangleListener.getRectToDraw().y, rectangleListener.getRectToDraw().width - 1, rectangleListener.getRectToDraw().height - 1);
-        }
-    }
+    
 
     private void paintOvalSelect(Graphics2D g2) {
         if (ovalListener.getInitialOval() != null) {

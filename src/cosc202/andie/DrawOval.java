@@ -23,16 +23,24 @@ import javax.swing.*;
  * @version 1.0
  */
 public class DrawOval implements ImageOperation, java.io.Serializable  {
-    /**
-     * The percentage to scale the image by.
-     */
 
      private BufferedImage output;
      private Ellipse2D ellipse2d;
+     private Color c;
+     private float lineWidth = 1;
+     private boolean filled = true;
  
-     public DrawOval(Ellipse2D ellipse2d) {
+     public DrawOval(Ellipse2D ellipse2d, Color c, float lineWidth, boolean filled) {
          this.ellipse2d = ellipse2d;
+         this.c = c;
+         this.lineWidth = lineWidth;
+         this.filled = filled;
      }
+
+     public DrawOval(Ellipse2D ellipse2d) {
+        this.ellipse2d = ellipse2d;
+        this.c = Color.white;
+    }
     /**
      * <p>
      * Calculates the new dimensions by multiplying the initial dimensions by the scale,
@@ -47,20 +55,18 @@ public class DrawOval implements ImageOperation, java.io.Serializable  {
         int width = input.getWidth();
         int height = input.getHeight();
 
-        BufferedImage image = new BufferedImage(width,height,input.TYPE_INT_ARGB);
+        output = new BufferedImage(width,height,input.TYPE_INT_ARGB);
 
-        Graphics2D g = image.createGraphics();
+        Graphics2D g = output.createGraphics();
         g.drawImage(input,0,0,null);
-        g.setColor(Color.GREEN);
+        g.setColor(c);
         // to change thickness
-        //g.setStroke(new BasicStroke(THICKNESSVARIABLE));
-        g.setStroke(new BasicStroke(50));
+        g.setStroke(new BasicStroke(lineWidth));
         //fills rectangle w colour above
-       // g.fillRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
-        //shows outline
-        g.drawOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
+        if(filled) g.fillOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
+        else g.drawOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
         g.dispose();
-        return image;
+        return output;
     }
     }
     

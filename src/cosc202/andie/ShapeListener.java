@@ -12,7 +12,6 @@ import javax.swing.event.*;
      */
 public abstract class ShapeListener extends MouseInputAdapter {
 
-    protected boolean select;
     protected ImagePanel target;
     protected Shape initialShape;
     protected Shape shapeToDraw;
@@ -40,15 +39,9 @@ public abstract class ShapeListener extends MouseInputAdapter {
 
     protected abstract void updateDrawableShape(double compWidth, double compHeight);
 
-    public void updateSelect(boolean b) {
-        this.select = b;
-    }
-
-    public boolean getSelect() {
-        return select;
-    }
-
     public abstract void setShapesToZero();
+
+    protected abstract void paintShape(Graphics2D g2);
 }
         
 

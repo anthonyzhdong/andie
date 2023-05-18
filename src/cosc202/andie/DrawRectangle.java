@@ -28,9 +28,20 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
 
      private BufferedImage output;
      private Rectangle rect;
+     private Color c;
+     private float lineWidth = 1;
+     private boolean filled = true;
  
-     public DrawRectangle(Rectangle r) {
+     public DrawRectangle(Rectangle r, Color c, float lineWidth, boolean filled) {
          rect = r;
+         this.c = c;
+         this.lineWidth = lineWidth;
+         this.filled = filled;
+     }
+
+     public DrawRectangle(Rectangle r) {
+        rect = r;
+        c = Color.white;
      }
     /**
      * <p>
@@ -46,20 +57,21 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
         int width = input.getWidth();
         int height = input.getHeight();
 
-        BufferedImage image = new BufferedImage(width,height,input.TYPE_INT_ARGB);
+        output = new BufferedImage(width,height,input.TYPE_INT_ARGB);
 
-        Graphics2D g = image.createGraphics();
+        Graphics2D g = output.createGraphics();
         g.drawImage(input,0,0,null);
-        g.setColor(Color.GREEN);
+        g.setColor(c);
         // to change thickness
         //g.setStroke(new BasicStroke(THICKNESSVARIABLE));
-        g.setStroke(new BasicStroke(50));
+        g.setStroke(new BasicStroke(lineWidth));
         //fills rectangle w colour above
        // g.fillRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
         //shows outline
-        g.drawRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
+        if(filled) g.fillRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
+        else g.drawRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
         g.dispose();
-        return image;
+        return output;
     }
     }
     

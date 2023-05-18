@@ -48,8 +48,8 @@ public class AdjustmentActions{
      actions.add(new RotationLeftAction(SettingsActions.bundle.getString("RotateLeft"), null, SettingsActions.bundle.getString("RotateLeftMessage"), Integer.valueOf(KeyEvent.VK_L)));
      actions.add(new FlipHorizontalAction(SettingsActions.bundle.getString("FlipHorizontally"), null, SettingsActions.bundle.getString("FlipHorizontalMessage"), Integer.valueOf(KeyEvent.VK_H)));
      actions.add(new FlipVerticalAction(SettingsActions.bundle.getString("FlipVertically"), null, SettingsActions.bundle.getString("FlipVerticalMessage"), Integer.valueOf(KeyEvent.VK_V)));
-     actions.add(new ImageCropAction(SettingsActions.bundle.getString("ImageCrop"), null, SettingsActions.bundle.getString("ImageCropMessage"), Integer.valueOf(KeyEvent.VK_V)));
      actions.add(new RectangularSelectAction(SettingsActions.bundle.getString("RectangularSelect"), null, SettingsActions.bundle.getString("RectangularSelectMessage"), Integer.valueOf(KeyEvent.VK_V)));
+     actions.add(new ImageCropAction(SettingsActions.bundle.getString("ImageCrop"), null, SettingsActions.bundle.getString("ImageCropMessage"), Integer.valueOf(KeyEvent.VK_V)));
      actions.add(new DrawRectangleAction(SettingsActions.bundle.getString("DrawRectangle"),null,SettingsActions.bundle.getString("DrawRectangleMessage"), Integer.valueOf(KeyEvent.VK_R)));
      actions.add(new DrawOvalAction(SettingsActions.bundle.getString("DrawOval"),null,SettingsActions.bundle.getString("DrawOvalMessage"), Integer.valueOf(KeyEvent.VK_R)));
      actions.add(new DrawLineAction(SettingsActions.bundle.getString("DrawLine"),null,SettingsActions.bundle.getString("DrawLineMessage"), Integer.valueOf(KeyEvent.VK_R)));
@@ -393,7 +393,7 @@ public class AdjustmentActions{
     public void actionPerformed(ActionEvent e) {
         if(EditableImage.hasImage()){
             if(target.getRectangleListener().getSelect() == true) return;
-            target.getRectangleListener().updateSelect(true);
+            target.getRectangleListener().setSelect(true);
             target.addRectangleSelectListener();
         } else {
             ErrorHandling.NoFileOpenError();
@@ -438,28 +438,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                /* Pop-up Version
-                JOptionPane jop = new JOptionPane(imp, 0, 1);
-                JDialog jd = jop.createDialog(target.getParent().getParent().getParent().getParent().getParent().getParent(), "Please select an area to crop");
-                
-                jd.setLocationRelativeTo(imp);
-                jd.setVisible(true);
-                jd.setModal(true);
-                Integer selected = (Integer)jop.getValue();
-                while(selected == JOptionPane.NO_OPTION) {
-                    imp.setRectanglesToNull();
-                    jd.setVisible(true);
-                    selected = (Integer)jop.getValue();
-                } 
-                if(selected == JOptionPane.YES_OPTION) {
-                    Rectangle r = imp.getCurrentRectangle();
-                    target.getImage().apply(new ImageCrop(r));
-                    target.repaint();
-                    target.getParent().revalidate();
-                } 
-                */
                 target.getImage().apply(new ImageCrop(target.getRectangleListener().getCurrentRectangle()));
-                target.getRectangleListener().updateSelect(false);
                 target.getRectangleListener().setShapesToZero();
                 target.removeAllListeners();
                 target.repaint();
@@ -499,8 +478,6 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                if(target.getRectangleDrawListener().getSelect() == true) return;
-                target.getRectangleDrawListener().updateSelect(true);
                 target.addRectangleDrawListener();
             } else {
                 ErrorHandling.NoFileOpenError();
@@ -540,8 +517,6 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                if(target.getOvalListener().getSelect() == true) return;
-                target.getOvalListener().updateSelect(true);
                 target.addOvalListener();
             } else {
                 ErrorHandling.NoFileOpenError();
@@ -579,9 +554,7 @@ public class AdjustmentActions{
          */
 
         public void actionPerformed(ActionEvent e) {
-            if(EditableImage.hasImage()){
-                if(target.getLineListener().getSelect() == true) return;
-                target.getLineListener().updateSelect(true);
+            if(EditableImage.hasImage()) {
                 target.addLineListener();
             } else {
                 ErrorHandling.NoFileOpenError();
