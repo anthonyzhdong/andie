@@ -53,7 +53,8 @@ public class AdjustmentActions{
      actions.add(new DrawRectangleAction(SettingsActions.bundle.getString("DrawRectangle"),null,SettingsActions.bundle.getString("DrawRectangleMessage"), Integer.valueOf(KeyEvent.VK_R)));
      actions.add(new DrawOvalAction(SettingsActions.bundle.getString("DrawOval"),null,SettingsActions.bundle.getString("DrawOvalMessage"), Integer.valueOf(KeyEvent.VK_R)));
      actions.add(new DrawLineAction(SettingsActions.bundle.getString("DrawLine"),null,SettingsActions.bundle.getString("DrawLineMessage"), Integer.valueOf(KeyEvent.VK_R)));
- }
+     actions.add(new DrawAction(SettingsActions.bundle.getString("Draw"),null,SettingsActions.bundle.getString("DrawMessage"), Integer.valueOf(KeyEvent.VK_R)));
+}
      /**
      * <p>
      * Create a menu contianing the list of Adjustment actions.
@@ -559,6 +560,44 @@ public class AdjustmentActions{
             if(target.getShapeListener() != null) target.removeShapeListener();
             if(EditableImage.hasImage()) {
                 target.addShapeListener(new LineListener(target));
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
+            
+        }
+    }
+    public class DrawAction extends ImageAction{
+        /**
+         * <p>
+         * Create a new RotationLeft action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        DrawAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+                /**
+         * <p>
+         * Callback for when the RotationLeft action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the RotationLeftAction is triggered.
+         * It rotates the image 90 degrees to the left.
+         * 
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+
+        public void actionPerformed(ActionEvent e) {
+            if(target.getShapeListener() != null) target.removeShapeListener();
+            if(EditableImage.hasImage()) {
+                target.addShapeListener(new DrawListener(target));
             } else {
                 ErrorHandling.NoFileOpenError();
             }
