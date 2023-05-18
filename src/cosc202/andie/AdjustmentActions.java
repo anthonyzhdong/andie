@@ -51,6 +51,8 @@ public class AdjustmentActions{
      actions.add(new ImageCropAction(SettingsActions.bundle.getString("ImageCrop"), null, SettingsActions.bundle.getString("ImageCropMessage"), Integer.valueOf(KeyEvent.VK_V)));
      actions.add(new RectangularSelectAction(SettingsActions.bundle.getString("RectangularSelect"), null, SettingsActions.bundle.getString("RectangularSelectMessage"), Integer.valueOf(KeyEvent.VK_V)));
      actions.add(new DrawRectangleAction(SettingsActions.bundle.getString("DrawRectangle"),null,SettingsActions.bundle.getString("DrawRectangleMessage"), Integer.valueOf(KeyEvent.VK_R)));
+     actions.add(new DrawOvalAction(SettingsActions.bundle.getString("DrawOval"),null,SettingsActions.bundle.getString("DrawOvalMessage"), Integer.valueOf(KeyEvent.VK_R)));
+     actions.add(new DrawLineAction(SettingsActions.bundle.getString("DrawLine"),null,SettingsActions.bundle.getString("DrawLineMessage"), Integer.valueOf(KeyEvent.VK_R)));
  }
      /**
      * <p>
@@ -107,6 +109,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                target.removeAllListeners();
                 BufferedImage originalTarget = target.getImage().getCurrentImage();
                 BufferedImage copyTarget = target.getImage().getCurrentImage();
                 
@@ -184,6 +187,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                target.removeAllListeners();
                 target.getImage().apply(new Rotation180());
                 target.repaint();
                 target.getParent().revalidate();
@@ -224,6 +228,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                target.removeAllListeners();
                 target.getImage().apply(new RotationRight());
                 target.repaint();
                 target.getParent().revalidate();
@@ -263,6 +268,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                target.removeAllListeners();
                 target.getImage().apply(new RotationLeft());
                 target.repaint();
                 target.getParent().revalidate();
@@ -304,6 +310,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                target.removeAllListeners();
                 target.getImage().apply(new FlipHorizontal());
                 target.repaint();
                 target.getParent().revalidate();
@@ -344,6 +351,7 @@ public class AdjustmentActions{
 
        public void actionPerformed(ActionEvent e) {
            if(EditableImage.hasImage()){
+                target.removeAllListeners();
                target.getImage().apply(new FlipVertical());
                target.repaint();
                target.getParent().revalidate();
@@ -386,7 +394,7 @@ public class AdjustmentActions{
         if(EditableImage.hasImage()){
             if(target.getRectangleListener().getSelect() == true) return;
             target.getRectangleListener().updateSelect(true);
-            target.addListeners();
+            target.addRectangleSelectListener();
         } else {
             ErrorHandling.NoFileOpenError();
         }
@@ -452,8 +460,8 @@ public class AdjustmentActions{
                 */
                 target.getImage().apply(new ImageCrop(target.getRectangleListener().getCurrentRectangle()));
                 target.getRectangleListener().updateSelect(false);
-                target.removeListeners();
-                target.getRectangleListener().setRectanglesToZero();
+                target.getRectangleListener().setShapesToZero();
+                target.removeAllListeners();
                 target.repaint();
                 target.getParent().revalidate();
             } else {
@@ -491,15 +499,93 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.getImage().apply(new DrawRectangle(target.getRectangleListener().getCurrentRectangle()));
-                target.getRectangleListener().updateSelect(false);
-                target.removeListeners();
-                target.getRectangleListener().setRectanglesToZero();
-                target.repaint();
-                target.getParent().revalidate();
+                if(target.getRectangleDrawListener().getSelect() == true) return;
+                target.getRectangleDrawListener().updateSelect(true);
+                target.addRectangleDrawListener();
             } else {
                 ErrorHandling.NoFileOpenError();
+            }
+            
         }
+
+        
+    }
+    public class DrawOvalAction extends ImageAction{
+        /**
+         * <p>
+         * Create a new RotationLeft action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        DrawOvalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+                /**
+         * <p>
+         * Callback for when the RotationLeft action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the RotationLeftAction is triggered.
+         * It rotates the image 90 degrees to the left.
+         * 
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+
+        public void actionPerformed(ActionEvent e) {
+            if(EditableImage.hasImage()){
+                if(target.getOvalListener().getSelect() == true) return;
+                target.getOvalListener().updateSelect(true);
+                target.addOvalListener();
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
+            
+        }
+    }
+
+    public class DrawLineAction extends ImageAction{
+        /**
+         * <p>
+         * Create a new RotationLeft action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        DrawLineAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+                /**
+         * <p>
+         * Callback for when the RotationLeft action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the RotationLeftAction is triggered.
+         * It rotates the image 90 degrees to the left.
+         * 
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+
+        public void actionPerformed(ActionEvent e) {
+            if(EditableImage.hasImage()){
+                if(target.getLineListener().getSelect() == true) return;
+                target.getLineListener().updateSelect(true);
+                target.addLineListener();
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
             
         }
     }

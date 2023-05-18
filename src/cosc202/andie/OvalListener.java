@@ -3,21 +3,24 @@ package cosc202.andie;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.image.*;
+import java.security.spec.EllipticCurve;
 import java.awt.event.*;
+import java.awt.geom.Ellipse2D;
+
 import javax.swing.event.*;
 
 
-/** https://docs.oracle.com/javase/tutorial/uiswing/events/mousemotionlistener.html was used to help create the intital rectangle selection 
+/** https://docs.oracle.com/javase/tutorial/uiswing/events/mousemotionlistener.html was used to help create the intital oval selection 
      * for imagePanel. From there it was adpated to suit ANDIE.
      */
-public class RectangleListener extends ShapeListener {
+public class OvalListener extends ShapeListener {
 
     
-    private Rectangle initialRectangle = new Rectangle(0, 0, 0, 0);
-    private Rectangle rectToDraw = new Rectangle(0, 0, 0, 0);
-    private Rectangle currentRectangle = new Rectangle(0, 0, 0, 0);
+    private Ellipse2D initialOval = new Ellipse2D.Double(0, 0, 0, 0);
+    private Ellipse2D ovalToDraw = new Ellipse2D.Double(0, 0, 0, 0);
+    private Ellipse2D currentOval = new Ellipse2D.Double(0, 0, 0, 0);
 
-    public RectangleListener(ImagePanel target) {
+    public OvalListener(ImagePanel target) {
         super(target);
     }
 
@@ -45,33 +48,33 @@ public class RectangleListener extends ShapeListener {
     public void mousePressed(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        initialRectangle = new Rectangle(x, y, 0, 0);
+        initialOval = new Ellipse2D.Double(x, y, 0, 0);
         updateDrawableShape(target.getImage().getCurrentImage().getWidth(), target.getImage().getCurrentImage().getHeight());
         target.repaint();
     }
 
     public void mouseReleased(MouseEvent e) {
-        if(select) {
-            updateSize(e);
-        } else {
-            updateDrawableShape(0, 0);
-            target.repaint();
-        }
+        currentOval.setFrame(ovalToDraw.getBounds());
+        target.getImage().apply(new DrawOval(currentOval));
+        this.setShapesToZero();
+        target.removeOvalListener();
+        target.repaint();
+        select = false;
     }
     void updateSize(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        initialRectangle.setSize(x - initialRectangle.x, y - initialRectangle.y);
+        initialOval.setFrame(initialOval.getX(), initialOval.getY(), x - initialOval.getX(), y - initialOval.getY());
         updateDrawableShape(target.getImage().getCurrentImage().getWidth(), target.getImage().getCurrentImage().getHeight());
         target.repaint();
-        if(select) currentRectangle = new Rectangle(rectToDraw);
+        currentOval.setFrame(ovalToDraw.getBounds());
     }
 
     protected void updateDrawableShape(double compWidth, double compHeight) {
-        int x = initialRectangle.x;
-        int y = initialRectangle.y;
-        int width = initialRectangle.width;
-        int height = initialRectangle.height;
+        double x = initialOval.getX();
+        double y = initialOval.getY();
+        double width = initialOval.getWidth();
+        double height = initialOval.getHeight();
 
         //Make the width and height positive, if necessary.
         if (width < 0) {
@@ -90,35 +93,33 @@ public class RectangleListener extends ShapeListener {
                 y = 0;
             }
         } 
-        //The rectangle shouldn't extend past the drawing area.
+        //The oval shouldn't extend past the drawing area.
         if ((x + width) > compWidth) {
-            width = (int)compWidth - x;
+            width = compWidth - x;
         }
         if ((y + height) > compHeight) {
-            height = (int)compHeight - y;
+            height = compHeight - y;
         }
-        rectToDraw = new Rectangle(x, y, width, height);
-        //Update rectToDraw after saving old value.
-        
+        ovalToDraw.setFrame(x, y, width, height);
+        //Update ovalToDraw after saving old value
     }
 
-    public Rectangle getCurrentRectangle() {
-        return currentRectangle;
+    public Ellipse2D getCurrentOval() {
+        return currentOval;
     }
 
-    public Rectangle getInitialRectangle() {
-        return initialRectangle;
+    public Ellipse2D getInitialOval() {
+        return initialOval;
     }
 
-    public Rectangle getRectToDraw() {
-        return rectToDraw;
+    public Ellipse2D getOvalToDraw() {
+        return ovalToDraw;
     }
-
 
     public void setShapesToZero() {
-        currentRectangle = new Rectangle(0, 0, 0, 0);
-        rectToDraw = new Rectangle(0, 0, 0, 0);
-        initialRectangle = new Rectangle(0, 0, 0, 0);
+        currentOval = new Ellipse2D.Double(0, 0, 0, 0);
+        ovalToDraw = new Ellipse2D.Double(0, 0, 0, 0);
+        initialOval = new Ellipse2D.Double(0, 0, 0, 0);
     }
 }
         

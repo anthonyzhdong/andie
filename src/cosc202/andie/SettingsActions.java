@@ -120,6 +120,7 @@ public class SettingsActions extends AbstractAction {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            target.removeAllListeners();
             /* Potenial code for saving preferences inbetween instances of Andie
             bundle.clearCache();
             prefs.put("language", "en"); 
@@ -178,7 +179,7 @@ public class SettingsActions extends AbstractAction {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
+            target.removeAllListeners();
             bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle_mi_NZ");
 
             try {
@@ -230,7 +231,7 @@ public class SettingsActions extends AbstractAction {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-    
+            target.removeAllListeners();
             bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle_fr_FR");
 
             try {
@@ -282,7 +283,7 @@ public class SettingsActions extends AbstractAction {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
+            target.removeAllListeners();
             bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle_sp_SP");
 
             try {

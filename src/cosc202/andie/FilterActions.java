@@ -97,6 +97,7 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                target.removeAllListeners();
                 // Determine the radius - ask the user.
                 int radius = 1;
 
@@ -160,6 +161,7 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                target.removeAllListeners();
                 // Determine the radius - ask the user.
                 int radius = 1;
 
@@ -194,6 +196,7 @@ public class FilterActions {
         }
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                target.removeAllListeners();
             // Create and apply the filter
                 target.getImage().apply(new SoftBlur());
                 target.repaint();
@@ -252,6 +255,7 @@ public class FilterActions {
          */
          public void actionPerformed(ActionEvent e) {
              if(EditableImage.hasImage()){
+                target.removeAllListeners();
                  // Determine the radius - ask the user.
                  int radius = 1;
  
@@ -310,6 +314,7 @@ public class FilterActions {
         */
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                target.removeAllListeners();
                 // Determine the radius - ask the user.
                 int radius = 1;
 

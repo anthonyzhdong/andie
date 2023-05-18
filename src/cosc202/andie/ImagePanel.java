@@ -4,6 +4,7 @@ import java.awt.*;
 
 import javax.swing.*;
 import java.awt.image.*;
+import java.net.http.WebSocket.Listener;
 
 /**
  * <p>
@@ -29,6 +30,9 @@ public class ImagePanel extends JPanel {
      */
     private static EditableImage image;
     private RectangleListener rectangleListener = new RectangleListener(this);
+    private RectangleDrawListener rectangleDrawListener = new RectangleDrawListener(this);
+    private OvalListener ovalListener = new OvalListener(this);
+    private LineListener lineListener = new LineListener(this);
     
     /**
      * <p>
@@ -146,6 +150,9 @@ public class ImagePanel extends JPanel {
             g2.scale(scale, scale);
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
             paintRectangleSelect(g2);
+            paintOvalSelect(g2);
+            paintRectangleDraw(g2);
+            paintLine(g2);
             g2.dispose();
         }
     }
@@ -158,12 +165,30 @@ public class ImagePanel extends JPanel {
         }
     }
 
-    private void paintRectangle(Graphics2D g2) {
-
+    private void paintOvalSelect(Graphics2D g2) {
+        if (ovalListener.getInitialOval() != null) {
+            //Draw a rectangle on top of the image.
+            g2.setXORMode(Color.white); //Color of line varies depending on image colors
+            g2.drawOval((int)ovalListener.getOvalToDraw().getX(), (int)ovalListener.getOvalToDraw().getY(), (int)ovalListener.getOvalToDraw().getWidth() - 1, (int)ovalListener.getOvalToDraw().getHeight() - 1);
+        }
     }
 
-    
-    
+    private void paintRectangleDraw(Graphics2D g2) {
+        if (ovalListener.getInitialOval() != null) {
+            //Draw a rectangle on top of the image.
+            g2.setXORMode(Color.white); //Color of line varies depending on image colors
+            g2.drawRect(rectangleDrawListener.getRectToDraw().x, rectangleDrawListener.getRectToDraw().y, rectangleDrawListener.getRectToDraw().width - 1, rectangleDrawListener.getRectToDraw().height - 1);
+        }
+    }
+
+    private void paintLine(Graphics2D g2) {
+        if (ovalListener.getInitialOval() != null) {
+            //Draw a rectangle on top of the image.
+            g2.setXORMode(Color.white); //Color of line varies depending on image colors
+            g2.drawLine((int)lineListener.getInitialPoint().getX(), (int)lineListener.getInitialPoint().getY(), (int)lineListener.getPointToDraw().getX(), (int)lineListener.getPointToDraw().getY());
+        }
+    }
+
     public static boolean checkImage() {
         return image.hasImage(); 
     }
@@ -172,19 +197,72 @@ public class ImagePanel extends JPanel {
         this.image = image;
     }
 
-    public void addListeners() {
+    public void addRectangleSelectListener() {
         addMouseListener(rectangleListener);
         addMouseMotionListener(rectangleListener);
     }
 
-    public void removeListeners() {
+    public void removeRectangleSelectListener() {
         removeMouseListener(rectangleListener);
         removeMouseMotionListener(rectangleListener);
+    }
+
+
+    public void addRectangleDrawListener() {
+        addMouseListener(rectangleDrawListener);
+        addMouseMotionListener(rectangleDrawListener);
+    }
+
+    public void removeRectangleDrawListener() {
+        removeMouseListener(rectangleDrawListener);
+        removeMouseMotionListener(rectangleDrawListener);
+    }
+
+    public void addOvalListener() {
+        addMouseListener(ovalListener);
+        addMouseMotionListener(ovalListener);
+    }
+
+    public void removeOvalListener() {
+        removeMouseListener(ovalListener);
+        removeMouseMotionListener(ovalListener);
+    }
+
+    public void addLineListener() {
+        addMouseListener(lineListener);
+        addMouseMotionListener(lineListener);
+    }
+
+    public void removeLineListener() {
+        removeMouseListener(lineListener);
+        removeMouseMotionListener(lineListener);
     }
 
     public RectangleListener getRectangleListener() {
         return rectangleListener;
     }
+    public OvalListener getOvalListener() {
+        return ovalListener;
+    }
+    public RectangleDrawListener getRectangleDrawListener() {
+        return rectangleDrawListener;
+    }
+
+    public LineListener getLineListener() {
+        return lineListener;
+    }
+    /* 
+    public LineListener getLineListener() {
+        return lineListener;
+    } */
     
+    public void removeAllListeners() {
+        removeMouseListener(rectangleListener);
+        removeMouseMotionListener(rectangleListener);
+        removeMouseListener(ovalListener);
+        removeMouseMotionListener(ovalListener);
+        removeMouseListener(rectangleListener);
+        removeMouseMotionListener(rectangleListener);
+    }
 
 }

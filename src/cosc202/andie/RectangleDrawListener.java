@@ -6,18 +6,20 @@ import java.awt.image.*;
 import java.awt.event.*;
 import javax.swing.event.*;
 
+import org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.RegexConversion;
+
 
 /** https://docs.oracle.com/javase/tutorial/uiswing/events/mousemotionlistener.html was used to help create the intital rectangle selection 
      * for imagePanel. From there it was adpated to suit ANDIE.
      */
-public class RectangleListener extends ShapeListener {
+public class RectangleDrawListener extends ShapeListener {
 
     
     private Rectangle initialRectangle = new Rectangle(0, 0, 0, 0);
     private Rectangle rectToDraw = new Rectangle(0, 0, 0, 0);
     private Rectangle currentRectangle = new Rectangle(0, 0, 0, 0);
 
-    public RectangleListener(ImagePanel target) {
+    public RectangleDrawListener(ImagePanel target) {
         super(target);
     }
 
@@ -51,20 +53,20 @@ public class RectangleListener extends ShapeListener {
     }
 
     public void mouseReleased(MouseEvent e) {
-        if(select) {
-            updateSize(e);
-        } else {
-            updateDrawableShape(0, 0);
-            target.repaint();
-        }
+        currentRectangle.setBounds(rectToDraw);
+        target.getImage().apply(new DrawRectangle(currentRectangle));
+        this.setShapesToZero();
+        target.removeRectangleDrawListener();
+        target.repaint();
+        select = false;
     }
+
     void updateSize(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
         initialRectangle.setSize(x - initialRectangle.x, y - initialRectangle.y);
         updateDrawableShape(target.getImage().getCurrentImage().getWidth(), target.getImage().getCurrentImage().getHeight());
         target.repaint();
-        if(select) currentRectangle = new Rectangle(rectToDraw);
     }
 
     protected void updateDrawableShape(double compWidth, double compHeight) {

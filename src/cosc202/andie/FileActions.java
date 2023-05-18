@@ -155,6 +155,7 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                target.removeAllListeners();
                 try {
                     target.getImage().save();           
                 } catch (Exception ex) {
@@ -205,6 +206,7 @@ public class FileActions {
         public void actionPerformed(ActionEvent e) {
 
             if(EditableImage.hasImage()){
+                target.removeAllListeners();
                 JFileChooser fileChooser = new JFileChooser();
                 int result = fileChooser.showSaveDialog(target);
 
