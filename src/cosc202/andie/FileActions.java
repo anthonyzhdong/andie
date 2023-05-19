@@ -125,7 +125,7 @@ public class FileActions {
      * 
      * @see EditableImage#save()
      */
-    public class FileSaveAction extends ImageAction {
+    public static class FileSaveAction extends ImageAction {
 
         /**
          * <p>

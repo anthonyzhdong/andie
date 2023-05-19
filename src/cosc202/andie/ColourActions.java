@@ -30,8 +30,8 @@ public class ColourActions {
     
     /** A list of actions for the Colour menu. */
     protected ArrayList<Action> actions;
-    private int brightnessDegree;
-    private int contrastDegree;
+    private static int brightnessDegree;
+    private static int contrastDegree;
     /**
      * <p>
      * Create a set of Colour menu actions.
@@ -110,7 +110,7 @@ public class ColourActions {
 
     
 
-    public class BrightnessContrastAction extends ImageAction {
+    public static class BrightnessContrastAction extends ImageAction {
         /**
          * <p>
          * Create a new brightness action.
