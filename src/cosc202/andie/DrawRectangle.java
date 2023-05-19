@@ -41,7 +41,7 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
 
      public DrawRectangle(Rectangle r) {
         rect = r;
-        c = Color.white;
+        c = Color.black;
      }
     /**
      * <p>
@@ -59,6 +59,11 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
 
         output = new BufferedImage(width,height,input.TYPE_INT_ARGB);
 
+        lineWidth = 5;
+        filled = false;
+        //Color(int r,int g,int b,int a) values are in range of 0-255
+        
+        System.out.println(ColourActions.transparencyNum);
         Graphics2D g = output.createGraphics();
         g.drawImage(input,0,0,null);
         g.setColor(c);
@@ -67,6 +72,7 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
         g.setStroke(new BasicStroke(lineWidth));
         //fills rectangle w colour above
        // g.fillRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
+
         //shows outline
         if(filled) g.fillRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
         else g.drawRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
