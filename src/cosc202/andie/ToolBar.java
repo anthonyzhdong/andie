@@ -3,9 +3,11 @@ package cosc202.andie;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Image;
+import java.awt.*;
 import javax.imageio.*;
 import java.awt.event.*;
 import javax.swing.*;
+
 
  /**
  * <p>
@@ -60,6 +62,14 @@ public class ToolBar {
         Action undo = new EditActions.UndoAction(null, undoIcon, SettingsActions.bundle.getString("Undo"), Integer.valueOf(KeyEvent.VK_Z));
         JButton undoButton = new JButton(undo);
         toolbar.add(undoButton);
+
+        JComboBox jco = new JComboBox();
+        // works vertically but is scaled with the other buttons and width wont change
+        jco.setPreferredSize(new Dimension(5,100));
+        System.out.println(jco.getPreferredSize());
+        jco.addItem("Test1");
+        jco.addItem("Test2");
+        toolbar.add(jco);
 
         Image redoImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/redo24px.png"));
         Image redoSmallerImage = redoImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
