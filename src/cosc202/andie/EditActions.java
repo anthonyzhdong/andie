@@ -64,7 +64,7 @@ public class EditActions {
      * 
      * @see EditableImage#undo()
      */
-    public class UndoAction extends ImageAction {
+    public static class UndoAction extends ImageAction {
 
         /**
          * <p>
@@ -115,7 +115,7 @@ public class EditActions {
      * 
      * @see EditableImage#redo()
      */   
-    public class RedoAction extends ImageAction {
+    public static class RedoAction extends ImageAction {
 
         /**
          * <p>

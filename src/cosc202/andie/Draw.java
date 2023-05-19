@@ -34,7 +34,7 @@ public class Draw implements ImageOperation, java.io.Serializable  {
      private Point p;
      private Color c;
      private float lineWidth = 1;
-     private int radius = 20;
+     private int radius = 4;
  
      public Draw(Point p) {
          this.p = p;
@@ -61,20 +61,29 @@ public class Draw implements ImageOperation, java.io.Serializable  {
             int height = input.getHeight();
 
             output = new BufferedImage(width,height,input.TYPE_INT_ARGB);
+
+            adjustPoint();
             
-            Ellipse2D e2d = new Ellipse2D.Double(adjustPoint(p.getX() - radius), adjustPoint(p.getY() - radius), 2*(double)radius, 2*(double)radius);
+            Ellipse2D e2d = new Ellipse2D.Double(p.getX(), p.getY(), 2*(double)radius + 1, 2*(double)radius + 1);
             Graphics2D g2 = output.createGraphics();
             g2.drawImage(input,0,0,null);
-            g2.drawOval((int)e2d.getCenterX(), (int)e2d.getCenterY(), (int)e2d.getWidth(), (int)e2d.getHeight());
+            g2.fillOval((int)e2d.getX(), (int)e2d.getY(), (int)e2d.getWidth(), (int)e2d.getHeight());
             g2.dispose();
             return output;
         }
 
-        private double adjustPoint(double value) {
-            if(value > input.getWidth-1);
-            if(value > input.getHeight-1);
-            if(value < )
+        private Point adjustPoint() {
+            double x = this.p.getX();
+            double y = this.p.getY();
+            x = x - radius;
+            y = y - radius;
+            if(x < 0) x = 0;
+            if(y < 0) y = 0;
+
+            this.p = new Point((int)x, (int)y);
+            return p;
         }
+
     }
     
 

@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.tools.Tool;
 import javax.imageio.*;
 
 /**
@@ -32,6 +33,7 @@ public class Andie {
     public static JFrame frame = new JFrame("ANDIE");
     public static JMenuBar menuBar = createMenuBar();;
     public static boolean status = true;
+    public static ImagePanel imagePanel = new ImagePanel();
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -64,7 +66,9 @@ public class Andie {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // The main content area is an ImagePanel
-        ImagePanel imagePanel = new ImagePanel();
+        ToolBar.createToolBar(null);
+        Hotkeys hotkeys = new Hotkeys();
+        hotkeys.createDefaultHotkeys(imagePanel);
         
         
         ImageAction.setTarget(imagePanel);
