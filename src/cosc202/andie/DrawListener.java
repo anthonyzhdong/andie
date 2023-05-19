@@ -66,7 +66,7 @@ public class DrawListener extends ShapeListener {
         int x = e.getX();
         int y = e.getY();
         pointToDraw.setLocation(x, y);
-        target.getImage().apply(new Draw(pointToDraw));
+        target.getImage().tempApplyBrightnessContrast(new Draw(pointToDraw));
         target.repaint();
     }
 
