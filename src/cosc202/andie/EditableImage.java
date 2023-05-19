@@ -39,7 +39,7 @@ class EditableImage {
     /** The current image, the result of applying {@link ops} to {@link original}. */
     private static BufferedImage current;
     /** The sequence of operations currently applied to the image. */
-    private Stack<ImageOperation> ops;
+    private static Stack<ImageOperation> ops;
     /** A memory of 'undone' operations to support 'redo'. */
     private Stack<ImageOperation> redoOps;
     /** The file where the original image is stored/ */
@@ -136,15 +136,7 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void open(String filePath) throws Exception {
-        if(saved == false) {
-            int option =  JOptionPane.showConfirmDialog(null, SettingsActions.bundle.getString("NotSavedMessage"), SettingsActions.bundle.getString("WantToSaveTitle"), JOptionPane.YES_NO_CANCEL_OPTION);
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.YES_OPTION) {
-                save();
-                saved = true;
-            } 
-        }
+
         imageFilename = filePath;
         opsFilename = imageFilename + ".ops";
         File imageFile = new File(imageFilename);
@@ -252,11 +244,14 @@ class EditableImage {
      * 
      * @param op The operation to apply.
      */
-    public void apply(ImageOperation op) {
+    public static void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
         saved = false;
     }
+
+
+
     //Seperate option for brightness functionality
     public void tempApplyBrightnessContrast(ImageOperation op) {
         current = op.apply(current);
@@ -322,7 +317,9 @@ class EditableImage {
         }
     }
 
-
+    public static Stack<ImageOperation> getOps() {
+        return ops;
+    }
 
     
 

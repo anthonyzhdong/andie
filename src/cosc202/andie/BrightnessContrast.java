@@ -23,7 +23,8 @@ import java.awt.Color;
 public class BrightnessContrast implements ImageOperation, java.io.Serializable {
 
     private int brightnessDegree;
-    private int contrastDegree;
+    private 
+    int contrastDegree;
 
     /**
      * <p>

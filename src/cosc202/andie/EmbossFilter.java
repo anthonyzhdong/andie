@@ -30,6 +30,7 @@ public class EmbossFilter implements ImageOperation, java.io.Serializable {
      */
     private int radius;
     private String type;
+    private boolean sN = false;
 
     /**
      * <p>
@@ -48,6 +49,11 @@ public class EmbossFilter implements ImageOperation, java.io.Serializable {
         this.type = type;  
     }
 
+    EmbossFilter(String type, boolean t) {
+        this.type = type;  
+        this.sN = t;
+    }
+
     /**
      * <p>
      * Construct a Mean filter with the default size.
@@ -62,6 +68,7 @@ public class EmbossFilter implements ImageOperation, java.io.Serializable {
     EmbossFilter() {
         this("Center Left");
     }
+
 
     /**
      * <p>
@@ -122,6 +129,8 @@ public class EmbossFilter implements ImageOperation, java.io.Serializable {
             array[8] = 1/2;
         }
 
+        if (sN == true) {input = shiftNegative.fixNegative(input);}
+        
         
         // Make a 3x3 filter from the array
         Kernel kernel = new Kernel(3, 3, array);
@@ -132,6 +141,7 @@ public class EmbossFilter implements ImageOperation, java.io.Serializable {
 
         return output;
     }
+
 
 
 
