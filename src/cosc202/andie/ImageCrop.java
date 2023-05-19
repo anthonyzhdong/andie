@@ -1,10 +1,22 @@
 package cosc202.andie;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
+
+import javax.swing.*;
+import java.awt.image.*;
+import java.awt.event.*;
+
+import javax.swing.event.*;
 
 public class ImageCrop implements ImageOperation, java.io.Serializable {
-    public ImageCrop() {}
+
+    private BufferedImage output;
+    private Rectangle toChange;
+
+    public ImageCrop(Rectangle r) {
+        toChange = r;
+    }
+
 
     /**
      * <p>
@@ -17,13 +29,20 @@ public class ImageCrop implements ImageOperation, java.io.Serializable {
      * @return The resulting rotated (270 degree) image.
      */
     public BufferedImage apply(BufferedImage input){
-        Rectangle selectedArea = ImageAction.getTarget().getinitialRectangle();
-        BufferedImage output = new BufferedImage((int)selectedArea.getWidth(), (int)selectedArea.getHeight(), 2);
-        for(int x = (int)selectedArea.getX(); x < (int)(selectedArea.getX() + selectedArea.getWidth()); x++) {
-            for(int y = (int)selectedArea.getY(); y < (int)(selectedArea.getY() + selectedArea.getHeight()); y++) {
-                output.setRGB(x, y, input.getRGB(x, y));
+        output = new BufferedImage((int)toChange.getWidth(), (int)toChange.getHeight(), 2);
+        int outputX = 0;
+        for(int x = (int)toChange.getX(); x < (int)(toChange.getX() + toChange.getWidth()); x++) {
+            int outputY = 0;
+            for(int y = (int)toChange.getY(); y < (int)(toChange.getY() + toChange.getHeight()); y++) {
+                output.setRGB(outputX, outputY, input.getRGB(x, y));
+                outputY++;
             }
+            outputX++;
         }
+        //original.setCurrentRectangleToNull();
+
+
         return output;
     }
+
 }

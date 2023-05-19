@@ -28,6 +28,7 @@ import java.awt.image.BufferedImage;
  */
 public interface ImageOperation {
 
+    
     /**
      * Apply the operation to an image.
      * 

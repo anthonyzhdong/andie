@@ -30,7 +30,8 @@ public class Andie {
     //Launches GUI frame for application (outside so accessable for other classes)
     
     public static JFrame frame = new JFrame("ANDIE");
-
+    public static JMenuBar menuBar = createMenuBar();;
+    public static boolean status = true;
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -69,9 +70,7 @@ public class Andie {
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
-        
-        
-        frame.setJMenuBar(createMenuBar());
+        frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
     }
@@ -114,6 +113,17 @@ public class Andie {
 
 
         return menuBar;
+    }
+
+    public static void setMenuBarStatus(boolean b) {
+        for(int i = 0; i < menuBar.getMenuCount(); i++){
+            menuBar.getMenu(i).setEnabled(b);
+        }
+        status = b;
+    }
+
+    public static boolean getMenuBarStatus() {
+        return status;
     }
     /**
      * <p>

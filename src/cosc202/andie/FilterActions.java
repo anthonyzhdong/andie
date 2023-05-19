@@ -97,7 +97,8 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if(EditableImage.hasImage()){
+                if(EditableImage.hasImage()){
+                if(target.getShapeListener() != null) target.removeShapeListener();
                 // Determine the radius - ask the user.
                 int radius = 1;
 
@@ -160,7 +161,8 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if(EditableImage.hasImage()){
+                if(EditableImage.hasImage()){
+                if(target.getShapeListener() != null) target.removeShapeListener();
                 // Determine the radius - ask the user.
                 int radius = 1;
 
@@ -194,7 +196,8 @@ public class FilterActions {
         super(name, icon, desc, mnemonic);
         }
         public void actionPerformed(ActionEvent e) {
-            if(EditableImage.hasImage()){
+                if(EditableImage.hasImage()){
+                if(target.getShapeListener() != null) target.removeShapeListener();
             // Create and apply the filter
                 target.getImage().apply(new SoftBlur());
                 target.repaint();
@@ -252,7 +255,8 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
          public void actionPerformed(ActionEvent e) {
-             if(EditableImage.hasImage()){
+                if(EditableImage.hasImage()){
+                if(target.getShapeListener() != null) target.removeShapeListener();
                  // Determine the radius - ask the user.
                  int radius = 1;
  
@@ -326,6 +330,7 @@ public class FilterActions {
         */
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                if(target.getShapeListener() != null) target.removeShapeListener();
                 // Determine the radius - ask the user.
                 int radius = 1;
 

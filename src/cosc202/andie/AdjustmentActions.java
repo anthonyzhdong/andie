@@ -1,12 +1,17 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.util.Formatter.BigDecimalLayoutForm;
+import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+
+import java.lang.Runnable;
+import java.math.BigInteger;
 
 /**
  * <p>
@@ -43,9 +48,13 @@ public class AdjustmentActions{
      actions.add(new RotationLeftAction(SettingsActions.bundle.getString("RotateLeft"), null, SettingsActions.bundle.getString("RotateLeftMessage"), Integer.valueOf(KeyEvent.VK_L)));
      actions.add(new FlipHorizontalAction(SettingsActions.bundle.getString("FlipHorizontally"), null, SettingsActions.bundle.getString("FlipHorizontalMessage"), Integer.valueOf(KeyEvent.VK_H)));
      actions.add(new FlipVerticalAction(SettingsActions.bundle.getString("FlipVertically"), null, SettingsActions.bundle.getString("FlipVerticalMessage"), Integer.valueOf(KeyEvent.VK_V)));
+     actions.add(new RectangularSelectAction(SettingsActions.bundle.getString("RectangularSelect"), null, SettingsActions.bundle.getString("RectangularSelectMessage"), Integer.valueOf(KeyEvent.VK_V)));
      actions.add(new ImageCropAction(SettingsActions.bundle.getString("ImageCrop"), null, SettingsActions.bundle.getString("ImageCropMessage"), Integer.valueOf(KeyEvent.VK_V)));
-
- }
+     actions.add(new DrawRectangleAction(SettingsActions.bundle.getString("DrawRectangle"),null,SettingsActions.bundle.getString("DrawRectangleMessage"), Integer.valueOf(KeyEvent.VK_R)));
+     actions.add(new DrawOvalAction(SettingsActions.bundle.getString("DrawOval"),null,SettingsActions.bundle.getString("DrawOvalMessage"), Integer.valueOf(KeyEvent.VK_R)));
+     actions.add(new DrawLineAction(SettingsActions.bundle.getString("DrawLine"),null,SettingsActions.bundle.getString("DrawLineMessage"), Integer.valueOf(KeyEvent.VK_R)));
+     actions.add(new DrawAction(SettingsActions.bundle.getString("Draw"),null,SettingsActions.bundle.getString("DrawMessage"), Integer.valueOf(KeyEvent.VK_R)));
+}
      /**
      * <p>
      * Create a menu contianing the list of Adjustment actions.
@@ -101,6 +110,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                if(target.getShapeListener() != null) target.removeShapeListener();
                 BufferedImage originalTarget = target.getImage().getCurrentImage();
                 BufferedImage copyTarget = target.getImage().getCurrentImage();
                 
@@ -178,13 +188,13 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                if(target.getShapeListener() != null) target.removeShapeListener();
                 target.getImage().apply(new Rotation180());
                 target.repaint();
                 target.getParent().revalidate();
             } else {
                 ErrorHandling.NoFileOpenError();
         }
-            
         }
     }
 
@@ -218,13 +228,13 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                if(target.getShapeListener() != null) target.removeShapeListener();
                 target.getImage().apply(new RotationRight());
                 target.repaint();
                 target.getParent().revalidate();
             } else {
                 ErrorHandling.NoFileOpenError();
         }
-            
         }
     }
     public class RotationLeftAction extends ImageAction{
@@ -257,13 +267,13 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                if(target.getShapeListener() != null) target.removeShapeListener();
                 target.getImage().apply(new RotationLeft());
                 target.repaint();
                 target.getParent().revalidate();
             } else {
                 ErrorHandling.NoFileOpenError();
         }
-            
         }
     }
     public class FlipHorizontalAction
@@ -298,6 +308,7 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
+                if(target.getShapeListener() != null) target.removeShapeListener();
                 target.getImage().apply(new FlipHorizontal());
                 target.repaint();
                 target.getParent().revalidate();
@@ -338,6 +349,7 @@ public class AdjustmentActions{
 
        public void actionPerformed(ActionEvent e) {
            if(EditableImage.hasImage()){
+                if(target.getShapeListener() != null) target.removeShapeListener();
                target.getImage().apply(new FlipVertical());
                target.repaint();
                target.getParent().revalidate();
@@ -345,12 +357,60 @@ public class AdjustmentActions{
                ErrorHandling.NoFileOpenError();
            }
        }
-   }
+   } 
+
+   public class RectangularSelectAction extends ImageAction{
+    /**
+    * <p>
+    * Create a new ImageCrop action.
+    * </p>
+    * 
+    * @param name The name of the action (ignored if null).
+    * @param icon An icon to use to represent the action (ignored if null).
+    * @param desc A brief description of the action  (ignored if null).
+    * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+    */
+    RectangularSelectAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        super(name, icon, desc, mnemonic);
+    }
+
+    /**
+    * <p>
+    * Callback for when the FlipVerticalAction is triggered.
+    * </p>
+    * 
+    * <p>
+    * This method is called whenever the FlipVerticalAction is triggered.
+    * It flips the image pixels vertically.
+    * </p>
+    * 
+    * @param e The event triggering this callback.
+    */
+
+
+    public void actionPerformed(ActionEvent e) {
+        if(target.getShapeListener() != null) target.removeShapeListener();
+        if(EditableImage.hasImage()) {
+            RectangleListener r = new RectangleListener(target);
+            if(RectangleListener.getSelect() == true) return;
+            RectangleListener.setSelect(true);
+            target.addShapeListener(r);
+        } else {
+            ErrorHandling.NoFileOpenError();
+        }
+    }
+}
+
+
+
+
+
+
 
     public class ImageCropAction extends ImageAction{
         /**
         * <p>
-        * Create a new FlipVertical action.
+        * Create a new ImageCrop action.
         * </p>
         * 
         * @param name The name of the action (ignored if null).
@@ -378,12 +438,170 @@ public class AdjustmentActions{
 
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
-                target.getImage().apply(new ImageCrop());
+                RectangleListener r = new RectangleListener(target);
+                if(target.getShapeListener() != null) r = (RectangleListener)target.getShapeListener();
+                target.getImage().apply(new ImageCrop(r.getCurrentRectangle()));
+                RectangleListener.setSelect(false);
+                target.getShapeListener().setShapesToZero();
+                target.removeShapeListener();
                 target.repaint();
                 target.getParent().revalidate();
             } else {
                 ErrorHandling.NoFileOpenError();
             }
+        }
+    }
+    public class DrawRectangleAction extends ImageAction{
+        /**
+         * <p>
+         * Create a new RotationLeft action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        DrawRectangleAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+                /**
+         * <p>
+         * Callback for when the RotationLeft action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the RotationLeftAction is triggered.
+         * It rotates the image 90 degrees to the left.
+         * 
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+
+        public void actionPerformed(ActionEvent e) {
+            if(target.getShapeListener() != null) target.removeShapeListener();
+            if(EditableImage.hasImage()){
+                target.addShapeListener(new RectangleDrawListener(target));
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
+        }
+
+        
+    }
+    public class DrawOvalAction extends ImageAction{
+        /**
+         * <p>
+         * Create a new RotationLeft action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        DrawOvalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+                /**
+         * <p>
+         * Callback for when the RotationLeft action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the RotationLeftAction is triggered.
+         * It rotates the image 90 degrees to the left.
+         * 
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+
+        public void actionPerformed(ActionEvent e) {
+            if(target.getShapeListener() != null) target.removeShapeListener();
+            if(EditableImage.hasImage()){
+                target.addShapeListener(new OvalListener(target));
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
+        }
+    }
+
+    public class DrawLineAction extends ImageAction{
+        /**
+         * <p>
+         * Create a new RotationLeft action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        DrawLineAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+                /**
+         * <p>
+         * Callback for when the RotationLeft action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the RotationLeftAction is triggered.
+         * It rotates the image 90 degrees to the left.
+         * 
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+
+        public void actionPerformed(ActionEvent e) {
+            if(target.getShapeListener() != null) target.removeShapeListener();
+            if(EditableImage.hasImage()) {
+                target.addShapeListener(new LineListener(target));
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
+            
+        }
+    }
+    public class DrawAction extends ImageAction{
+        /**
+         * <p>
+         * Create a new RotationLeft action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        DrawAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+                /**
+         * <p>
+         * Callback for when the RotationLeft action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the RotationLeftAction is triggered.
+         * It rotates the image 90 degrees to the left.
+         * 
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+
+        public void actionPerformed(ActionEvent e) {
+            if(target.getShapeListener() != null) target.removeShapeListener();
+            if(EditableImage.hasImage()) {
+                target.addShapeListener(new DrawListener(target));
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
+            
         }
     }
 }

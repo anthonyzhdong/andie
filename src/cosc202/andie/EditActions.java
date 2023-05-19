@@ -26,6 +26,8 @@ public class EditActions {
     
     /** A list of actions for the Edit menu. */
     protected ArrayList<Action> actions;
+    private boolean process;
+
 
     /**
      * <p>
@@ -95,6 +97,7 @@ public class EditActions {
                 ErrorHandling.NoFileOpenError();
                 return;
             }
+            if(target.getShapeListener() != null) target.removeShapeListener();
             try {
                 target.getImage().undo();
                 target.repaint();
@@ -102,7 +105,6 @@ public class EditActions {
             } catch(Exception ex) {
                 ErrorHandling.NoUndoError();
             }
-            
         }
     }
 
@@ -147,6 +149,7 @@ public class EditActions {
                 ErrorHandling.NoFileOpenError();
                 return;
             }
+            if(target.getShapeListener() != null) target.removeShapeListener();
             try {
                 target.getImage().redo();
                 target.repaint();
@@ -156,5 +159,4 @@ public class EditActions {
             }
         }
     }
-
 }
