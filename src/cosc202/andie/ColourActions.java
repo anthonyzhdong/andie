@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.Color;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
@@ -32,6 +33,8 @@ public class ColourActions {
     protected ArrayList<Action> actions;
     private static int brightnessDegree;
     private static int contrastDegree;
+    private static double transparencyScale;
+    public static double transparencyNum = 1.0;
     /**
      * <p>
      * Create a set of Colour menu actions.
@@ -41,6 +44,7 @@ public class ColourActions {
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction(SettingsActions.bundle.getString("Greyscale"), null, SettingsActions.bundle.getString("GreyscaleConvert"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new BrightnessContrastAction(SettingsActions.bundle.getString("BrightnessContrast"), null, SettingsActions.bundle.getString("AlterBrightness"), Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new ColourPickerAction(SettingsActions.bundle.getString("ColourPicker"), null, SettingsActions.bundle.getString("ChangeColour"), Integer.valueOf(KeyEvent.VK_C)));
     }
 
     /**
@@ -243,6 +247,102 @@ public class ColourActions {
             }
             
         }
+        
     }
+
+
+    
+    public class ColourPickerAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new convert-to-grey action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        ColourPickerAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the convert-to-grey action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ConvertToGreyAction is triggered.
+         * It changes the image to greyscale.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            if(EditableImage.hasImage()){
+                if(target.getShapeListener() != null) target.removeShapeListener();
+
+                
+
+
+
+                BufferedImage originalTarget = target.getImage().getCurrentImage();
+                
+                // Pop-up dialog box to ask for the radius value.
+                JSlider transparencySlider = new JSlider(1, 10, (int)(transparencyNum*10));
+                JLabel transparencyLabel = new JLabel("Transparency : " + transparencyNum + "%");
+                
+                class TransparencySliderListener implements ChangeListener {
+                
+                    public void stateChanged(ChangeEvent e) {
+                        transparencyScale = transparencySlider.getValue();
+                        if(transparencyScale == 0){
+                            transparencyScale = 1;
+                        }
+                        transparencyLabel.setText("Transparency : " + transparencyScale/10 + "%");
+                       // target.getImage().setCurrentImage(copyTarget);
+                       // target.getImage().tempApplyBrightnessContrast(new ResizeLarger(scale));
+                        target.repaint();
+                        target.getParent().revalidate();
+                    }
+                }
+
+                TransparencySliderListener tsl = new TransparencySliderListener();
+                transparencySlider.addChangeListener(tsl);
+
+                JComponent[] labels = new JComponent[]  {transparencySlider, transparencyLabel};
+               
+                int optionSize = JOptionPane.showOptionDialog(null, labels, SettingsActions.bundle.getString("ChangeColour"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+            
+                if (optionSize == JOptionPane.CANCEL_OPTION) {
+                    target.getImage().setCurrentImage(originalTarget);
+                    target.repaint();
+                    target.getParent().revalidate();
+                    return;
+                } else if (optionSize == JOptionPane.OK_OPTION) {
+                    target.getImage().setCurrentImage(originalTarget);
+                    transparencyNum = transparencyScale/10.0;
+                   // target.getImage().apply(new ResizeLarger(scale));
+                   //rgb values are changed
+                    target.repaint();
+                    target.getParent().revalidate();
+                }
+
+                
+                
+                target.removeShapeListener();;
+               // target.getImage().apply(new ColourPicker());
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
+        }
+
+    }
+
+    
 
 }
