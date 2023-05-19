@@ -3,8 +3,10 @@ package cosc202.andie;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.image.*;
+import java.util.*;
 import java.awt.event.*;
 import java.awt.geom.Line2D;
+
 
 import javax.swing.event.*;
 
@@ -20,6 +22,7 @@ public class DrawListener extends ShapeListener {
     private Point pointToDraw = new Point(0, 0);
     private Color shapeColor;
     private int radius;
+    private Collection<Point> points = new ArrayList<>(); 
 
     public DrawListener(ImagePanel target, Color shapeColor, int radius) {
         super(target);
@@ -67,6 +70,7 @@ public class DrawListener extends ShapeListener {
         int y = e.getY();
         pointToDraw.setLocation(x, y);
         target.getImage().tempApplyBrightnessContrast(new Draw(pointToDraw));
+        points.add(pointToDraw);
         target.repaint();
     }
 
