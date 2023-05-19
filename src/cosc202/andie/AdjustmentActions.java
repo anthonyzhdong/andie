@@ -43,7 +43,8 @@ public class AdjustmentActions{
      actions.add(new RotationLeftAction(SettingsActions.bundle.getString("RotateLeft"), null, SettingsActions.bundle.getString("RotateLeftMessage"), Integer.valueOf(KeyEvent.VK_L)));
      actions.add(new FlipHorizontalAction(SettingsActions.bundle.getString("FlipHorizontally"), null, SettingsActions.bundle.getString("FlipHorizontalMessage"), Integer.valueOf(KeyEvent.VK_H)));
      actions.add(new FlipVerticalAction(SettingsActions.bundle.getString("FlipVertically"), null, SettingsActions.bundle.getString("FlipVerticalMessage"), Integer.valueOf(KeyEvent.VK_V)));
-     
+     actions.add(new ImageCropAction(SettingsActions.bundle.getString("ImageCrop"), null, SettingsActions.bundle.getString("ImageCropMessage"), Integer.valueOf(KeyEvent.VK_V)));
+
  }
      /**
      * <p>
@@ -345,4 +346,44 @@ public class AdjustmentActions{
            }
        }
    }
+
+    public class ImageCropAction extends ImageAction{
+        /**
+        * <p>
+        * Create a new FlipVertical action.
+        * </p>
+        * 
+        * @param name The name of the action (ignored if null).
+        * @param icon An icon to use to represent the action (ignored if null).
+        * @param desc A brief description of the action  (ignored if null).
+        * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+        */
+        ImageCropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+        * <p>
+        * Callback for when the FlipVerticalAction is triggered.
+        * </p>
+        * 
+        * <p>
+        * This method is called whenever the FlipVerticalAction is triggered.
+        * It flips the image pixels vertically.
+        * </p>
+        * 
+        * @param e The event triggering this callback.
+        */
+
+
+        public void actionPerformed(ActionEvent e) {
+            if(EditableImage.hasImage()){
+                target.getImage().apply(new ImageCrop());
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
+        }
+    }
 }
