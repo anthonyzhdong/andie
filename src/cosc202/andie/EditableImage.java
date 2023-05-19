@@ -136,15 +136,7 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void open(String filePath) throws Exception {
-        if(saved == false) {
-            int option =  JOptionPane.showConfirmDialog(null, SettingsActions.bundle.getString("NotSavedMessage"), SettingsActions.bundle.getString("WantToSaveTitle"), JOptionPane.YES_NO_CANCEL_OPTION);
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.YES_OPTION) {
-                save();
-                saved = true;
-            } 
-        }
+
         imageFilename = filePath;
         opsFilename = imageFilename + ".ops";
         File imageFile = new File(imageFilename);

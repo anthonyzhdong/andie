@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Stack;
 
 import javax.swing.*;
@@ -30,6 +31,9 @@ import javax.swing.*;
 
 public class Hotkeys extends ImageAction {
 
+    static HashMap<String, Action> hotkeys = new HashMap<String, Action>();
+    static HashMap<String, Stack<ImageOperation>> macros = new HashMap<String, Stack<ImageOperation>>();
+
     public Hotkeys() {
         super(null, null, null, null);
     }
@@ -41,16 +45,20 @@ public class Hotkeys extends ImageAction {
     public void createDefaultHotkeys(ImagePanel target) {
 
         target.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK), "Open");   
-        target.getActionMap().put("Open", openAction);   
+        target.getActionMap().put("Open", openAction); 
+        hotkeys.put("Open", openAction);
 
         target.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK), "Save");   
         target.getActionMap().put("Save", saveAction);   
+        hotkeys.put("Save", saveAction);
 
         target.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK), "Undo");   
         target.getActionMap().put("Undo", undoAction);   
+        hotkeys.put("Undo", undoAction);
 
         target.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Exit");   
-        target.getActionMap().put("Exit", exitAction);   
+        target.getActionMap().put("Exit", exitAction);  
+        hotkeys.put("Exit", exitAction);    
     }
 
 
@@ -131,10 +139,12 @@ public class Hotkeys extends ImageAction {
 
     public static void createNewHotkey(Stack<ImageOperation> ops, String macroName, ArrayList<Integer> keystrokes) {
 
+        macros.put(macroName, ops);
+
         Action newMacroAction = new AbstractAction(macroName) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (ImageOperation op : ops) {
+                for (ImageOperation op : macros.get(macroName)) {
                     try {
                         EditableImage.apply(op);
                     } catch (Exception ex) {
@@ -143,6 +153,8 @@ public class Hotkeys extends ImageAction {
                 }
             }
         };
+
+        hotkeys.put(macroName, newMacroAction);
         //need code to convert keystroke array into something that can be placed below
         //.toString().replaceFirst("(released )|(pressed )|(typed )", "");
         StringBuilder macroAsString = new StringBuilder();
@@ -151,8 +163,8 @@ public class Hotkeys extends ImageAction {
             macroAsString.append(" ");
         }
 
-        target.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(macroAsString.toString()), macroName);;
-        target.getActionMap().put(macroName, newMacroAction);   
+        target.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ctrl D"), macroName);
+        target.getActionMap().put(macroName, hotkeys.get(macroName));   
 
     }
 }
