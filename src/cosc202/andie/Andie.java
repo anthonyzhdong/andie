@@ -111,6 +111,9 @@ public class Andie {
         AdjustmentActions adjustmentActions = new AdjustmentActions();
         menuBar.add(adjustmentActions.createMenu());
 
+        ShapeActions shapeActions = new ShapeActions();
+        menuBar.add(shapeActions.createMenu());
+
         // Actions that affect the display or 'under the hood' components of Andie
         SettingsActions languageActions = new SettingsActions();
         menuBar.add(languageActions.createMenu());
