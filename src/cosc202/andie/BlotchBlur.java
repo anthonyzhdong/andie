@@ -47,7 +47,7 @@ public class BlotchBlur implements ImageOperation, java.io.Serializable {
      * @param radius The radius of the newly constructed MedianFilter
      */
     BlotchBlur(int radius) {
-        this.radius = radius;    
+        this.radius = radius;   
     }
 
     /**
@@ -97,8 +97,6 @@ public class BlotchBlur implements ImageOperation, java.io.Serializable {
                 int kernalIterator = 0;
                 for(int kernalY = 0; kernalY < (2*radius+1); kernalY++) {
                     for(int kernalX = 0; kernalX < (2*radius+1); kernalX++) {
-
-                        
 
                         if(y >= input.getHeight() - (2*radius+1) - 1 && x <= input.getWidth() - (2*radius+1) - 1) {
                             c = new Color(input.getRGB(x+kernalX-1, y-kernalY), true);

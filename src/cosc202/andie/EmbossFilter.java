@@ -60,7 +60,7 @@ public class EmbossFilter implements ImageOperation, java.io.Serializable {
      * @see MeanFilter(int)
      */
     EmbossFilter() {
-        this("CL");
+        this("Center Left");
     }
 
     /**
@@ -82,38 +82,38 @@ public class EmbossFilter implements ImageOperation, java.io.Serializable {
             0, 0, 0,
              0 , 0, 0 };
 
-        if (type == "CL") {
+        if (type == "Center Left") {
             array[3] = 1;
             array[5] = -1;
-        } else if(type == "TL") {
+        } else if(type == "Top Left") {
             array[0] = 1;
             array[8] = -1;
-        } else if(type == "TC") {
+        } else if(type == "Top Center") {
             array[1] = 1;
             array[7] = -1;
-        } else if(type == "TR") {
+        } else if(type == "Top Right") {
             array[2] = 1;
             array[6] = -1;
-        } else if(type == "CR") {
+        } else if(type == "Center Right") {
             array[5] = 1;
             array[3] = -1;
-        } else if(type == "BR") {
+        } else if(type == "Bottom Right") {
             array[8] = 1;
             array[0] = -1;
-        } else if(type == "BC") {
+        } else if(type == "Bottom Center") {
             array[7] = 1;
             array[1] = -1;
-        } else if(type == "BL") {
+        } else if(type == "Bottom Left") {
             array[6] = 1;
             array[2] = -1;
-        } else if(type == "SH") {
+        } else if(type == "Sobel Horizontal") {
             array[0] = -1/2;
             array[2] = 1/2;
             array[3] = -1;
             array[5] = 1;
             array[6] = -1/2;
             array[8] = 1/2;
-        } else if(type == "SV") {
+        } else if(type == "Sobel Vertical") {
             array[0] = -1/2;
             array[1] = -1;
             array[2] = -1/2;
