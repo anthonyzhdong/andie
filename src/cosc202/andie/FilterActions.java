@@ -301,9 +301,15 @@ public class FilterActions {
                     option = (String) JOptionPane.showInputDialog(null, "What emboss filter are you using?", "Choose filter option", JOptionPane.QUESTION_MESSAGE,
                 null, embossOptions, embossOptions[0]);
                 }
-                
+
+                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (option2 == JOptionPane.YES_OPTION) {
+                    target.getImage().apply(new EmbossFilter(option, true));
+                } 
+                else {target.getImage().apply(new EmbossFilter(option));}
+
                 // Create and apply the filter
-                target.getImage().apply(new EmbossFilter(option));
+                
                 target.repaint();
                 target.getParent().revalidate();
             } else {
