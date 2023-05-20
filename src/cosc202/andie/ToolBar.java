@@ -63,13 +63,15 @@ public class ToolBar {
         JButton undoButton = new JButton(undo);
         toolbar.add(undoButton);
 
+        /** 
         JComboBox jco = new JComboBox();
         // works vertically but is scaled with the other buttons and width wont change
         jco.setPreferredSize(new Dimension(5,5));
-        System.out.println(jco.getPreferredSize());
+       // System.out.println(jco.getPreferredSize());
         jco.addItem("Test1");
         jco.addItem("Test2");
         toolbar.add(jco);
+        */
 
         Image redoImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/redo24px.png"));
         Image redoSmallerImage = redoImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);

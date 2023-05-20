@@ -30,13 +30,13 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
      private Rectangle rect;
      private Color c;
      private float lineWidth = 1;
-     private boolean filled = true;
+    // private boolean filled = true;
  
-     public DrawRectangle(Rectangle r, Color c, float lineWidth, boolean filled) {
+     public DrawRectangle(Rectangle r, Color c, float lineWidth){// boolean filled) {
          rect = r;
          this.c = c;
          this.lineWidth = lineWidth;
-         this.filled = filled;
+        // this.filled = filled;
      }
 
      public DrawRectangle(Rectangle r) {
@@ -60,22 +60,28 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
         output = new BufferedImage(width,height,input.TYPE_INT_ARGB);
 
         lineWidth = 5;
-        filled = false;
+        
+        //filled = false;
         //Color(int r,int g,int b,int a) values are in range of 0-255
         
-        System.out.println(ColourActions.transparencyNum);
+        //System.out.println(ShapeActions.transparencyNum);
+
         Graphics2D g = output.createGraphics();
         g.drawImage(input,0,0,null);
         g.setColor(c);
         // to change thickness
         //g.setStroke(new BasicStroke(THICKNESSVARIABLE));
-        g.setStroke(new BasicStroke(lineWidth));
+        g.setStroke(new BasicStroke(ShapeActions.lineSize));
         //fills rectangle w colour above
-       // g.fillRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
 
         //shows outline
-        if(filled) g.fillRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
-        else g.drawRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
+        if(ShapeActions.filled){
+        
+        g.drawRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
+        g.fillRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
+        }else{
+        g.drawRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
+     }
         g.dispose();
         return output;
     }
