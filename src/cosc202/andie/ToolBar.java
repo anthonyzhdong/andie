@@ -65,7 +65,7 @@ public class ToolBar {
 
         JComboBox jco = new JComboBox();
         // works vertically but is scaled with the other buttons and width wont change
-        jco.setPreferredSize(new Dimension(5,100));
+        jco.setPreferredSize(new Dimension(5,5));
         System.out.println(jco.getPreferredSize());
         jco.addItem("Test1");
         jco.addItem("Test2");
