@@ -28,21 +28,15 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
 
      private BufferedImage output;
      private Rectangle rect;
-     private Color c;
-     private float lineWidth = 1;
+
     // private boolean filled = true;
  
-     public DrawRectangle(Rectangle r, Color c, float lineWidth){// boolean filled) {
+     public DrawRectangle(Rectangle r){// boolean filled) {
          rect = r;
-         this.c = c;
-         this.lineWidth = lineWidth;
         // this.filled = filled;
      }
 
-     public DrawRectangle(Rectangle r) {
-        rect = r;
-        c = Color.black;
-     }
+ 
     /**
      * <p>
      * Calculates the new dimensions by multiplying the initial dimensions by the scale,
@@ -54,34 +48,26 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
      * @return The resulting (resized) image.
      */
     public BufferedImage apply(BufferedImage input){
-        int width = input.getWidth();
-        int height = input.getHeight();
+         int width = input.getWidth();
+         int height = input.getHeight();
 
-        output = new BufferedImage(width,height,input.TYPE_INT_ARGB);
+         output = new BufferedImage(width,height,input.TYPE_INT_ARGB);
 
-        lineWidth = 5;
-        
-        //filled = false;
-        //Color(int r,int g,int b,int a) values are in range of 0-255
-        
-        //System.out.println(ShapeActions.transparencyNum);
+         Graphics2D g = output.createGraphics();
+         g.drawImage(input,0,0,null);
+         g.setStroke(new BasicStroke(ShapeActions.lineSize));
 
-        Graphics2D g = output.createGraphics();
-        g.drawImage(input,0,0,null);
-        g.setColor(c);
-        // to change thickness
-        //g.setStroke(new BasicStroke(THICKNESSVARIABLE));
-        g.setStroke(new BasicStroke(ShapeActions.lineSize));
-        //fills rectangle w colour above
 
-        //shows outline
-        if(ShapeActions.filled){
-        
-        g.drawRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
-        g.fillRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
-        }else{
-        g.drawRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
-     }
+         if(ShapeActions.shapeFill){
+         g.setColor(ShapeActions.shapeFillColour);
+         System.out.println(ShapeActions.shapeFillColour.getAlpha());
+         g.fillRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
+         g.setColor(ShapeActions.shapeOutlineColour);
+         g.drawRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
+         }else{
+         g.setColor(ShapeActions.shapeOutlineColour); 
+         g.drawRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
+      }
         g.dispose();
         return output;
     }

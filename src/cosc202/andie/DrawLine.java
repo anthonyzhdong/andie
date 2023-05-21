@@ -32,19 +32,13 @@ public class DrawLine implements ImageOperation, java.io.Serializable  {
 
      private BufferedImage output;
      private Line2D line2d;
-     private Color c;
-     private float lineWidth = 1;
+   
  
      public DrawLine(Line2D line2d) {
          this.line2d = line2d;
-         this.c = Color.white;
+        
      }
 
-     public DrawLine(Line2D line2d, Color c, float lineWidth) {
-        this.line2d = line2d;
-        this.c = c;
-        this.lineWidth = lineWidth;
-    }
     /**
      * <p>
      * Calculates the new dimensions by multiplying the initial dimensions by the scale,
@@ -63,13 +57,8 @@ public class DrawLine implements ImageOperation, java.io.Serializable  {
 
         Graphics2D g = output.createGraphics();
         g.drawImage(input,0,0,null);
-        g.setColor(c);
-        // to change thickness
-        //g.setStroke(new BasicStroke(THICKNESSVARIABLE));
-        g.setStroke(new BasicStroke(lineWidth));
-        //fills rectangle w colour above
-       // g.fillRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
-        //shows outline
+        g.setStroke(new BasicStroke(ShapeActions.lineSize));
+        g.setColor(ShapeActions.shapeOutlineColour); 
         g.drawLine((int)line2d.getX1(), (int)line2d.getY1(), (int)line2d.getX2(), (int)line2d.getY2());
         g.dispose();
         return output;

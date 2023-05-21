@@ -26,21 +26,11 @@ public class DrawOval implements ImageOperation, java.io.Serializable  {
 
      private BufferedImage output;
      private Ellipse2D ellipse2d;
-     private Color c;
-     private float lineWidth = 1;
-     private boolean filled = true;
- 
-     public DrawOval(Ellipse2D ellipse2d, Color c, float lineWidth, boolean filled) {
-         this.ellipse2d = ellipse2d;
-         this.c = c;
-         this.lineWidth = lineWidth;
-         this.filled = filled;
-     }
 
+ 
      public DrawOval(Ellipse2D ellipse2d) {
-        this.ellipse2d = ellipse2d;
-        this.c = Color.white;
-    }
+         this.ellipse2d = ellipse2d;
+     }
     /**
      * <p>
      * Calculates the new dimensions by multiplying the initial dimensions by the scale,
@@ -59,14 +49,19 @@ public class DrawOval implements ImageOperation, java.io.Serializable  {
 
         Graphics2D g = output.createGraphics();
         g.drawImage(input,0,0,null);
-        g.setColor(c);
-        // to change thickness
-        g.setStroke(new BasicStroke(lineWidth));
-        //fills rectangle w colour above
-        if(filled) g.fillOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
-        else g.drawOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
-        g.dispose();
-        return output;
+        g.setStroke(new BasicStroke(ShapeActions.lineSize));
+
+         if(ShapeActions.shapeFill){
+         g.setColor(ShapeActions.shapeFillColour);
+         g.fillOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
+         g.setColor(ShapeActions.shapeOutlineColour);
+         g.drawOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
+         }else{
+         g.setColor(ShapeActions.shapeOutlineColour); 
+         g.drawOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
+      }
+       g.dispose();
+       return output;
     }
     }
     
