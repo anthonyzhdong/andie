@@ -43,8 +43,8 @@ public class ShapeActions{
     public static boolean shapeFill = false;
     public static double transparencyNum = 1.0;
     public static int lineSize = 10;
-    public static Color shapeFillColour;
-    public static Color shapeOutlineColour;
+    public static Color shapeFillColour = Color.white;
+    public static Color shapeOutlineColour = Color.black;
 
  /**
   * <p>
@@ -53,12 +53,12 @@ public class ShapeActions{
   */
  public ShapeActions() {
      actions = new ArrayList<Action>();
+     actions.add(new ShapeOutlineAction(SettingsActions.bundle.getString("ShapeOutlineSettings"), null, SettingsActions.bundle.getString("ShapeOutlineSettingsMessage"), Integer.valueOf(KeyEvent.VK_C)));
+     actions.add(new ShapeFillAction(SettingsActions.bundle.getString("ShapeFillSettings"), null, SettingsActions.bundle.getString("ShapeFillSettingsMessage"), Integer.valueOf(KeyEvent.VK_C)));
      actions.add(new DrawRectangleAction(SettingsActions.bundle.getString("DrawRectangle"),null,SettingsActions.bundle.getString("DrawRectangleMessage"), Integer.valueOf(KeyEvent.VK_R)));
      actions.add(new DrawOvalAction(SettingsActions.bundle.getString("DrawOval"),null,SettingsActions.bundle.getString("DrawOvalMessage"), Integer.valueOf(KeyEvent.VK_R)));
      actions.add(new DrawLineAction(SettingsActions.bundle.getString("DrawLine"),null,SettingsActions.bundle.getString("DrawLineMessage"), Integer.valueOf(KeyEvent.VK_R)));
      actions.add(new DrawAction(SettingsActions.bundle.getString("Draw"),null,SettingsActions.bundle.getString("DrawMessage"), Integer.valueOf(KeyEvent.VK_R)));
-     actions.add(new ShapeFillAction(SettingsActions.bundle.getString("ShapeFillSettings"), null, SettingsActions.bundle.getString("ShapeFillSettingsMessage"), Integer.valueOf(KeyEvent.VK_C)));
-     actions.add(new ShapeOutlineAction(SettingsActions.bundle.getString("ShapeOutlineSettings"), null, SettingsActions.bundle.getString("ShapeOutlineSettingsMessage"), Integer.valueOf(KeyEvent.VK_C)));
 
 }
      /**
