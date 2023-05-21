@@ -41,8 +41,8 @@ public class ShapeActions{
     //private static boolean transparencySelected = false;
 
     public static boolean shapeFill = false;
-    public static double transparencyNum = 1.0;
-    public static int lineSize = 10;
+   // public static double transparencyNum = 1.0;
+    public static float lineSize = 10;
     public static Color shapeFillColour = Color.white;
     public static Color shapeOutlineColour = Color.black;
 
@@ -109,7 +109,7 @@ public class ShapeActions{
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
             if(EditableImage.hasImage()){
-                target.addShapeListener(new RectangleDrawListener(target));
+                target.addShapeListener(new RectangleDrawListener(target,shapeOutlineColour,shapeFillColour, lineSize, shapeFill));
             } else {
                 ErrorHandling.NoFileOpenError();
             }

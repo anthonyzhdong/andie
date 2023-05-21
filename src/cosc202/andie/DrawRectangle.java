@@ -28,13 +28,28 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
 
      private BufferedImage output;
      private Rectangle rect;
+     private Color shapeOutlineColour;
+     private Color shapeFillColour;
+     private float lineSize;
+     private boolean shapeFill;
 
+
+
+     public DrawRectangle(Rectangle r, Color shapeOC, Color shapeFC, float ls, boolean sf){
+        rect = r;
+        shapeOutlineColour = shapeOC;
+        shapeFillColour = shapeFC;
+        lineSize = ls;
+        shapeFill = sf;
+
+     }
     // private boolean filled = true;
  
      public DrawRectangle(Rectangle r){// boolean filled) {
          rect = r;
         // this.filled = filled;
      }
+     // create constructor that passes through the variables 
 
  
     /**
@@ -55,17 +70,17 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
 
          Graphics2D g = output.createGraphics();
          g.drawImage(input,0,0,null);
-         g.setStroke(new BasicStroke(ShapeActions.lineSize));
+         g.setStroke(new BasicStroke(lineSize));
 
 
-         if(ShapeActions.shapeFill){
-         g.setColor(ShapeActions.shapeFillColour);
-         System.out.println(ShapeActions.shapeFillColour.getAlpha());
+         if(shapeFill){
+         g.setColor(shapeFillColour);
+        // System.out.println(ShapeActions.shapeFillColour.getAlpha());
          g.fillRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
-         g.setColor(ShapeActions.shapeOutlineColour);
+         g.setColor(shapeOutlineColour);
          g.drawRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
          }else{
-         g.setColor(ShapeActions.shapeOutlineColour); 
+         g.setColor(shapeOutlineColour); 
          g.drawRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
       }
         g.dispose();

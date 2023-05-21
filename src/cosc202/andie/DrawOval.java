@@ -27,6 +27,8 @@ public class DrawOval implements ImageOperation, java.io.Serializable  {
      private BufferedImage output;
      private Ellipse2D ellipse2d;
 
+
+     // im doing these variables on monday
  
      public DrawOval(Ellipse2D ellipse2d) {
          this.ellipse2d = ellipse2d;
