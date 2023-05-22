@@ -22,8 +22,8 @@ import javax.swing.colorchooser.AbstractColorChooserPanel;
  * </p>
  * 
  * <p>
- * The Adjustments menu contains actions which change the dimensions of the image.
- * This includes image resize, image rotation and also the ability to flip an image.
+ * The Shapes menu contains actions which allow the user to customise a shape (color, line thickness and hollow or filled)
+ * and then draw either a rectangle, oval, line, or use a draw tool to follow the cursor.
  * 
  * </p>
  * 
@@ -31,7 +31,7 @@ import javax.swing.colorchooser.AbstractColorChooserPanel;
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
  * </p>
  * 
- * @author Steven Mills
+ * @author Anthony Dong
  * @version 1.0
  */
 public class ShapeActions{
@@ -66,10 +66,10 @@ public class ShapeActions{
 }
      /**
      * <p>
-     * Create a menu contianing the list of Adjustment actions.
+     * Create a menu contianing the list of Shape actions.
      * </p>
      * 
-     * @return The adjustment menu UI element.
+     * @return The shape menu UI element.
      */
     public JMenu createMenu() {
         JMenu fileMenu = new JMenu(SettingsActions.bundle.getString("Shapes"));
@@ -84,7 +84,7 @@ public class ShapeActions{
     public class DrawRectangleAction extends ImageAction{
         /**
          * <p>
-         * Create a new RotationLeft action.
+         * Create a new DrawRectangle action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -97,12 +97,13 @@ public class ShapeActions{
         }
                 /**
          * <p>
-         * Callback for when the RotationLeft action is triggered.
+         * Callback for when the DrawRectangle action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the RotationLeftAction is triggered.
-         * It rotates the image 90 degrees to the left.
+         * This method is called whenever the DrawRectangle is triggered.
+         * It adds a listener to the image panel which detects the next user click and drag
+         * and draws the according rectangle.
          * 
          * </p>
          * 
@@ -123,7 +124,7 @@ public class ShapeActions{
     public class DrawOvalAction extends ImageAction{
         /**
          * <p>
-         * Create a new RotationLeft action.
+         * Create a new DrawOval action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -140,8 +141,9 @@ public class ShapeActions{
          * </p>
          * 
          * <p>
-         * This method is called whenever the RotationLeftAction is triggered.
-         * It rotates the image 90 degrees to the left.
+         * This method is called whenever the DrawOval is triggered.
+         * It adds a listener to the image panel which detects the next user click and drag
+         * and draws the according oval.
          * 
          * </p>
          * 
@@ -161,7 +163,7 @@ public class ShapeActions{
     public class DrawLineAction extends ImageAction{
         /**
          * <p>
-         * Create a new RotationLeft action.
+         * Create a new DrawLine action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -174,13 +176,13 @@ public class ShapeActions{
         }
                 /**
          * <p>
-         * Callback for when the RotationLeft action is triggered.
+         * Callback for when the DrawLine action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the RotationLeftAction is triggered.
-         * It rotates the image 90 degrees to the left.
-         * 
+         * This method is called whenever the DrawLine is triggered.
+         * It adds a listener to the image panel which detects the next user click and drag
+         * and draws the according line.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -212,12 +214,13 @@ public class ShapeActions{
         }
                 /**
          * <p>
-         * Callback for when the RotationLeft action is triggered.
+         * Callback for when the Draw action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the RotationLeftAction is triggered.
-         * It rotates the image 90 degrees to the left.
+         * This method is called whenever the Draw is triggered.
+         * It adds a listener to the image panel which detects the next user click and drag
+         * and draws circles wherever the user drags until mouse release.
          * 
          * </p>
          * 
