@@ -46,6 +46,7 @@ public class ShapeActions{
     private static float lineSize = 8;
     private static Color shapeFillColour = Color.white;
     private static Color shapeOutlineColour = Color.black;
+    public static Color eyeDropper;
 
  /**
   * <p>
@@ -60,6 +61,7 @@ public class ShapeActions{
      actions.add(new DrawOvalAction(SettingsActions.bundle.getString("DrawOval"),null,SettingsActions.bundle.getString("DrawOvalMessage"), Integer.valueOf(KeyEvent.VK_R)));
      actions.add(new DrawLineAction(SettingsActions.bundle.getString("DrawLine"),null,SettingsActions.bundle.getString("DrawLineMessage"), Integer.valueOf(KeyEvent.VK_R)));
      actions.add(new DrawAction(SettingsActions.bundle.getString("Draw"),null,SettingsActions.bundle.getString("DrawMessage"), Integer.valueOf(KeyEvent.VK_R)));
+     actions.add(new EyeDropperAction(SettingsActions.bundle.getString("EyeDropper"),null,SettingsActions.bundle.getString("EyeDropperMessage"), Integer.valueOf(KeyEvent.VK_R)));
 
 }
      /**
@@ -269,7 +271,7 @@ public class ShapeActions{
                 JLabel checkBoxLabel = new JLabel("Shape Fill:");
                 JCheckBox checkBox = new JCheckBox("",shapeFill);
                 
-                JLabel interiorColourLabel = new JLabel("Select Interior Colour");
+                JLabel interiorColourLabel = new JLabel("Select Interior Colour:");
                 JColorChooser colourChooser = new JColorChooser();
                 
                 /** 
@@ -371,13 +373,13 @@ public class ShapeActions{
                     JLabel checkBoxLabel = new JLabel("Shape Outline:");
                     JCheckBox checkBox = new JCheckBox("",shapeOutline);
 
-                    JLabel outlineLabel = new JLabel("Select outline size");
+                    JLabel outlineLabel = new JLabel("Select outline size:");
 
                     Integer lineSizes[] = {2,4,6,8,12,16,20,25,30,50,100};
                     JComboBox<Integer> comboBox = new JComboBox<>(lineSizes);
                     comboBox.setSelectedItem((int)lineSize);
                     
-                    JLabel outlineColourLabel = new JLabel("Select outline colour");
+                    JLabel outlineColourLabel = new JLabel("Select outline colour:");
                     JColorChooser outlineColourChooser = new JColorChooser();
 
                     JComponent[] labels = new JComponent[]  {checkBoxLabel, checkBox, outlineLabel, comboBox,outlineColourLabel, outlineColourChooser};
@@ -405,6 +407,47 @@ public class ShapeActions{
                         target.repaint();
                         target.getParent().revalidate();
                     }
+                } else {
+                    ErrorHandling.NoFileOpenError();
+                }
+                
+            }
+        }
+        public class EyeDropperAction extends ImageAction{
+            /**
+             * <p>
+             * Create a new RotationLeft action.
+             * </p>
+             * 
+             * @param name The name of the action (ignored if null).
+             * @param icon An icon to use to represent the action (ignored if null).
+             * @param desc A brief description of the action  (ignored if null).
+             * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+             */
+            EyeDropperAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+                super(name, icon, desc, mnemonic);
+            }
+                    /**
+             * <p>
+             * Callback for when the RotationLeft action is triggered.
+             * </p>
+             * 
+             * <p>
+             * This method is called whenever the RotationLeftAction is triggered.
+             * It rotates the image 90 degrees to the left.
+             * 
+             * </p>
+             * 
+             * @param e The event triggering this callback.
+             */
+    
+            public void actionPerformed(ActionEvent e) {
+                if(target.getShapeListener() != null) target.removeShapeListener();
+                if(EditableImage.hasImage()) {
+                    //EyeDropperListener a = new EyeDropperListener(target);
+                    //target.addShapeListener(a);
+                    target.addShapeListener(new EyeDropperListener(target));
+                    //System.out.println(eyeDropper);
                 } else {
                     ErrorHandling.NoFileOpenError();
                 }
