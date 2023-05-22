@@ -1,20 +1,17 @@
 package cosc202.andie;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 
-import javax.sound.sampled.LineEvent;
-import javax.swing.*;
-
 /**
  * <p>
- * ImageOperation to change the size of the image.
+ * ImageOperation to draw a line on the image.
  * </p>
  * 
  * <p>
- * This method uses a scale to create the dimensions for the new (resized) image.
+ * This class uses a Line2D object to specify the coordinates of the line to be drawn.
+ * It also allows customization of the line's color and size.
  * </p>
  * 
  * <p> 
@@ -22,55 +19,66 @@ import javax.swing.*;
  * </p>
  * 
  * @see java.awt.image.ConvolveOp
- * @author Steven Mills
- * @version 1.0
+ * @author Liam Kerr
+ * @version 3.0
  */
 public class DrawLine implements ImageOperation, java.io.Serializable  {
     /**
-     * The percentage to scale the image by.
+     * The line object specifying the coordinates of the line to be drawn.
      */
-
-     private BufferedImage output;
-     private Line2D line2d;
-     private Color shapeOutlineColour;
-     private float lineSize;
+    private Line2D line2d;
+    
+    /**
+     * The color of the line's outline.
+     */
+    private Color shapeOutlineColour;
+    
+    /**
+     * The size of the line.
+     */
+    private float lineSize;
    
-
-     public DrawLine(Line2D line2d, Color shapeOC, float ls){
+    /**
+     * Construct a DrawLine object with the given line, outline color, and line size.
+     * 
+     * @param line2d The Line2D object specifying the coordinates of the line.
+     * @param shapeOutlineColour The color of the line's outline.
+     * @param lineSize The size of the line.
+     */
+    public DrawLine(Line2D line2d, Color shapeOutlineColour, float lineSize){
         this.line2d = line2d;
-        this.shapeOutlineColour = shapeOC;
-        this.lineSize = ls;
-     }
- 
-     public DrawLine(Line2D line2d) {
-         this.line2d = line2d;
-        
-     }
+        this.shapeOutlineColour = shapeOutlineColour;
+        this.lineSize = lineSize;
+    }
 
     /**
-     * <p>
-     * Calculates the new dimensions by multiplying the initial dimensions by the scale,
-     * then creates a new buffered image with new given dimensions.
-     * </p>
+     * Construct a DrawLine object with the given line.
      * 
+     * @param line2d The Line2D object specifying the coordinates of the line.
+     */
+    public DrawLine(Line2D line2d) {
+        this.line2d = line2d;
+    }
+
+    /**
+     * Apply the draw line operation to the input image.
      * 
-     * @param input The image to apply the resizing to.
-     * @return The resulting (resized) image.
+     * @param input The image to apply the draw line operation to.
+     * @return The resulting image with the line drawn.
      */
     public BufferedImage apply(BufferedImage input){
         int width = input.getWidth();
         int height = input.getHeight();
 
-        output = new BufferedImage(width,height,input.TYPE_INT_ARGB);
+        BufferedImage output = new BufferedImage(width, height, input.getType());
 
         Graphics2D g = output.createGraphics();
-        g.drawImage(input,0,0,null);
+        g.drawImage(input, 0, 0, null);
         g.setStroke(new BasicStroke(lineSize));
         g.setColor(shapeOutlineColour); 
         g.drawLine((int)line2d.getX1(), (int)line2d.getY1(), (int)line2d.getX2(), (int)line2d.getY2());
         g.dispose();
+
         return output;
     }
-    }
-    
-
+}

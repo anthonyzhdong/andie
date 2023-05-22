@@ -230,7 +230,7 @@ public class ShapeActions{
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
             if(EditableImage.hasImage()) {
-                target.addShapeListener(new DrawListener(target));
+                target.addShapeListener(new DrawListener(target, shapeOutlineColour, (int)lineSize));
             } else {
                 ErrorHandling.NoFileOpenError();
             }
