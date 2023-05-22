@@ -24,11 +24,21 @@ import javax.swing.*;
  */
 public class DrawOval implements ImageOperation, java.io.Serializable  {
 
-     private BufferedImage output;
-     private Ellipse2D ellipse2d;
+    private BufferedImage output;
+    private Ellipse2D ellipse2d;
+    private Color shapeOutlineColour;
+    private Color shapeFillColour;
+    private float lineSize;
+    private boolean shapeFill;
 
 
-     // im doing these variables on monday
+    public DrawOval(Ellipse2D ellipse2d, Color shapeOC, Color shapeFC, float ls, boolean sf){
+        this.ellipse2d = ellipse2d;
+        this.shapeOutlineColour = shapeOC;
+        this.shapeFillColour = shapeFC;
+        this.lineSize = ls;
+        this.shapeFill = sf;
+    }
  
      public DrawOval(Ellipse2D ellipse2d) {
          this.ellipse2d = ellipse2d;
@@ -51,17 +61,15 @@ public class DrawOval implements ImageOperation, java.io.Serializable  {
 
         Graphics2D g = output.createGraphics();
         g.drawImage(input,0,0,null);
-        g.setStroke(new BasicStroke(ShapeActions.lineSize));
+        g.setStroke(new BasicStroke(lineSize));
 
-         if(ShapeActions.shapeFill){
-         g.setColor(ShapeActions.shapeFillColour);
+         if(shapeFill){
+         g.setColor(shapeFillColour);
          g.fillOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
-         g.setColor(ShapeActions.shapeOutlineColour);
+         }
+         g.setColor(shapeOutlineColour); 
          g.drawOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
-         }else{
-         g.setColor(ShapeActions.shapeOutlineColour); 
-         g.drawOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
-      }
+      
        g.dispose();
        return output;
     }

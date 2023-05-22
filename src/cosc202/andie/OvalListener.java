@@ -19,13 +19,17 @@ public class OvalListener extends ShapeListener {
     private Ellipse2D initialOval = new Ellipse2D.Double(0, 0, 0, 0);
     private Ellipse2D ovalToDraw = new Ellipse2D.Double(0, 0, 0, 0);
     private Ellipse2D currentOval = new Ellipse2D.Double(0, 0, 0, 0);
-    private Color shapeColor;
+    private Color shapeOutlineColour;
+    private Color shapeFillColour;
     private float lineWidth;
+    private boolean shapeFill;
 
-    public OvalListener(ImagePanel target, Color shapeColor, float lineWidth) {
+    public OvalListener(ImagePanel target, Color shapeOutlineColour, Color shapeFillColour, float lineWidth,boolean shapeFill) {
         super(target);
-        this.shapeColor = shapeColor;
+        this.shapeOutlineColour = shapeOutlineColour;
+        this.shapeFillColour = shapeFillColour;
         this.lineWidth = lineWidth;
+        this.shapeFill = shapeFill;
     }
 
     public OvalListener(ImagePanel target) {
@@ -63,7 +67,7 @@ public class OvalListener extends ShapeListener {
 
     public void mouseReleased(MouseEvent e) {
         currentOval.setFrame(ovalToDraw.getBounds());
-        target.getImage().apply(new DrawOval(currentOval));
+        target.getImage().apply(new DrawOval(currentOval,shapeOutlineColour,shapeFillColour,lineWidth, shapeFill));
         this.setShapesToZero();
         target.removeShapeListener();
         target.repaint();

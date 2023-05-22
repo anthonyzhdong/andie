@@ -32,7 +32,15 @@ public class DrawLine implements ImageOperation, java.io.Serializable  {
 
      private BufferedImage output;
      private Line2D line2d;
+     private Color shapeOutlineColour;
+     private float lineSize;
    
+
+     public DrawLine(Line2D line2d, Color shapeOC, float ls){
+        this.line2d = line2d;
+        this.shapeOutlineColour = shapeOC;
+        this.lineSize = ls;
+     }
  
      public DrawLine(Line2D line2d) {
          this.line2d = line2d;
@@ -57,8 +65,8 @@ public class DrawLine implements ImageOperation, java.io.Serializable  {
 
         Graphics2D g = output.createGraphics();
         g.drawImage(input,0,0,null);
-        g.setStroke(new BasicStroke(ShapeActions.lineSize));
-        g.setColor(ShapeActions.shapeOutlineColour); 
+        g.setStroke(new BasicStroke(lineSize));
+        g.setColor(shapeOutlineColour); 
         g.drawLine((int)line2d.getX1(), (int)line2d.getY1(), (int)line2d.getX2(), (int)line2d.getY2());
         g.dispose();
         return output;

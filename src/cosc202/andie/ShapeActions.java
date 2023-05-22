@@ -40,11 +40,11 @@ public class ShapeActions{
     //private static double transparencyScale;
     //private static boolean transparencySelected = false;
 
-    public static boolean shapeFill = false;
+    private static boolean shapeFill = false;
    // public static double transparencyNum = 1.0;
-    public static float lineSize = 10;
-    public static Color shapeFillColour = Color.white;
-    public static Color shapeOutlineColour = Color.black;
+    private static float lineSize = 8;
+    private static Color shapeFillColour = Color.white;
+    private static Color shapeOutlineColour = Color.black;
 
  /**
   * <p>
@@ -148,7 +148,7 @@ public class ShapeActions{
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
             if(EditableImage.hasImage()){
-                target.addShapeListener(new OvalListener(target));
+                target.addShapeListener(new OvalListener(target,shapeOutlineColour,shapeFillColour, lineSize, shapeFill));
             } else {
                 ErrorHandling.NoFileOpenError();
             }
@@ -186,7 +186,7 @@ public class ShapeActions{
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
             if(EditableImage.hasImage()) {
-                target.addShapeListener(new LineListener(target));
+                target.addShapeListener(new LineListener(target, shapeOutlineColour, lineSize));
             } else {
                 ErrorHandling.NoFileOpenError();
             }
@@ -370,12 +370,9 @@ public class ShapeActions{
 
                     JLabel outlineLabel = new JLabel("Select outline size");
 
-                    int lineSizes[] = {5,10,15,20};
-                    JComboBox comboBox = new JComboBox();
-                    for(int x = 0; x< lineSizes.length;x++){
-                    comboBox.addItem(lineSizes[x]);
-                    }
-                    comboBox.setSelectedItem(lineSize);
+                    Integer lineSizes[] = {2,4,6,8,12,16,20,25,30,50,100};
+                    JComboBox<Integer> comboBox = new JComboBox<>(lineSizes);
+                    comboBox.setSelectedItem((int)lineSize);
                     
                     JLabel outlineColourLabel = new JLabel("Select outline colour");
                     JColorChooser outlineColourChooser = new JColorChooser();
