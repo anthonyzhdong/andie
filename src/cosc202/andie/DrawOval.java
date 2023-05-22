@@ -30,14 +30,16 @@ public class DrawOval implements ImageOperation, java.io.Serializable  {
     private Color shapeFillColour;
     private float lineSize;
     private boolean shapeFill;
+    private boolean shapeOutline;
 
 
-    public DrawOval(Ellipse2D ellipse2d, Color shapeOC, Color shapeFC, float ls, boolean sf){
+    public DrawOval(Ellipse2D ellipse2d, Color shapeOC, Color shapeFC, float ls, boolean sf, boolean so){
         this.ellipse2d = ellipse2d;
         this.shapeOutlineColour = shapeOC;
         this.shapeFillColour = shapeFC;
         this.lineSize = ls;
         this.shapeFill = sf;
+        this.shapeOutline = so;
     }
  
      public DrawOval(Ellipse2D ellipse2d) {
@@ -67,9 +69,10 @@ public class DrawOval implements ImageOperation, java.io.Serializable  {
          g.setColor(shapeFillColour);
          g.fillOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
          }
+         if(shapeOutline){
          g.setColor(shapeOutlineColour); 
          g.drawOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
-      
+         }
        g.dispose();
        return output;
     }

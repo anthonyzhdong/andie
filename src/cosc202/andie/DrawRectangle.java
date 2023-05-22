@@ -32,15 +32,17 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
      private Color shapeFillColour;
      private float lineSize;
      private boolean shapeFill;
+     private boolean shapeOutline;
 
 
 
-     public DrawRectangle(Rectangle r, Color shapeOC, Color shapeFC, float ls, boolean sf){
+     public DrawRectangle(Rectangle r, Color shapeOC, Color shapeFC, float ls, boolean sf, boolean so){
         this.rect = r;
         this.shapeOutlineColour = shapeOC;
         this.shapeFillColour = shapeFC;
         this.lineSize = ls;
         this.shapeFill = sf;
+        this.shapeOutline = so;
 
      }
     // private boolean filled = true;
@@ -77,9 +79,10 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
          g.setColor(shapeFillColour);
          g.fillRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
          }
+         if(shapeOutline){
          g.setColor(shapeOutlineColour); 
          g.drawRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
-      
+         }
         g.dispose();
         return output;
     }

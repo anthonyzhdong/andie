@@ -22,13 +22,15 @@ public class RectangleDrawListener extends ShapeListener {
     private Color shapeFillColour;
     private float lineWidth;
     private boolean shapeFill;
+    private boolean shapeOutline;
 
-    public RectangleDrawListener(ImagePanel target, Color shapeOutlineColour, Color shapeFillColour, float lineWidth,boolean shapeFill) {
+    public RectangleDrawListener(ImagePanel target, Color shapeOutlineColour, Color shapeFillColour, float lineWidth,boolean shapeFill, boolean shapeOutline) {
         super(target);
         this.shapeOutlineColour = shapeOutlineColour;
         this.shapeFillColour = shapeFillColour;
         this.lineWidth = lineWidth;
         this.shapeFill = shapeFill;
+        this.shapeOutline = shapeOutline;
     }
 
     public RectangleDrawListener(ImagePanel target) {
@@ -66,7 +68,7 @@ public class RectangleDrawListener extends ShapeListener {
 
     public void mouseReleased(MouseEvent e) {
         currentRectangle.setBounds(rectToDraw);
-        target.getImage().apply(new DrawRectangle(currentRectangle,shapeOutlineColour,shapeFillColour,lineWidth, shapeFill));
+        target.getImage().apply(new DrawRectangle(currentRectangle,shapeOutlineColour,shapeFillColour,lineWidth, shapeFill, shapeOutline));
         this.setShapesToZero();
         target.removeShapeListener();
         target.repaint();

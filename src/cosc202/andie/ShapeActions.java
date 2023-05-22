@@ -41,6 +41,7 @@ public class ShapeActions{
     //private static boolean transparencySelected = false;
 
     private static boolean shapeFill = false;
+    private static boolean shapeOutline = true;
    // public static double transparencyNum = 1.0;
     private static float lineSize = 8;
     private static Color shapeFillColour = Color.white;
@@ -109,7 +110,7 @@ public class ShapeActions{
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
             if(EditableImage.hasImage()){
-                target.addShapeListener(new RectangleDrawListener(target,shapeOutlineColour,shapeFillColour, lineSize, shapeFill));
+                target.addShapeListener(new RectangleDrawListener(target,shapeOutlineColour,shapeFillColour, lineSize, shapeFill,shapeOutline));
             } else {
                 ErrorHandling.NoFileOpenError();
             }
@@ -148,7 +149,7 @@ public class ShapeActions{
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
             if(EditableImage.hasImage()){
-                target.addShapeListener(new OvalListener(target,shapeOutlineColour,shapeFillColour, lineSize, shapeFill));
+                target.addShapeListener(new OvalListener(target,shapeOutlineColour,shapeFillColour, lineSize, shapeFill,shapeOutline));
             } else {
                 ErrorHandling.NoFileOpenError();
             }
@@ -367,6 +368,8 @@ public class ShapeActions{
 
                     BufferedImage originalTarget = target.getImage().getCurrentImage();
 
+                    JLabel checkBoxLabel = new JLabel("Shape Outline:");
+                    JCheckBox checkBox = new JCheckBox("",shapeOutline);
 
                     JLabel outlineLabel = new JLabel("Select outline size");
 
@@ -377,7 +380,7 @@ public class ShapeActions{
                     JLabel outlineColourLabel = new JLabel("Select outline colour");
                     JColorChooser outlineColourChooser = new JColorChooser();
 
-                    JComponent[] labels = new JComponent[]  {outlineLabel, comboBox,outlineColourLabel, outlineColourChooser};
+                    JComponent[] labels = new JComponent[]  {checkBoxLabel, checkBox, outlineLabel, comboBox,outlineColourLabel, outlineColourChooser};
                 
                     int optionSize = JOptionPane.showOptionDialog(null, labels, SettingsActions.bundle.getString("ShapeOutlineSettings"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
                 
@@ -392,6 +395,12 @@ public class ShapeActions{
                         lineSize = (int)comboBox.getSelectedItem();
 
                         shapeOutlineColour = outlineColourChooser.getColor();
+
+                        if(checkBox.isSelected()){
+                            shapeOutline = true;
+                        }else{
+                            shapeOutline = false;
+                        }
 
                         target.repaint();
                         target.getParent().revalidate();

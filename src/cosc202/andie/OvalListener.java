@@ -23,13 +23,15 @@ public class OvalListener extends ShapeListener {
     private Color shapeFillColour;
     private float lineWidth;
     private boolean shapeFill;
+    private boolean shapeOutline;
 
-    public OvalListener(ImagePanel target, Color shapeOutlineColour, Color shapeFillColour, float lineWidth,boolean shapeFill) {
+    public OvalListener(ImagePanel target, Color shapeOutlineColour, Color shapeFillColour, float lineWidth,boolean shapeFill, boolean shapeOutline) {
         super(target);
         this.shapeOutlineColour = shapeOutlineColour;
         this.shapeFillColour = shapeFillColour;
         this.lineWidth = lineWidth;
         this.shapeFill = shapeFill;
+        this.shapeOutline = shapeOutline;
     }
 
     public OvalListener(ImagePanel target) {
@@ -67,7 +69,7 @@ public class OvalListener extends ShapeListener {
 
     public void mouseReleased(MouseEvent e) {
         currentOval.setFrame(ovalToDraw.getBounds());
-        target.getImage().apply(new DrawOval(currentOval,shapeOutlineColour,shapeFillColour,lineWidth, shapeFill));
+        target.getImage().apply(new DrawOval(currentOval,shapeOutlineColour,shapeFillColour,lineWidth, shapeFill,shapeOutline));
         this.setShapesToZero();
         target.removeShapeListener();
         target.repaint();
