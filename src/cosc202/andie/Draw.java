@@ -28,6 +28,7 @@ public class Draw implements ImageOperation, java.io.Serializable  {
     private Point p;
     private int radius = 4;
     private Color shapeFillColour;
+    private boolean eyeDropper;
 
     /**
      * Construct a Draw object with the given point.
@@ -47,10 +48,11 @@ public class Draw implements ImageOperation, java.io.Serializable  {
      * @param c The color of the point.
      * @param radius The radius of the point.
      */
-    public Draw(Point p, Color c, int radius) {
+    public Draw(Point p, Color c, int radius,boolean eyeDropper) {
         this.p = p;
         this.shapeFillColour = c;
         this.radius = radius;
+        this.eyeDropper = eyeDropper;
     }
 
     /**
@@ -69,7 +71,11 @@ public class Draw implements ImageOperation, java.io.Serializable  {
 
         Ellipse2D e2d = new Ellipse2D.Double(p.getX(), p.getY(), 2*(double)radius + 1, 2*(double)radius + 1);
         Graphics2D g2 = output.createGraphics();
+        if(eyeDropper){
+            g2.setColor(ShapeActions.eyeDropperColour);
+        }else{
         g2.setColor(shapeFillColour);
+        }
         g2.drawImage(input,0,0,null);
         g2.fillOval((int)e2d.getX(), (int)e2d.getY(), (int)e2d.getWidth(), (int)e2d.getHeight());
         g2.dispose();
