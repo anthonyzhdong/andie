@@ -76,6 +76,7 @@ public class DrawOval implements ImageOperation, java.io.Serializable  {
         g.drawImage(input,0,0,null);
         g.setStroke(new BasicStroke(lineSize));
 
+<<<<<<< HEAD
         if(shapeFill){
             g.setColor(shapeFillColour);
             g.fillOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
@@ -87,5 +88,17 @@ public class DrawOval implements ImageOperation, java.io.Serializable  {
         
         g.dispose();
         return output;
+=======
+         if(shapeFill){
+         g.setColor(shapeFillColour);
+         g.fillOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
+         }
+         if(shapeOutline){
+         g.setColor(shapeOutlineColour); 
+         g.drawOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
+         }
+         g.dispose();
+       return output;
+>>>>>>> bdd61a7 (eye dropper rectange done)
     }
 }
