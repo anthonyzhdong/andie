@@ -165,6 +165,7 @@ As for brute force testing, a lot of it was done with print statements, and pass
 The reason we did far more brute force testing was because of the fact that ANDIE is a pretty self diagnosing program, as in when something is wrong with an filter alogrithm for instance, it was pretty obvious there is an error there, and often one could guess what part of the filter was going wrong. So often the easiest method of testing was just running ANDIE and seeing what happened. 
 
 However, in the next part of developing ANDIE, more unit testing will be used, as it is extremely useful and fast once completed to ensure an algorithm is still functioning as expected. Currently, there are only 2 proper testing files, being for BrightnessContrast and ImagePanel. 
+
 ---
 
 ### Milestone 2
@@ -187,6 +188,7 @@ This brute force testing was done mainly through print statements and testing ou
 Again, the reason we did far more brute force testing was because of the fact that ANDIE is a pretty self diagnosing program, as in when something is wrong with an filter alogrithm for instance, it was pretty obvious there is an error there, and often one could guess what part of the filter was going wrong. So rather than unit tests the easier method to test was to chuck a test image in ANDIE and see what happens.
 
 If we had the chance to re-do this project, I think from the start we would implement unit tests as each feature is developed, so that from the beginning we can constantly test ANDIE to ensure consistency and functionality of a feature once its added. This would also mean that going into Milestone 2 from Milestone 1, we would have unit tests that we know work already, and if they start failing once we change things in Milestone 2, we know exactly where.
+
 ---
 
 ## Versions
