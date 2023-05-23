@@ -28,6 +28,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
     private int radius;
+    private boolean sN = false;
 
     /**
      * <p>
@@ -44,6 +45,21 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      */
     MeanFilter(int radius) {
         this.radius = radius;    
+    }
+
+    /**
+     * Constructs a MeanFilter object with the specified radius and shiftNegative flag.
+     *
+     * @param radius The radius of the filter, which determines the size of the local neighborhood.
+     *               A radius of 1 corresponds to a 3x3 filter, 2 corresponds to 5x5, and so on.
+     * @param t      A boolean flag indicating whether to apply the shiftNegative operation before filtering.
+     *               If true, the shiftNegative operation will be applied; otherwise, it will be skipped.
+     * 
+     * Chat Gpt did this comment
+     */
+    MeanFilter(int radius, boolean t) {
+        this.radius = radius;  
+        this.sN = t;
     }
 
     /**
@@ -76,6 +92,8 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
+        if (sN == true) {input = shiftNegative.fixNegative(input);}
+
         int size = (2*radius+1) * (2*radius+1);
         float [] array = new float[size];
         Arrays.fill(array, 1.0f/size);

@@ -6,73 +6,73 @@ import java.lang.Math.*;
 
 /**
  * <p>
- * ImageOperation to apply a gaussian blur
+ * ImageOperation to apply a Gaussian blur to an image.
  * </p>
  * 
  * <p>
- * A gaussian blur blurs an image by changing each pixel by a set amount
+ * A Gaussian blur blurs an image by convolving each pixel with a Gaussian kernel.
+ * The blur effect is stronger with larger radii.
  * </p>
  * 
- * 
+ * Comments written by chat gpt
  * 
  * @see java.awt.image.ConvolveOp
+ * @see java.awt.image.Kernel
+ * @see cosc202.andie.ImageOperation
  * @author Steven Mills
  * @version 1.0
  */
 public class GaussianBlur implements ImageOperation, java.io.Serializable {
     
     /**
-     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
+     * The size of the filter to apply. A radius of 1 corresponds to a 3x3 filter,
+     * a radius of 2 corresponds to a 5x5 filter, and so on.
      */
     private int radius;
+    private boolean sN = false;
 
     /**
-     * <p>
-     * Construct a gaussian blur with the given size.
-     * </p>
+     * Constructs a Gaussian blur with the given radius.
      * 
-     * <p>
-     * The size of the filter is the 'radius' of the convolution kernel used.
-     * A size of 1 is a 3x3 filter, 2 is 5x5, and so on.
-     * Larger filters give a stronger blurring effect.
-     * </p>
-     * 
-     * @param radius The radius of the newly constructed gaussian blur
+     * @param radius the radius of the Gaussian blur
      */
     GaussianBlur(int radius) {
         this.radius = radius;    
     }
 
     /**
-     * <p>
-     * Construct a gaussian blur with the default size.
-     * </p
-     * >
-     * <p>
-     * By default, a gaussian blur has radius 1.
-     * </p>
-     * 
-     * @see GaussianBlur(int)
+     * Constructs a Gaussian blur with the default radius of 1.
+     * By default, a 3x3 Gaussian filter is applied.
      */
     GaussianBlur() {
         this(1);
     }
 
+
     /**
-     * <p>
-     * Apply a gaussian blur to an image.
-     * </p>
+     * Constructs a Gaussian blur with the given radius and shiftNegative flag.
      * 
-     * <p>
-     * As with many filters, the gaussian blur is implemented via convolution.
-     * The size of the convolution kernel is specified by the {@link radius}.  
-     * Larger radii leads to a stronger gaussian blur effect.
-     * </p>
+     * @param radius the radius of the Gaussian blur
+     * @param sN     the shiftNegative flag indicating whether to perform negative shifting
+     */
+    GaussianBlur(int radius, boolean t) {
+        this.radius = radius;  
+        this.sN = t;
+    }
+
+    /**
+     * Apply a Gaussian blur to an image.
      * 
-     * @param input The image to apply the gaussian blur to.
-     * @return The resulting (blurred)) image.
+     * As with many filters, the Gaussian blur is implemented via convolution.
+     * The size of the convolution kernel is specified by the {@link radius}.
+     * Larger radii lead to a stronger Gaussian blur effect.
+     * 
+     * @param input the image to apply the Gaussian blur to
+     * @return the resulting blurred image
      */
     public BufferedImage apply(BufferedImage input) {
+
+        if (sN == true) {input = shiftNegative.fixNegative(input);}
         // Set the values for use
         float oInt = (float) 0.3333 * radius;
         int x = 0 - radius;

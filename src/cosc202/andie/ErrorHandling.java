@@ -44,7 +44,7 @@ public class ErrorHandling {
      */
     private static void multiErrorHandling (int type) {
         try {
-            File file = new File("cosc202/andie/errorHandling.txt");
+            File file = new File("src/cosc202/andie/errorHandling.txt");
             Scanner sc = new Scanner(file);
             String info = "";
             
