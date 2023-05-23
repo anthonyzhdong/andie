@@ -11,21 +11,15 @@ import java.util.ArrayList;
  * used and then modified for our particular use
  * 
  * <p>
- * ImageOperation to convert an image from colour to greyscale.
+ * ImageOperation to apply a median filter to an image
  * </p>
- * 
- * <p>
- * The images produced by this operation are still technically colour images,
- * in that they have red, green, and blue values, but each pixel has equal
- * values for red, green, and blue giving a shade of grey.
- * </p>
- * 
+ *
  * <p>
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
  * </p>
  * 
- * @author Steven Mills
- * @version 1.0
+ * @author Liam Kerr
+ * @version 3.0
  */
 public class MedianFilter implements ImageOperation, java.io.Serializable {
 

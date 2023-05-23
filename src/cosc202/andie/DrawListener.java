@@ -3,6 +3,7 @@ package cosc202.andie;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
 /**
  * This class represents a listener for drawing points on an ImagePanel. It extends the ShapeListener class,
@@ -47,16 +48,19 @@ public class DrawListener extends ShapeListener {
     private int radius;
     private boolean eyeDropper;
     private Collection<Point> points = new ArrayList<>();
+    BufferedImage pre;
 
     public DrawListener(ImagePanel target, Color shapeColor, int radius, boolean eyeDropper) {
         super(target);
         this.shapeColor = shapeColor;
         this.radius = radius;
         this.eyeDropper = eyeDropper;
+        pre = target.getImage().getCurrentImage();
     }
 
     public DrawListener(ImagePanel target) {
         super(target);
+        pre = target.getImage().getCurrentImage();
     }
 
     /**
@@ -131,6 +135,8 @@ public class DrawListener extends ShapeListener {
         updateSize(e);
         this.setShapesToZero();
         target.removeShapeListener();
+        target.getImage().setCurrentImage(pre);
+        target.getImage().apply(new DrawSetOfPoints(points, shapeColor, radius, eyeDropper));
         target.repaint();
     }
 
@@ -172,7 +178,6 @@ public class DrawListener extends ShapeListener {
      * @param g2 The Graphics2D object to draw on.
      */
     protected void paintShape(Graphics2D g2) {
-        // No shape to paint for points
     }
 
     @Override
