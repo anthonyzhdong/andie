@@ -54,6 +54,7 @@ public class ToolBar {
         Action save = new FileActions.FileSaveAction(null, saveIcon , SettingsActions.bundle.getString("Save"), Integer.valueOf(KeyEvent.VK_S));
         JButton saveButton = new JButton(save);
         toolbar.add(saveButton);
+        toolbar.addSeparator();
         
         Image undoImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/undo24px.png"));
         Image undoSmallerImage = undoImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
@@ -61,6 +62,7 @@ public class ToolBar {
         Action undo = new EditActions.UndoAction(null, undoIcon, SettingsActions.bundle.getString("Undo"), Integer.valueOf(KeyEvent.VK_Z));
         JButton undoButton = new JButton(undo);
         toolbar.add(undoButton);
+        toolbar.addSeparator();
 
         Image redoImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/redo24px.png"));
         Image redoSmallerImage = redoImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
@@ -68,6 +70,7 @@ public class ToolBar {
         Action redo = new EditActions.RedoAction(null, redoIcon, SettingsActions.bundle.getString("Redo"), Integer.valueOf(KeyEvent.VK_Y));
         JButton redoButton = new JButton(redo);
         toolbar.add(redoButton);
+        toolbar.addSeparator();
 
         Image brightnessAndContrastImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/brightnessAndContrast24px.png"));
         Image brightnessAndContrastSmallerImage = brightnessAndContrastImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
@@ -75,6 +78,7 @@ public class ToolBar {
         Action brightnessAndContrast = new ColourActions.BrightnessContrastAction(null, brightnessAndContrastIcon, SettingsActions.bundle.getString("BrightnessContrast"), Integer.valueOf(KeyEvent.VK_B));
         JButton brightnessAndContrastButton = new JButton(brightnessAndContrast);
         toolbar.add(brightnessAndContrastButton);
+        toolbar.addSeparator();
 
         if (buttonIn != null) {
             toolbar.add(buttonIn);
@@ -86,6 +90,13 @@ public class ToolBar {
             JButton recordMacroButton = new JButton(recordMacro);
             toolbar.add(recordMacroButton);
         }
+
+        Image drawLineImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/drawLine24px.png"));
+        Image drawLineSmallerImage = drawLineImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
+        ImageIcon drawLineIcon = new ImageIcon(drawLineSmallerImage, "drawLine");
+        Action drawLine = new ShapeActions.DrawLineAction(null, drawLineIcon, SettingsActions.bundle.getString("DrawLine"), Integer.valueOf(KeyEvent.VK_L));
+        JButton drawLineButton = new JButton(drawLine);
+        toolbar.add(drawLineButton);
 
 
         Container contentPane = Andie.frame.getContentPane();  

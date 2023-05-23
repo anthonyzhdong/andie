@@ -162,7 +162,7 @@ public class ShapeActions{
         }
     }
 
-    public class DrawLineAction extends ImageAction{
+    public static class DrawLineAction extends ImageAction{
         /**
          * <p>
          * Create a new DrawLine action.
