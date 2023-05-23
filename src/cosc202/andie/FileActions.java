@@ -352,8 +352,10 @@ public class FileActions {
         }
 
         /**
+         * <p>
          * Creates a diolog box to select what file type you would like to save as
-         * returns selected file type.
+         * </p>
+         * @return selected file type as String
          * 
          */
         private String fileTypeSelect() {

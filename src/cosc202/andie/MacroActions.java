@@ -101,7 +101,7 @@ public class MacroActions {
 
         /**
          * <p>
-         * Show list of macros saved.
+         * Creates new Macro Stop Recording Action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -115,8 +115,9 @@ public class MacroActions {
 
         /**
          * <p>
-         * This method is called whenever the MacroListAction is triggered.
-         * It prints the recorded macros in a diolog box.
+         * This method is called whenever the MacroStopRecordAction is triggered.
+         * It processes the macros recorded and prompts the user to save them to a user specified path,
+         * along with a user specified name for the macro.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -155,7 +156,7 @@ public class MacroActions {
 
 
             try {
-            // Write operations file
+            // prompts user to save macro (specificall to name it and to control where it is saved)
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
 

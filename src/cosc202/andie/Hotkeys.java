@@ -33,9 +33,14 @@ public class Hotkeys extends ImageAction {
     }
 
     /**
+     * <p>
      * Creates hotkeys for the program, and associates actions to them.
+     * </p>
+     * <p>
      * Does this via adding ActionListeners to the ImagePanel so that anywhere
      * within the program, the hotkeys will work.
+     * </p>
+     * @param target the ImagePanel to add the hotkeys to.
      */
     public void createDefaultHotkeys(ImagePanel target) {
 
@@ -56,10 +61,12 @@ public class Hotkeys extends ImageAction {
         target.getActionMap().put("Exit", exitAction);
     }
 
+
     /**
-     * Actions for the hotkeys
+     * <p>
+     * Action for opening a file.
+     * </p>
      */
-    // Action for opening a file
     Action openAction = new AbstractAction("Open") {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -81,7 +88,11 @@ public class Hotkeys extends ImageAction {
         }
     };
 
-    // Action for undoing an action
+    /**
+     * <p>
+     * Action for undoing.
+     * </p>
+     */
     Action undoAction = new AbstractAction("undo") {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -101,7 +112,11 @@ public class Hotkeys extends ImageAction {
         }
     };
 
-    // Action for saving a file
+    /**
+     * <p>
+     * Action for saving.
+     * </p>
+     */
     Action saveAction = new AbstractAction("Save") {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -118,7 +133,11 @@ public class Hotkeys extends ImageAction {
         }
     };
 
-    // Action for exiting the program
+    /**
+     * <p>
+     * Action for exiting.
+     * </p>
+     */
     Action exitAction = new AbstractAction("Exit") {
         @Override
         public void actionPerformed(ActionEvent e) {
