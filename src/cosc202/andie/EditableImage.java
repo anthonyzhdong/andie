@@ -35,7 +35,7 @@ import javax.swing.*;
 class EditableImage {
 
     /** The original image. This should never be altered by ANDIE. */
-    private BufferedImage original;
+    private static BufferedImage original;
     /** The current image, the result of applying {@link ops} to {@link original}. */
     private static BufferedImage current;
     /** The sequence of operations currently applied to the image. */
@@ -191,7 +191,7 @@ class EditableImage {
         // Write operations file
         FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
         ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
-        objOut.writeObject(this.ops);
+        objOut.writeObject(ops);
         objOut.close();
         fileOut.close();
     }
@@ -319,6 +319,12 @@ class EditableImage {
 
     public static Stack<ImageOperation> getOps() {
         return ops;
+    }
+
+    public static void applyMacro(Stack<ImageOperation> ops) {
+        for (ImageOperation op : ops) {
+            current = op.apply(current);
+        }
     }
 
     

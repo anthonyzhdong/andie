@@ -1,9 +1,6 @@
 package cosc202.andie;
 
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Stack;
 
 import javax.swing.*;
 
@@ -31,41 +28,38 @@ import javax.swing.*;
 
 public class Hotkeys extends ImageAction {
 
-    static HashMap<String, Action> hotkeys = new HashMap<String, Action>();
-    static HashMap<String, Stack<ImageOperation>> macros = new HashMap<String, Stack<ImageOperation>>();
-
     public Hotkeys() {
         super(null, null, null, null);
     }
 
     /**
      * Creates hotkeys for the program, and associates actions to them.
-     * Does this via adding ActionListeners to the ImagePanel so that anywhere within the program, the hotkeys will work.
+     * Does this via adding ActionListeners to the ImagePanel so that anywhere
+     * within the program, the hotkeys will work.
      */
     public void createDefaultHotkeys(ImagePanel target) {
 
-        target.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK), "Open");   
-        target.getActionMap().put("Open", openAction); 
-        hotkeys.put("Open", openAction);
+        target.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK), "Open");
+        target.getActionMap().put("Open", openAction);
 
-        target.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK), "Save");   
-        target.getActionMap().put("Save", saveAction);   
-        hotkeys.put("Save", saveAction);
+        target.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK), "Save");
+        target.getActionMap().put("Save", saveAction);
 
-        target.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK), "Undo");   
-        target.getActionMap().put("Undo", undoAction);   
-        hotkeys.put("Undo", undoAction);
+        target.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK), "Undo");
+        target.getActionMap().put("Undo", undoAction);
 
-        target.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Exit");   
-        target.getActionMap().put("Exit", exitAction);  
-        hotkeys.put("Exit", exitAction);    
+        target.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+                "Exit");
+        target.getActionMap().put("Exit", exitAction);
     }
-
 
     /**
      * Actions for the hotkeys
      */
-    //Action for opening a file
+    // Action for opening a file
     Action openAction = new AbstractAction("Open") {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -87,12 +81,12 @@ public class Hotkeys extends ImageAction {
         }
     };
 
-    //Action for undoing an action
+    // Action for undoing an action
     Action undoAction = new AbstractAction("undo") {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            if(target.checkImage() == false) {
+            if (target.checkImage() == false) {
                 ErrorHandling.NoFileOpenError();
                 return;
             }
@@ -100,14 +94,14 @@ public class Hotkeys extends ImageAction {
                 target.getImage().undo();
                 target.repaint();
                 target.getParent().revalidate();
-            } catch(Exception ex) {
+            } catch (Exception ex) {
                 ErrorHandling.NoUndoError();
             }
 
         }
     };
 
-    //Action for saving a file
+    // Action for saving a file
     Action saveAction = new AbstractAction("Save") {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -124,7 +118,7 @@ public class Hotkeys extends ImageAction {
         }
     };
 
-    //Action for exiting the program
+    // Action for exiting the program
     Action exitAction = new AbstractAction("Exit") {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -132,39 +126,7 @@ public class Hotkeys extends ImageAction {
         }
     };
 
-    //This is here to make the compiler happy
+    // This is here to make the compiler happy
     public void actionPerformed(ActionEvent e) {
-    }
-
-
-    public static void createNewHotkey(Stack<ImageOperation> ops, String macroName, ArrayList<Integer> keystrokes) {
-
-        macros.put(macroName, ops);
-
-        Action newMacroAction = new AbstractAction(macroName) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for (ImageOperation op : macros.get(macroName)) {
-                    try {
-                        EditableImage.apply(op);
-                    } catch (Exception ex) {
-                        ErrorHandling.NoFileOpenError();
-                    }
-                }
-            }
-        };
-
-        hotkeys.put(macroName, newMacroAction);
-        //need code to convert keystroke array into something that can be placed below
-        //.toString().replaceFirst("(released )|(pressed )|(typed )", "");
-        StringBuilder macroAsString = new StringBuilder();
-        for (Integer key : keystrokes) {
-            macroAsString.append(KeyEvent.getKeyText(key));
-            macroAsString.append(" ");
-        }
-
-        target.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ctrl D"), macroName);
-        target.getActionMap().put(macroName, hotkeys.get(macroName));   
-
     }
 }

@@ -3,7 +3,6 @@ package cosc202.andie;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Image;
-import java.awt.*;
 import javax.imageio.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -110,17 +109,6 @@ public class ToolBar {
         Image recordMacroSmallerImage = recordMacroImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
         ImageIcon recordMacroIcon = new ImageIcon(recordMacroSmallerImage, "Recording Macro");
         Action recordMacro = new MacroActions.MacroStopRecordAction(null, recordMacroIcon, null, null);
-        JButton recordMacroButton = new JButton(recordMacro);
-        ToolBar.createToolBar(recordMacroButton);
-    }
-
-    public static void changeToolBarDuringMacroKeystrokeRecording() throws Exception{
-        Andie.frame.getContentPane().remove(toolbar);
-        Andie.frame.getContentPane().revalidate();
-        Image recordMacroImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/tick24px.png"));
-        Image recordMacroSmallerImage = recordMacroImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
-        ImageIcon recordMacroIcon = new ImageIcon(recordMacroSmallerImage, "Recording Keystrokes");
-        Action recordMacro = new MacroActions.MacroSaveAction(null, recordMacroIcon, null, null);
         JButton recordMacroButton = new JButton(recordMacro);
         ToolBar.createToolBar(recordMacroButton);
     }

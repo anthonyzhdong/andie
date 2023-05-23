@@ -1,10 +1,11 @@
 package cosc202.andie;
 
 import java.util.*;
-import java.awt.Frame;
 import java.awt.event.*;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+
 import javax.swing.*;
-import cosc202.andie.*;
 
 /**
  * <p>
@@ -12,13 +13,14 @@ import cosc202.andie.*;
  * </p>
  * 
  * <p>
- * The File menu is very common across applications, 
+ * The File menu is very common across applications,
  * and there are several items that the user will expect to find here.
  * Opening and saving files is an obvious one, but also exiting the program.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Steven Mills
@@ -28,7 +30,7 @@ public class FileActions {
 
     /** file type that user wishes to save */
     public String fileTypeSelected;
-    
+
     /** A list of actions for the File menu. */
     protected ArrayList<Action> actions;
 
@@ -39,13 +41,17 @@ public class FileActions {
      */
     public FileActions() {
         actions = new ArrayList<Action>();
-        actions.add(new FileOpenAction(SettingsActions.bundle.getString("Open"), null, SettingsActions.bundle.getString("OpenDesc"), Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileSaveAction(SettingsActions.bundle.getString("Save"), null, SettingsActions.bundle.getString("SaveDesc"), Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction(SettingsActions.bundle.getString("SaveAs"), null, SettingsActions.bundle.getString("SaveAsDesc"), Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExportAction(SettingsActions.bundle.getString("Export"), null, SettingsActions.bundle.getString("ExportDesc"), Integer.valueOf(0)));
-        actions.add(new FileExitAction(SettingsActions.bundle.getString("Exit"), null, SettingsActions.bundle.getString("ExitDesc"), Integer.valueOf(0)));
+        actions.add(new FileOpenAction(SettingsActions.bundle.getString("Open"), null,
+                SettingsActions.bundle.getString("OpenDesc"), Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new FileSaveAction(SettingsActions.bundle.getString("Save"), null,
+                SettingsActions.bundle.getString("SaveDesc"), Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new FileSaveAsAction(SettingsActions.bundle.getString("SaveAs"), null,
+                SettingsActions.bundle.getString("SaveAsDesc"), Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileExportAction(SettingsActions.bundle.getString("Export"), null,
+                SettingsActions.bundle.getString("ExportDesc"), Integer.valueOf(0)));
+        actions.add(new FileExitAction(SettingsActions.bundle.getString("Exit"), null,
+                SettingsActions.bundle.getString("ExitDesc"), Integer.valueOf(0)));
     }
-
 
     /**
      * <p>
@@ -57,7 +63,7 @@ public class FileActions {
     public JMenu createMenu() {
         JMenu fileMenu = new JMenu(SettingsActions.bundle.getString("File"));
 
-        for(Action action: actions) {
+        for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
         }
 
@@ -78,10 +84,10 @@ public class FileActions {
          * Create a new file-open action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FileOpenAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -100,19 +106,36 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            
+
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
-                try {
-                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().open(imageFilepath);
-                } catch (Exception ex) {
-                    ErrorHandling.FileError();
+                String opsFileName = fileChooser.getSelectedFile().getAbsolutePath();
+                String test = opsFileName.substring(fileChooser.getSelectedFile().getAbsolutePath().length() - 4);
+                String compare = ".ops";
+                if (test.equals(compare)) {
+                    try {
+                        FileInputStream fileIn = new FileInputStream(opsFileName);
+                        ObjectInputStream objIn = new ObjectInputStream(fileIn);
+                        @SuppressWarnings("unchecked")
+                        Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
+                        EditableImage.applyMacro(opsFromFile);
+                        objIn.close();
+                        fileIn.close();
+                    } catch (Exception ex) {
+                        ErrorHandling.FileError();
+                    }
+                } else {
+                    try {
+                        String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                        target.getImage().open(imageFilepath);
+                    } catch (Exception ex) {
+                        ErrorHandling.FileError();
+                    }
                 }
             }
-            
+
             target.repaint();
             target.getParent().revalidate();
         }
@@ -133,10 +156,10 @@ public class FileActions {
          * Create a new file-save action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FileSaveAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -155,10 +178,11 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if(EditableImage.hasImage()){
-                if(target.getShapeListener() != null) target.removeShapeListener();
+            if (EditableImage.hasImage()) {
+                if (target.getShapeListener() != null)
+                    target.removeShapeListener();
                 try {
-                    target.getImage().save();           
+                    target.getImage().save();
                 } catch (Exception ex) {
                     ErrorHandling.NoFileOpenError();
                 }
@@ -183,16 +207,16 @@ public class FileActions {
          * Create a new file-save-as action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FileSaveAsAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
-         /**
+        /**
          * <p>
          * Callback for when the file-save-as action is triggered.
          * </p>
@@ -206,8 +230,9 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            if(EditableImage.hasImage()){
-                if(target.getShapeListener() != null) target.removeShapeListener();
+            if (EditableImage.hasImage()) {
+                if (target.getShapeListener() != null)
+                    target.removeShapeListener();
                 JFileChooser fileChooser = new JFileChooser();
                 int result = fileChooser.showSaveDialog(target);
 
@@ -238,10 +263,10 @@ public class FileActions {
          * Create a new file-exit action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FileExitAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon);
@@ -249,7 +274,7 @@ public class FileActions {
             putValue(MNEMONIC_KEY, mnemonic);
         }
 
-         /**
+        /**
          * <p>
          * Callback for when the file-exit action is triggered.
          * </p>
@@ -281,16 +306,16 @@ public class FileActions {
          * Create a new file-export action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FileExportAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
-         /**
+        /**
          * <p>
          * Callback for when the file-export action is triggered.
          * </p>
@@ -303,15 +328,16 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if(EditableImage.hasImage()){
+            if (EditableImage.hasImage()) {
                 fileTypeSelect();
-                if (fileTypeSelected != null){
+                if (fileTypeSelected != null) {
                     JFileChooser fileChooser = new JFileChooser();
                     int result = fileChooser.showSaveDialog(target);
 
                     if (result == JFileChooser.APPROVE_OPTION) {
                         try {
-                            String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath().concat(fileTypeSelected);
+                            String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath()
+                                    .concat(fileTypeSelected);
                             target.getImage().export(imageFilepath);
                         } catch (Exception ex) {
                             ErrorHandling.NoFileOpenError();
@@ -324,26 +350,26 @@ public class FileActions {
 
             fileTypeSelected = null;
         }
-  
 
-        /** Creates a diolog box to select what file type you would like to save as
-        * returns selected file type.
-
-        */
+        /**
+         * Creates a diolog box to select what file type you would like to save as
+         * returns selected file type.
+         * 
+         */
         private String fileTypeSelect() {
             JFrame frame = new JFrame(SettingsActions.bundle.getString("FileTypeSelectTitle"));
-            
-            Object[] fileTypes = {".jpg", ".png", ".gif"};
-            fileTypeSelected = (String)JOptionPane.showInputDialog(
-                                frame,
-                                SettingsActions.bundle.getString("FileTypeSelectMessage"),
-                                SettingsActions.bundle.getString("FileTypeSelectPrompt"),
-                                JOptionPane.PLAIN_MESSAGE,
-                                null,
-                                fileTypes,
-                                null);
-                
-            return fileTypeSelected;        
+
+            Object[] fileTypes = { ".jpg", ".png", ".gif" };
+            fileTypeSelected = (String) JOptionPane.showInputDialog(
+                    frame,
+                    SettingsActions.bundle.getString("FileTypeSelectMessage"),
+                    SettingsActions.bundle.getString("FileTypeSelectPrompt"),
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    fileTypes,
+                    null);
+
+            return fileTypeSelected;
         }
 
     }

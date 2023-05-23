@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Andie",
+            "request": "launch",
+            "mainClass": "cosc202.andie.Andie",
+            "projectName": "src_1e85c4d1"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
