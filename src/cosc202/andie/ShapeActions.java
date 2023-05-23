@@ -37,12 +37,9 @@ import javax.swing.colorchooser.AbstractColorChooserPanel;
 public class ShapeActions{
  /** A list of actions for the Adjustments menu. */
  protected ArrayList<Action> actions;
-    //private static double transparencyScale;
-    //private static boolean transparencySelected = false;
 
     private static boolean shapeFill = false;
     private static boolean shapeOutline = true;
-   // public static double transparencyNum = 1.0;
     private static float lineSize = 8;
     private static Color shapeFillColour = Color.white;
     private static Color shapeOutlineColour = Color.black;
@@ -57,8 +54,8 @@ public class ShapeActions{
   */
  public ShapeActions() {
      actions = new ArrayList<Action>();
-     actions.add(new ShapeOutlineAction(SettingsActions.bundle.getString("ShapeOutlineSettings"), null, SettingsActions.bundle.getString("ShapeOutlineSettingsMessage"), Integer.valueOf(KeyEvent.VK_C)));
-     actions.add(new ShapeFillAction(SettingsActions.bundle.getString("ShapeFillSettings"), null, SettingsActions.bundle.getString("ShapeFillSettingsMessage"), Integer.valueOf(KeyEvent.VK_C)));
+     actions.add(new ShapeOutlineAction(SettingsActions.bundle.getString("ShapeOutlineSettings"), null, SettingsActions.bundle.getString("ShapeOutlineSettingsMessage"), Integer.valueOf(KeyEvent.VK_R)));
+     actions.add(new ShapeFillAction(SettingsActions.bundle.getString("ShapeFillSettings"), null, SettingsActions.bundle.getString("ShapeFillSettingsMessage"), Integer.valueOf(KeyEvent.VK_R)));
      actions.add(new DrawRectangleAction(SettingsActions.bundle.getString("DrawRectangle"),null,SettingsActions.bundle.getString("DrawRectangleMessage"), Integer.valueOf(KeyEvent.VK_R)));
      actions.add(new DrawOvalAction(SettingsActions.bundle.getString("DrawOval"),null,SettingsActions.bundle.getString("DrawOvalMessage"), Integer.valueOf(KeyEvent.VK_R)));
      actions.add(new DrawLineAction(SettingsActions.bundle.getString("DrawLine"),null,SettingsActions.bundle.getString("DrawLineMessage"), Integer.valueOf(KeyEvent.VK_R)));
@@ -162,7 +159,7 @@ public class ShapeActions{
         }
     }
 
-    public class DrawLineAction extends ImageAction{
+    public static class DrawLineAction extends ImageAction{
         /**
          * <p>
          * Create a new DrawLine action.
@@ -200,7 +197,7 @@ public class ShapeActions{
             
         }
     }
-    public class DrawAction extends ImageAction{
+    public static class DrawAction extends ImageAction{
         /**
          * <p>
          * Create a new RotationLeft action.
@@ -232,7 +229,7 @@ public class ShapeActions{
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
             if(EditableImage.hasImage()) {
-                target.addShapeListener(new DrawListener(target, shapeOutlineColour, (int)lineSize));
+                target.addShapeListener(new DrawListener(target, shapeOutlineColour, (int)lineSize, outlineEyeDropper));
             } else {
                 ErrorHandling.NoFileOpenError();
             }
@@ -279,41 +276,13 @@ public class ShapeActions{
                 JLabel interiorColourLabel = new JLabel(SettingsActions.bundle.getString("SelectInteriorColour"));
                 JColorChooser colourChooser = new JColorChooser();
                 
-                /** 
-                // Pop-up dialog box to ask for the radius value.
-                JSlider transparencySlider = new JSlider(1, 10, (int)(transparencyNum*10));
-                JLabel transparencyLabel = new JLabel("Transparency : " + transparencyNum + "%");
-                
-                class TransparencySliderListener implements ChangeListener {
-                    public void stateChanged(ChangeEvent e) {
-                        transparencyScale = transparencySlider.getValue();
-                        if(transparencyScale == 0){
-                            transparencyScale = 1;
-                        }
-                        transparencyLabel.setText("Transparency : " + transparencyScale/10 + "%");
-                        transparencySelected = true;
-                    }
-                }
-
-                TransparencySliderListener tsl = new TransparencySliderListener();
-                transparencySlider.addChangeListener(tsl);
-*/
-                /** 
-                AbstractColorChooserPanel[] hsvPanel = colourChooser.getChooserPanels();
-                for(AbstractColorChooserPanel panel : hsvPanel){
-                    String displayName = panel.getDisplayName();
-                    if(!displayName.equals("RGB") && !displayName.equals("Swatches")){
-                       // colourChooser.removeChooserPanel(panel);
-                    }
-                }
-                */
-                JComponent[] labels = new JComponent[]  {checkBoxLabel, checkBox, interiorColourLabel, colourChooser}; //, transparencyLabel, transparencySlider};
+                JComponent[] labels = new JComponent[]  {checkBoxLabel, checkBox, interiorColourLabel, colourChooser};
                
                 int optionSize = JOptionPane.showOptionDialog(null, labels, SettingsActions.bundle.getString("ShapeFillSettings"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
             
                 if (optionSize == JOptionPane.CANCEL_OPTION) {
                     target.getImage().setCurrentImage(originalTarget);
-                    target.repaint();// do i need this?
+                    target.repaint();//
                     target.getParent().revalidate();
                     return;
                 } else if (optionSize == JOptionPane.OK_OPTION) {
@@ -326,11 +295,6 @@ public class ShapeActions{
                     }
                     
                     shapeFillColour = colourChooser.getColor();
- /** 
-                    if(transparencySelected){
-                    transparencyNum = transparencyScale/10;
-                    }
-                    */
                 }
                     target.removeShapeListener();;
                     target.repaint();
@@ -374,8 +338,6 @@ public class ShapeActions{
                 if(EditableImage.hasImage()) {
 
                     BufferedImage originalTarget = target.getImage().getCurrentImage();
-                    //all jtext make translations and call them from the package
-                    //SettingsActions.bundle.getString(key);
 
                     JLabel checkBoxLabel = new JLabel(SettingsActions.bundle.getString("ShapeOutline"));
                     JCheckBox checkBox = new JCheckBox("",shapeOutline);
@@ -460,10 +422,7 @@ public class ShapeActions{
             public void actionPerformed(ActionEvent e) {
                 if(target.getShapeListener() != null) target.removeShapeListener();
                 if(EditableImage.hasImage()) {
-                    //EyeDropperListener a = new EyeDropperListener(target);
-                    //target.addShapeListener(a);
                     target.addShapeListener(new EyeDropperListener(target));
-                    //System.out.println(eyeDropper);
                 } else {
                     ErrorHandling.NoFileOpenError();
                 }

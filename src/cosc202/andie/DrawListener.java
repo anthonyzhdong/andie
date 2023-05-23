@@ -45,12 +45,14 @@ public class DrawListener extends ShapeListener {
     private Point pointToDraw = new Point(0, 0);
     private Color shapeColor;
     private int radius;
+    private boolean eyeDropper;
     private Collection<Point> points = new ArrayList<>();
 
-    public DrawListener(ImagePanel target, Color shapeColor, int radius) {
+    public DrawListener(ImagePanel target, Color shapeColor, int radius, boolean eyeDropper) {
         super(target);
         this.shapeColor = shapeColor;
         this.radius = radius;
+        this.eyeDropper = eyeDropper;
     }
 
     public DrawListener(ImagePanel target) {
@@ -142,7 +144,7 @@ public class DrawListener extends ShapeListener {
         int x = e.getX();
         int y = e.getY();
         pointToDraw.setLocation(x, y);
-        target.getImage().tempApplyBrightnessContrast(new Draw(pointToDraw, shapeColor, radius));
+        target.getImage().tempApplyBrightnessContrast(new Draw(pointToDraw, shapeColor, radius,eyeDropper));
         points.add(pointToDraw);
         target.repaint();
     }

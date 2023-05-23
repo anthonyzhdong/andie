@@ -65,7 +65,7 @@ If your README is long, add a table of contents to make it easy for users to fin
 - Try various options and their affects on the image!
 ![alt text](assets/images/GreyScaleExample.PNG)
 
-- If you want to revert a change made, navigate to the Redo option and click it
+- If you want to revert a change made, navigate to the Undo option and click it
 
 - Select the Undo option to revert a change
 ![alt text](assets/images/UndoingGreyScale.PNG)
@@ -128,6 +128,18 @@ SOFTWARE.
 - Increase/decrease an images size, rotate the image by 90 degrees (left & right) and 180 degrees, and flip the image vertically/horizontally
 
 - And change the language of the editor to either English (default), Maori, French or Spanish
+
+- Select a rectangular region of the image
+
+- Crop the image based on a selected region
+
+- Draw shapes based on a user selected region 
+
+- Apply emboss filters and Sobel filters
+
+- Create macros that record a sequence of events and can apply that sequence of actions at the users liking
+
+- Keyboard shortcut
  
 --- 
 
@@ -153,10 +165,36 @@ As for brute force testing, a lot of it was done with print statements, and pass
 The reason we did far more brute force testing was because of the fact that ANDIE is a pretty self diagnosing program, as in when something is wrong with an filter alogrithm for instance, it was pretty obvious there is an error there, and often one could guess what part of the filter was going wrong. So often the easiest method of testing was just running ANDIE and seeing what happened. 
 
 However, in the next part of developing ANDIE, more unit testing will be used, as it is extremely useful and fast once completed to ensure an algorithm is still functioning as expected. Currently, there are only 2 proper testing files, being for BrightnessContrast and ImagePanel. 
+
+---
+
+### Milestone 2
+
+**Who did what**
+Carinn completed the Emboss filters, the 2 Sobel Filters, extended the existing filters and created the additional Blotch Blur.
+
+Anthony completed the Eyedropper tool, the 2 Color menus, and Shape Drawing (joint-effort with Liam)
+
+Lachlan completed Macros, Toolbar, and Keyboard Shortcuts.
+
+Liam completed Mouse-Based Image Selection, Shape Drawing (joint-effort with Anthony) and Image Crop 
+
+**Code Testing** 
+
+Again, we ended up mainly brute force testing ANDIE rather than JUnit testing. This was because we found that for the next section of tasks, only the filters were being altered in any major way. And because we hadn't written tests for them prior, there wasn't much point writing tests now. JUnit tests seem to be more useful for long-running projects, where many parts of the software are being altered all the time, and constant testing is much more important. However with ANDIE, we are developing new features more than extending or changing old ones, and JUnit tests aren't that helpful for testing when you're developing a feature, only when you're extending a existing one. Because of this, rather than use time devloping unit tests retro-actively, we found it more useful to just brute force test changes (like extending the filters) or new features. 
+
+This brute force testing was done mainly through print statements and testing output in ANDIE itself. This was done largely individually as each team member worked on their assigned portions or work to complete. Unlike last time, this was more of shared effort rather than one singular person doing most of the bug testing. We used the same test files as last time, to ensure that old features were still working correctly and test that new feature behaved correctly on known images.
+
+Again, the reason we did far more brute force testing was because of the fact that ANDIE is a pretty self diagnosing program, as in when something is wrong with an filter alogrithm for instance, it was pretty obvious there is an error there, and often one could guess what part of the filter was going wrong. So rather than unit tests the easier method to test was to chuck a test image in ANDIE and see what happens.
+
+If we had the chance to re-do this project, I think from the start we would implement unit tests as each feature is developed, so that from the beginning we can constantly test ANDIE to ensure consistency and functionality of a feature once its added. This would also mean that going into Milestone 2 from Milestone 1, we would have unit tests that we know work already, and if they start failing once we change things in Milestone 2, we know exactly where.
+
 ---
 
 ## Versions
 
 1.0 : Base form of ANDIE supplied by Department of Computer Science.
 
-1.1 : Added Sharpen, Gaussian blur, mean filter, soft blur, brightness and contrast altering, increase size, rotate by 90 degrees, flip, and multilingual support
+2.0 : Added Sharpen, Gaussian blur, mean filter, soft blur, brightness and contrast altering, increase size, rotate by 90 degrees, flip, and multilingual support
+
+3.0 : Extends filters to handle edges cases. Added the 8 emboss filters, the 2 Sobel filters, a toolbar with options for commonly used options, keyboard shortcuts, macros for applying a preset set of operations in a sequence, rectangular selection, image crop to said rectangular selection, drawing operations (draw rectangle, oval, line), and additionally added a custom filter blotch blur, a paintbrush tool, an eyedropper tool, and menues for selecting hollow or fill shapes, shape color and line thickness for hollow shapes and paintbrush.

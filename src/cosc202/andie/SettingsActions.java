@@ -299,6 +299,7 @@ public class SettingsActions extends AbstractAction {
 
     }
 
+    //method to keep compiler happy
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub

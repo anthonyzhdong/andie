@@ -1,5 +1,5 @@
 package cosc202.andie;
 
-public class JmenuItem {
+public class Dimensions {
 
 }
