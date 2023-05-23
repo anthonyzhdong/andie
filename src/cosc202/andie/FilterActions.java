@@ -43,6 +43,7 @@ public class FilterActions {
         actions.add(new GaussianFilterAction(SettingsActions.bundle.getString("GaussianBlur"), null, SettingsActions.bundle.getString("ApplyGaussianBlur"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new BlotchBlurAction(SettingsActions.bundle.getString("BlotchBlur"), null, SettingsActions.bundle.getString("ApplyBlotchBlur"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new EmbossAction(SettingsActions.bundle.getString("EmbossFilter"), null, SettingsActions.bundle.getString("ApplyEmbossFilter"),Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new ColorAction(SettingsActions.bundle.getString("EmbossFilter"), null, SettingsActions.bundle.getString("ApplyEmbossFilter"),Integer.valueOf(KeyEvent.VK_B)));
     }   
 
     /**
@@ -115,8 +116,10 @@ public class FilterActions {
                     radius = radiusModel.getNumber().intValue();
                 }
 
-                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-                if (option2 == JOptionPane.YES_OPTION) {
+                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (option2 == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else if (option2 == JOptionPane.YES_OPTION) {
                     target.getImage().apply(new MeanFilter(radius,true));
                 }
                 else {target.getImage().apply(new MeanFilter(radius));}
@@ -183,8 +186,10 @@ public class FilterActions {
                     radius = radiusModel.getNumber().intValue();
                 }
                 
-                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-                if (option2 == JOptionPane.YES_OPTION) {
+                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (option2 == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else if (option2 == JOptionPane.YES_OPTION) {
                     target.getImage().apply(new MedianFilter(radius, true));
                 }
                 else {target.getImage().apply(new MedianFilter(radius));}
@@ -211,8 +216,10 @@ public class FilterActions {
                 if(target.getShapeListener() != null) target.removeShapeListener();
             // Create and apply the filter
                 
-                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-                if (option2 == JOptionPane.YES_OPTION) {
+                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (option2 == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else if (option2 == JOptionPane.YES_OPTION) {
                     target.getImage().apply(new SoftBlur(true));
                 }
                 else {target.getImage().apply(new SoftBlur());}
@@ -235,8 +242,10 @@ public class FilterActions {
             if(EditableImage.hasImage()){
                 // Create and apply the filter
 
-                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-                if (option2 == JOptionPane.YES_OPTION) {
+                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (option2 == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else if (option2 == JOptionPane.YES_OPTION) {
                     target.getImage().apply(new Sharpen(true));
                 }
                 else {target.getImage().apply(new Sharpen());}
@@ -330,11 +339,50 @@ public class FilterActions {
                 null, embossOptions, embossOptions[0]);
                 }
 
-                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-                if (option2 == JOptionPane.YES_OPTION) {
+
+
+                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (option2 == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else if (option2 == JOptionPane.YES_OPTION) {
                     target.getImage().apply(new EmbossFilter(option, true));
                 } 
                 else {target.getImage().apply(new EmbossFilter(option));}
+
+                // Create and apply the filter
+                
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                ErrorHandling.NoFileOpenError();
+            }
+        }
+    }
+
+    public class ColorAction extends ImageAction {
+        ColorAction(String name, ImageIcon icon,
+        String desc, Integer mnemonic) {
+        super(name, icon, desc, mnemonic);
+        }
+        public void actionPerformed(ActionEvent e) {
+            String option;
+            if(EditableImage.hasImage()){
+                String[] embossOptions = {"red", "blue","green","yellow","pink", "light blue", "patches radius 1", "patches radius 5", "patches radius 1000", "patches radius 100000"};
+                if (GraphicsEnvironment.isHeadless()) {
+                    option = "red";
+                    System.out.println("headless");
+                } else {
+                    option = (String) JOptionPane.showInputDialog(null, "What color filter are you using?", "Choose filter option", JOptionPane.QUESTION_MESSAGE,
+                null, embossOptions, embossOptions[0]);
+                }
+
+                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (option2 == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else if (option2 == JOptionPane.YES_OPTION) {
+                    target.getImage().apply(new ColorFilters(option, true));
+                } 
+                else {target.getImage().apply(new ColorFilters(option));}
 
                 // Create and apply the filter
                 
@@ -392,8 +440,10 @@ public class FilterActions {
                     radius = radiusModel.getNumber().intValue();
                 }
 
-                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-                if (option2 == JOptionPane.YES_OPTION) {
+                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (option2 == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else if (option2 == JOptionPane.YES_OPTION) {
                     target.getImage().apply(new GaussianBlur(radius, true));
                 }
                 else {target.getImage().apply(new GaussianBlur(radius));}
