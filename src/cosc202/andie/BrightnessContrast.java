@@ -10,7 +10,7 @@ import java.awt.Color;
  * <p>
  * This method modifies the specific RGB values of each pixel by a percentage 
  * value using a given formula. The value is passed in from the ColourActions 
- * class by a end-user of this system.
+ * class by an end-user of this system.
  * </p>
  * 
  * <p>

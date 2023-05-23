@@ -3,43 +3,68 @@ package cosc202.andie;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
-import javax.swing.*;
 
 /**
  * <p>
- * ImageOperation to change the size of the image.
+ * ImageOperation to draw an oval on the image.
  * </p>
  * 
  * <p>
- * This method uses a scale to create the dimensions for the new (resized) image.
+ * This class uses an Ellipse2D object to specify the dimensions of the oval to be drawn.
+ * It also allows customization of the oval's outline color, fill color, line size, and fill/outline options.
  * </p>
  * 
  * <p> 
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
  * </p>
  * 
- * @see java.awt.image.ConvolveOp
- * @author Steven Mills
- * @version 1.0
+ * @author Liam Kerr
+ * @version 3.0
  */
 public class DrawOval implements ImageOperation, java.io.Serializable  {
 
-     private BufferedImage output;
-     private Ellipse2D ellipse2d;
+    private BufferedImage output;
+    private Ellipse2D ellipse2d;
+    private Color shapeOutlineColour;
+    private Color shapeFillColour;
+    private float lineSize;
+    private boolean shapeFill;
+    private boolean shapeOutline;
 
- 
-     public DrawOval(Ellipse2D ellipse2d) {
-         this.ellipse2d = ellipse2d;
-     }
+
     /**
-     * <p>
-     * Calculates the new dimensions by multiplying the initial dimensions by the scale,
-     * then creates a new buffered image with new given dimensions.
-     * </p>
+     * Construct a DrawOval object with the given ellipse, outline color, fill color, line size, fill option, and outline option.
      * 
+     * @param ellipse2d The Ellipse2D object specifying the dimensions of the oval.
+     * @param shapeOutlineColour The color of the oval's outline.
+     * @param shapeFillColour The color of the oval's fill.
+     * @param lineSize The size of the line used for the outline.
+     * @param shapeFill Whether to fill the oval or not.
+     * @param shapeOutline Whether to draw the outline of the oval or not.
+     */
+    public DrawOval(Ellipse2D ellipse2d, Color shapeOutlineColour, Color shapeFillColour, float lineSize, boolean shapeFill, boolean shapeOutline){
+        this.ellipse2d = ellipse2d;
+        this.shapeOutlineColour = shapeOutlineColour;
+        this.shapeFillColour = shapeFillColour;
+        this.lineSize = lineSize;
+        this.shapeFill = shapeFill;
+        this.shapeOutline = shapeOutline;
+    }
+ 
+    /**
+     * Construct a DrawOval object with the given ellipse.
      * 
-     * @param input The image to apply the resizing to.
-     * @return The resulting (resized) image.
+     * @param ellipse2d The Ellipse2D object specifying the dimensions of the oval.
+     */
+    public DrawOval(Ellipse2D ellipse2d) {
+        this.ellipse2d = ellipse2d;
+    }
+    
+    /**
+     * Apply the draw oval operation to the input image.
+     * 
+     * @param input The image to apply the draw oval operation to.
+     * @return The resulting image with the oval drawn.
      */
     public BufferedImage apply(BufferedImage input){
         int width = input.getWidth();
@@ -49,20 +74,18 @@ public class DrawOval implements ImageOperation, java.io.Serializable  {
 
         Graphics2D g = output.createGraphics();
         g.drawImage(input,0,0,null);
-        g.setStroke(new BasicStroke(ShapeActions.lineSize));
+        g.setStroke(new BasicStroke(lineSize));
 
-         if(ShapeActions.shapeFill){
-         g.setColor(ShapeActions.shapeFillColour);
-         g.fillOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
-         g.setColor(ShapeActions.shapeOutlineColour);
-         g.drawOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
-         }else{
-         g.setColor(ShapeActions.shapeOutlineColour); 
-         g.drawOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
-      }
-       g.dispose();
-       return output;
+        if(shapeFill){
+            g.setColor(shapeFillColour);
+            g.fillOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
+        }
+        if(shapeOutline){
+            g.setColor(shapeOutlineColour); 
+            g.drawOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
+        }
+        
+        g.dispose();
+        return output;
     }
-    }
-    
-
+}
