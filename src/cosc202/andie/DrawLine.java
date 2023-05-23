@@ -73,7 +73,7 @@ public class DrawLine implements ImageOperation, java.io.Serializable {
      * @param input The image to apply the draw line operation to.
      * @return The resulting image with the line drawn.
      */
-    public BufferedImage apply(BufferedImage input){
+    public BufferedImage apply(BufferedImage input) {
         int width = input.getWidth();
         int height = input.getHeight();
 
@@ -82,12 +82,12 @@ public class DrawLine implements ImageOperation, java.io.Serializable {
         Graphics2D g = output.createGraphics();
         g.drawImage(input, 0, 0, null);
         g.setStroke(new BasicStroke(lineSize));
-        if(outlineEyeDropper){
+        if (outlineEyeDropper) {
             g.setColor(ShapeActions.eyeDropperColour);
-        }else{
-        g.setColor(shapeOutlineColour); 
+        } else {
+            g.setColor(shapeOutlineColour);
         }
-        g.drawLine((int)line2d.getX1(), (int)line2d.getY1(), (int)line2d.getX2(), (int)line2d.getY2());
+        g.drawLine((int) line2d.getX1(), (int) line2d.getY1(), (int) line2d.getX2(), (int) line2d.getY2());
         g.dispose();
 
         return output;
