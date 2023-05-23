@@ -56,12 +56,17 @@ public class RectangleDrawListener extends ShapeListener {
     private boolean outlineEyeDropper;
     private boolean fillEyeDropper;
 
-<<<<<<< HEAD
-
-    public RectangleDrawListener(ImagePanel target, Color shapeOutlineColour, Color shapeFillColour, float lineWidth,boolean shapeFill, boolean shapeOutline, boolean outlineEyeDropper) {
-=======
+    /**
+      * Construct a DrawRectangle object with the given rectangle, outline color, fill color, line size, fill option, and outline option.
+      * 
+      * @param rect The Rectangle object specifying the dimensions of the rectangle.
+      * @param shapeOutlineColour The color of the rectangle's outline.
+      * @param shapeFillColour The color of the rectangle's fill.
+      * @param lineSize The size of the line used for the outline.
+      * @param shapeFill Whether to fill the rectangle or not.
+      * @param shapeOutline Whether to draw the outline of the rectangle or not.
+      */
     public RectangleDrawListener(ImagePanel target, Color shapeOutlineColour, Color shapeFillColour, float lineWidth,boolean shapeFill, boolean shapeOutline, boolean outlineEyeDropper, boolean fillEyeDropper) {
->>>>>>> 2ca9a0e468bc664f370c9bd77a4d4c33655e2176
         super(target);
         this.shapeOutlineColour = shapeOutlineColour;
         this.shapeFillColour = shapeFillColour;
@@ -149,11 +154,7 @@ public class RectangleDrawListener extends ShapeListener {
      */
     public void mouseReleased(MouseEvent e) {
         currentRectangle.setBounds(rectToDraw);
-<<<<<<< HEAD
-        target.getImage().apply(new DrawRectangle(currentRectangle,shapeOutlineColour,shapeFillColour,lineWidth, shapeFill, shapeOutline, outlineEyeDropper));
-=======
         target.getImage().apply(new DrawRectangle(currentRectangle,shapeOutlineColour,shapeFillColour,lineWidth, shapeFill, shapeOutline, outlineEyeDropper, fillEyeDropper));
->>>>>>> 2ca9a0e468bc664f370c9bd77a4d4c33655e2176
         this.setShapesToZero();
         target.removeShapeListener();
         target.repaint();
