@@ -88,19 +88,32 @@ public class ToolBar {
         toolbar.add(drawLineButton);
         toolbar.addSeparator();
 
+        Image rectangleSelectImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/rectangle-select.png"));
+        Image rectangleSelectSmallerImage = rectangleSelectImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
+        ImageIcon rectangleSelectIcon = new ImageIcon(rectangleSelectSmallerImage, "rectangleSelect");
+        Action rectangleSelect = new AdjustmentActions.RectangularSelectAction(null, rectangleSelectIcon, SettingsActions.bundle.getString("RectangularSelect"), Integer.valueOf(KeyEvent.VK_L));
+        JButton rectangleSelectButton = new JButton(rectangleSelect);
+        toolbar.add(rectangleSelectButton);
+        toolbar.addSeparator();
+
+        Image imageCropImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/crop.png"));
+        Image imageCropSmallerImage = imageCropImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
+        ImageIcon imageCropIcon = new ImageIcon(imageCropSmallerImage, "imageCrop");
+        Action imageCrop = new AdjustmentActions.ImageCropAction(null, imageCropIcon, SettingsActions.bundle.getString("ImageCrop"), Integer.valueOf(KeyEvent.VK_L));
+        JButton imageCropButton = new JButton(imageCrop);
+        toolbar.add(imageCropButton);
+        toolbar.addSeparator();
+
         if (buttonIn != null) {
             toolbar.add(buttonIn);
         } else {
             Image recordMacroImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/record24px.png"));
             Image recordMacroSmallerImage = recordMacroImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
             ImageIcon recordMacroIcon = new ImageIcon(recordMacroSmallerImage, "Record Macro");
-            Action recordMacro = new MacroActions.MacroRecordAction(null, recordMacroIcon, null, null);
+            Action recordMacro = new MacroActions.MacroRecordAction(null, recordMacroIcon, SettingsActions.bundle.getString("MacroButton"), null);
             JButton recordMacroButton = new JButton(recordMacro);
             toolbar.add(recordMacroButton);
         }
-
-        
-
 
         Container contentPane = Andie.frame.getContentPane();  
         contentPane.add(toolbar, BorderLayout.NORTH);  

@@ -80,7 +80,7 @@ public class ShapeActions{
         return fileMenu;
     }
 
-    public class DrawRectangleAction extends ImageAction{
+    public static class DrawRectangleAction extends ImageAction{
         /**
          * <p>
          * Create a new DrawRectangle action.
@@ -120,7 +120,7 @@ public class ShapeActions{
  
     }
     
-    public class DrawOvalAction extends ImageAction{
+    public static class DrawOvalAction extends ImageAction{
         /**
          * <p>
          * Create a new DrawOval action.

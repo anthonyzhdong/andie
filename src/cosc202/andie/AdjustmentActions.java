@@ -351,7 +351,7 @@ public class AdjustmentActions{
        }
    } 
 
-   public class RectangularSelectAction extends ImageAction{
+   public static class RectangularSelectAction extends ImageAction{
     /**
     * <p>
     * Create a new Rectangular Select action.
@@ -399,7 +399,7 @@ public class AdjustmentActions{
 
 
 
-    public class ImageCropAction extends ImageAction{
+    public static class ImageCropAction extends ImageAction{
         /**
         * <p>
         * Create a new ImageCrop action.
