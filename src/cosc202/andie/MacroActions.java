@@ -51,17 +51,16 @@ public class MacroActions {
         public void actionPerformed(ActionEvent e) {
 
             JDialog frame = new JDialog();
-            Object[] options = { "Yes",
-                    "No",
-                    "Advanced Options" };
+            Object[] options = { SettingsActions.bundle.getString("Yes"),
+            SettingsActions.bundle.getString("No")};
             int n = JOptionPane.showOptionDialog(frame,
-                    "Are you ready to record a new Macro?",
-                    "Macro Recording Options",
+            SettingsActions.bundle.getString("MacroMessage"),
+            SettingsActions.bundle.getString("MacroTitle"),
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
                     null,
                     options,
-                    options[2]);
+                    options[1]);
 
             if (n == 0) {
                 // Macro begin recording code
@@ -76,8 +75,8 @@ public class MacroActions {
                 // explain to user how to stop recording macro
                 JDialog stopRecordingInfo = new JDialog();
                 JOptionPane.showMessageDialog(stopRecordingInfo,
-                        "Press OK when ready to begin recording the actions for your new Macro." +
-                                "\n\nWhen you are finished, press the stop button on the toolbar to assign key bindings to your Macro.");
+                          SettingsActions.bundle.getString("MacroStopDialog1") + 
+                                "\n\n"  + SettingsActions.bundle.getString("MacroStopDialog2"));
 
                 // creates ops files for pre macro recording
                 opsPreMacro = new Stack<ImageOperation>();
@@ -183,81 +182,6 @@ public class MacroActions {
         }
 
         }	
-    }
-
-
-    /**
-     * <p>
-     * Action to view list of Macros.
-     * </p>
-     * 
-     * @see cosc202.andie.ImageAction ImageAction
-     */
-    public static class MacroListAction extends ImageAction {
-
-        /**
-         * <p>
-         * Show list of macros saved.
-         * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-         */
-        MacroListAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * <p>
-         * This method is called whenever the MacroListAction is triggered.
-         * It prints the recorded macros in a diolog box.
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Macro");
-        }
-
-    }
-
-    /**
-     * <p>
-     * Action to delete one or multiple Macros.
-     * </p>
-     * 
-     * @see cosc202.andie.ImageAction ImageAction
-     */
-    public static class MacroDeleteAction extends ImageAction {
-
-        /**
-         * <p>
-         * Create a new MacroDeleteAction.
-         * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-         */
-        MacroDeleteAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * <p>
-         * This method is called whenever the MacroDeleteAction is triggered.
-         * It deletes all selected macros.
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Macro");
-        }
-
     }
 
 }

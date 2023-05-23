@@ -1,8 +1,6 @@
 package cosc202.andie;
 
 import java.util.*;
-import java.util.Formatter.BigDecimalLayoutForm;
-import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
@@ -10,8 +8,6 @@ import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
-import java.lang.Runnable;
-import java.math.BigInteger;
 
 /**
  * <p>
@@ -358,7 +354,7 @@ public class AdjustmentActions{
    public class RectangularSelectAction extends ImageAction{
     /**
     * <p>
-    * Create a new ImageCrop action.
+    * Create a new Rectangular Select action.
     * </p>
     * 
     * @param name The name of the action (ignored if null).
@@ -372,12 +368,12 @@ public class AdjustmentActions{
 
     /**
     * <p>
-    * Callback for when the FlipVerticalAction is triggered.
+    * Callback for when the Rectangular Select action is triggered.
     * </p>
     * 
     * <p>
-    * This method is called whenever the FlipVerticalAction is triggered.
-    * It flips the image pixels vertically.
+    * This method is called whenever the RectangularSelectAction is triggered.
+    * It selects a rectangular region.
     * </p>
     * 
     * @param e The event triggering this callback.
@@ -420,12 +416,12 @@ public class AdjustmentActions{
 
         /**
         * <p>
-        * Callback for when the FlipVerticalAction is triggered.
+        * Callback for when the ImageCropAction is triggered.
         * </p>
         * 
         * <p>
-        * This method is called whenever the FlipVerticalAction is triggered.
-        * It flips the image pixels vertically.
+        * This method is called whenever the ImageCropAction is triggered.
+        * It crops the image from a selected region.
         * </p>
         * 
         * @param e The event triggering this callback.

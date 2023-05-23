@@ -40,7 +40,7 @@ public class ToolBar {
      * <p>
      * Create a toolbar containing certain menubar functions.
      * </p>
-     * 
+     * @param buttonIn The button to add to the toolbar, if null, default toolbar is made.
      * @return A completed toolbar.
      */
     public static void createToolBar(JButton buttonIn) throws Exception {
@@ -61,16 +61,6 @@ public class ToolBar {
         Action undo = new EditActions.UndoAction(null, undoIcon, SettingsActions.bundle.getString("Undo"), Integer.valueOf(KeyEvent.VK_Z));
         JButton undoButton = new JButton(undo);
         toolbar.add(undoButton);
-
-        /** 
-        JComboBox jco = new JComboBox();
-        // works vertically but is scaled with the other buttons and width wont change
-        jco.setPreferredSize(new Dimension(5,5));
-       // System.out.println(jco.getPreferredSize());
-        jco.addItem("Test1");
-        jco.addItem("Test2");
-        toolbar.add(jco);
-        */
 
         Image redoImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/redo24px.png"));
         Image redoSmallerImage = redoImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
@@ -102,6 +92,12 @@ public class ToolBar {
         contentPane.add(toolbar, BorderLayout.NORTH);  
     }
 
+
+    /**
+     * <p>
+     * Changes the toolbar to show the stop recording button.
+     * </p>
+     */
     public static void changeToolBarDuringMacroActionRecording() throws Exception{
         Andie.frame.getContentPane().remove(toolbar);
         Andie.frame.getContentPane().revalidate();
@@ -113,6 +109,11 @@ public class ToolBar {
         ToolBar.createToolBar(recordMacroButton);
     }
 
+    /**
+     * <p>
+     * Changes the toolbar back to the default toolbar.
+     * </p>
+     */
     public static void changeToolBarToDefault() throws Exception {
         Andie.frame.getContentPane().remove(toolbar);
         Andie.frame.getContentPane().revalidate();
