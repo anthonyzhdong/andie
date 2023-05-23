@@ -200,7 +200,7 @@ public class ShapeActions{
             
         }
     }
-    public class DrawAction extends ImageAction{
+    public static class DrawAction extends ImageAction{
         /**
          * <p>
          * Create a new RotationLeft action.
@@ -273,10 +273,10 @@ public class ShapeActions{
 
                 BufferedImage originalTarget = target.getImage().getCurrentImage();
 
-                JLabel checkBoxLabel = new JLabel("Shape Fill:");
+                JLabel checkBoxLabel = new JLabel(SettingsActions.bundle.getString("ShapeFill"));
                 JCheckBox checkBox = new JCheckBox("",shapeFill);
                 
-                JLabel interiorColourLabel = new JLabel("Select Interior Colour:");
+                JLabel interiorColourLabel = new JLabel(SettingsActions.bundle.getString("SelectInteriorColour"));
                 JColorChooser colourChooser = new JColorChooser();
                 
                 /** 
@@ -377,19 +377,19 @@ public class ShapeActions{
                     //all jtext make translations and call them from the package
                     //SettingsActions.bundle.getString(key);
 
-                    JLabel checkBoxLabel = new JLabel("Shape Outline:");
+                    JLabel checkBoxLabel = new JLabel(SettingsActions.bundle.getString("ShapeOutline"));
                     JCheckBox checkBox = new JCheckBox("",shapeOutline);
 
-                    JLabel outlineLabel = new JLabel("Select outline size:");
+                    JLabel outlineLabel = new JLabel(SettingsActions.bundle.getString("SelectOutlineSize"));
 
                     Integer lineSizes[] = {2,4,6,8,12,16,20,25,30,50,100};
                     JComboBox<Integer> comboBox = new JComboBox<>(lineSizes);
                     comboBox.setSelectedItem((int)lineSize);
 
-                    JLabel eyeDropperLabel = new JLabel("Use Eye Dropper Colour:");
+                    JLabel eyeDropperLabel = new JLabel(SettingsActions.bundle.getString("UseEyeDropperColour"));
                     JCheckBox eyeDropperCheckBox = new JCheckBox("",outlineEyeDropper);
                     
-                    JLabel outlineColourLabel = new JLabel("Select outline colour:");
+                    JLabel outlineColourLabel = new JLabel(SettingsActions.bundle.getString("SelectOutlineColour"));
                     JColorChooser outlineColourChooser = new JColorChooser();
 
                     JComponent[] labels = new JComponent[]  {checkBoxLabel, checkBox, outlineLabel, comboBox, eyeDropperLabel, eyeDropperCheckBox, outlineColourLabel, outlineColourChooser};

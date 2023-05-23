@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Image;
 import javax.imageio.*;
 import java.awt.event.*;
@@ -80,6 +81,14 @@ public class ToolBar {
         toolbar.add(brightnessAndContrastButton);
         toolbar.addSeparator();
 
+        Image drawLineImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/drawLine24px.png"));
+        Image drawLineSmallerImage = drawLineImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
+        ImageIcon drawLineIcon = new ImageIcon(drawLineSmallerImage, "drawLine");
+        Action drawLine = new ShapeActions.DrawAction(null, drawLineIcon, SettingsActions.bundle.getString("DrawLine"), Integer.valueOf(KeyEvent.VK_L));
+        JButton drawLineButton = new JButton(drawLine);
+        toolbar.add(drawLineButton);
+        toolbar.addSeparator();
+
         if (buttonIn != null) {
             toolbar.add(buttonIn);
         } else {
@@ -91,12 +100,7 @@ public class ToolBar {
             toolbar.add(recordMacroButton);
         }
 
-        Image drawLineImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/drawLine24px.png"));
-        Image drawLineSmallerImage = drawLineImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
-        ImageIcon drawLineIcon = new ImageIcon(drawLineSmallerImage, "drawLine");
-        Action drawLine = new ShapeActions.DrawLineAction(null, drawLineIcon, SettingsActions.bundle.getString("DrawLine"), Integer.valueOf(KeyEvent.VK_L));
-        JButton drawLineButton = new JButton(drawLine);
-        toolbar.add(drawLineButton);
+        
 
 
         Container contentPane = Andie.frame.getContentPane();  
