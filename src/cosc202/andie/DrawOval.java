@@ -30,6 +30,8 @@ public class DrawOval implements ImageOperation, java.io.Serializable  {
     private float lineSize;
     private boolean shapeFill;
     private boolean shapeOutline;
+    private boolean outlineEyeDropper;
+    private boolean fillEyeDropper;
 
 
     /**
@@ -42,13 +44,15 @@ public class DrawOval implements ImageOperation, java.io.Serializable  {
      * @param shapeFill Whether to fill the oval or not.
      * @param shapeOutline Whether to draw the outline of the oval or not.
      */
-    public DrawOval(Ellipse2D ellipse2d, Color shapeOutlineColour, Color shapeFillColour, float lineSize, boolean shapeFill, boolean shapeOutline){
+    public DrawOval(Ellipse2D ellipse2d, Color shapeOC, Color shapeFC, float ls, boolean sf, boolean so, boolean oed, boolean fed){
         this.ellipse2d = ellipse2d;
-        this.shapeOutlineColour = shapeOutlineColour;
-        this.shapeFillColour = shapeFillColour;
-        this.lineSize = lineSize;
-        this.shapeFill = shapeFill;
-        this.shapeOutline = shapeOutline;
+        this.shapeOutlineColour = shapeOC;
+        this.shapeFillColour = shapeFC;
+        this.lineSize = ls;
+        this.shapeFill = sf;
+        this.shapeOutline = so;
+        this.outlineEyeDropper = oed;
+        this.fillEyeDropper = fed;
     }
  
     /**
@@ -77,11 +81,19 @@ public class DrawOval implements ImageOperation, java.io.Serializable  {
         g.setStroke(new BasicStroke(lineSize));
 
         if(shapeFill){
+            if(fillEyeDropper){
+                g.setColor(ShapeActions.eyeDropperColour);
+            }else{    
             g.setColor(shapeFillColour);
+            }
             g.fillOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
         }
         if(shapeOutline){
-            g.setColor(shapeOutlineColour); 
+            if (outlineEyeDropper) {
+                g.setColor(ShapeActions.eyeDropperColour);
+            } else {
+                g.setColor(shapeOutlineColour);
+            }
             g.drawOval((int)ellipse2d.getX(),(int)ellipse2d.getY(),(int)ellipse2d.getWidth(),(int)ellipse2d.getHeight());
         }
         

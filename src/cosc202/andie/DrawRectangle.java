@@ -35,37 +35,31 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable {
     private boolean shapeFill;
     private boolean shapeOutline;
     private boolean outlineEyeDropper;
+    private boolean fillEyeDropper;
 
-     /**
-      * Construct a DrawRectangle object with the given rectangle, outline color, fill color, line size, fill option, and outline option.
-      * 
-      * @param rect The Rectangle object specifying the dimensions of the rectangle.
-      * @param shapeOutlineColour The color of the rectangle's outline.
-      * @param shapeFillColour The color of the rectangle's fill.
-      * @param lineSize The size of the line used for the outline.
-      * @param shapeFill Whether to fill the rectangle or not.
-      * @param shapeOutline Whether to draw the outline of the rectangle or not.
-      */
-     public DrawRectangle(Rectangle rect, Color shapeOutlineColour, Color shapeFillColour, float lineSize, boolean shapeFill, boolean shapeOutline){
-         this.rect = rect;
-         this.shapeOutlineColour = shapeOutlineColour;
-         this.shapeFillColour = shapeFillColour;
-         this.lineSize = lineSize;
-         this.shapeFill = shapeFill;
-         this.shapeOutline = shapeOutline;
-     }
+    public DrawRectangle(Rectangle r, Color shapeOC, Color shapeFC, float ls, boolean sf, boolean so, boolean oed, boolean fed) {
+        this.rect = r;
+        this.shapeOutlineColour = shapeOC;
+        this.shapeFillColour = shapeFC;
+        this.lineSize = ls;
+        this.shapeFill = sf;
+        this.shapeOutline = so;
+        this.outlineEyeDropper = oed;
+        this.fillEyeDropper = fed;
 
-     /**
-      * Construct a DrawRectangle object with the given rectangle.
-      * 
-      * @param rect The Rectangle object specifying the dimensions of the rectangle.
-      */
-     public DrawRectangle(Rectangle rect) {
-         this.rect = rect;
-     }
-    
+    }
+
+    public DrawRectangle(Rectangle r) {
+        this.rect = r;
+    }
+    // create constructor that passes through the variables
+
     /**
-     * Apply the draw rectangle operation to the input image.
+     * <p>
+     * Calculates the new dimensions by multiplying the initial dimensions by the
+     * scale,
+     * then creates a new buffered image with new given dimensions.
+     * </p>
      * 
      * @param input The image to apply the draw rectangle operation to.
      * @return The resulting image with the rectangle drawn.
@@ -81,7 +75,11 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable {
         g.setStroke(new BasicStroke(lineSize));
 
         if (shapeFill) {
+            if(fillEyeDropper){
+                g.setColor(ShapeActions.eyeDropperColour);
+            }else{    
             g.setColor(shapeFillColour);
+            }
             g.fillRect((int) rect.getX(), (int) rect.getY(), (int) rect.getWidth(), (int) rect.getHeight());
         }
         if (shapeOutline) {

@@ -317,10 +317,22 @@ class EditableImage {
         }
     }
 
+        /**
+     * <p>
+     * Get the current operations stack that has been applied to image.
+     * </p>
+     * @return The stack of operations that have been applied to the image.
+     */
     public static Stack<ImageOperation> getOps() {
         return ops;
     }
 
+    /**
+     * <p>
+     * applys the ImageOperations from a given Stack to the current image.
+     * </p>
+     * @param ops The stack of operations to apply to the image.
+     */
     public static void applyMacro(Stack<ImageOperation> ops) {
         for (ImageOperation op : ops) {
             current = op.apply(current);

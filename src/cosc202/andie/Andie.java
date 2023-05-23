@@ -64,7 +64,7 @@ public class Andie {
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // The main content area is an ImagePanel
+        // Creates toolbar and hotkeys
         ToolBar.createToolBar(null);
         Hotkeys hotkeys = new Hotkeys();
         hotkeys.createDefaultHotkeys(imagePanel);
@@ -79,7 +79,18 @@ public class Andie {
     }
 
 
-    //Split menu bar out of createAndShowGUI for language change purposes without losing functionality of menubar
+       /**
+        * <p>
+        * Method for creating the menu bar.
+        * </p>
+        * 
+        * <p>
+        * This method is called when Andie is initialized and when language change actions occur.
+        * </p>
+        * 
+        * @return JMenuBar to be used in frame.
+        */
+
     public static JMenuBar createMenuBar(){
 
         frame.setJMenuBar(null);
