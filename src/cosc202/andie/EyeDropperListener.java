@@ -15,7 +15,6 @@ public class EyeDropperListener extends ShapeListener {
     
     private EditableImage editableImageVersion = target.getImage();
     private BufferedImage bufferedImageVersion = editableImageVersion.getCurrentImage();
-   // private Color selectedColour;
 
     public EyeDropperListener(ImagePanel target) {
         super(target);
@@ -27,10 +26,8 @@ public class EyeDropperListener extends ShapeListener {
         int y = e.getY();
         if(x < bufferedImageVersion.getWidth() && y < bufferedImageVersion.getHeight() && x >= 0 && y >= 0){
             int rgb = bufferedImageVersion.getRGB(x,y);
-            //selectedColour = new Color(rgb);
             ShapeActions.eyeDropperColour = new Color(rgb);
             System.out.println(ShapeActions.eyeDropperColour);
-            // i dont know how to encapsulate this
         }
         
     }
