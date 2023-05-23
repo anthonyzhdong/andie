@@ -47,7 +47,7 @@ public class DrawListener extends ShapeListener {
     private Color shapeColor;
     private int radius;
     private boolean eyeDropper;
-    private Collection<Point> points = new ArrayList<>();
+    private ArrayList<Point> points = new ArrayList<Point>();
     BufferedImage pre;
 
     public DrawListener(ImagePanel target, Color shapeColor, int radius, boolean eyeDropper) {
@@ -136,6 +136,7 @@ public class DrawListener extends ShapeListener {
         this.setShapesToZero();
         target.removeShapeListener();
         target.getImage().setCurrentImage(pre);
+
         target.getImage().apply(new DrawSetOfPoints(points, shapeColor, radius, eyeDropper));
         target.repaint();
     }
@@ -151,7 +152,7 @@ public class DrawListener extends ShapeListener {
         int y = e.getY();
         pointToDraw.setLocation(x, y);
         target.getImage().tempApplyBrightnessContrast(new Draw(pointToDraw, shapeColor, radius,eyeDropper));
-        points.add(pointToDraw);
+        points.add(new Point(x, y));
         target.repaint();
     }
 

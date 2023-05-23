@@ -27,7 +27,7 @@ import java.awt.geom.Ellipse2D;
  */
 public class DrawSetOfPoints implements ImageOperation, java.io.Serializable  {
     private BufferedImage output;
-    private Collection<Point> points = new ArrayList<>();
+    private ArrayList<Point> points = new ArrayList<Point>();
     private int radius = 4;
     private Color shapeFillColour;
     private boolean eyeDropper;
@@ -38,7 +38,7 @@ public class DrawSetOfPoints implements ImageOperation, java.io.Serializable  {
      * 
      * @param p The Point object specifying the location of the point.
      */
-    public DrawSetOfPoints(Collection<Point> points) {
+    public DrawSetOfPoints(ArrayList<Point> points) {
         this.points = points;
         this.shapeFillColour = Color.red;
 
@@ -51,7 +51,7 @@ public class DrawSetOfPoints implements ImageOperation, java.io.Serializable  {
      * @param c The color of the point.
      * @param radius The radius of the point.
      */
-    public DrawSetOfPoints(Collection<Point> points, Color c, int radius,boolean eyeDropper) {
+    public DrawSetOfPoints(ArrayList<Point> points, Color c, int radius,boolean eyeDropper) {
         this.points = points;
         this.shapeFillColour = c;
         this.radius = radius;
@@ -77,7 +77,6 @@ public class DrawSetOfPoints implements ImageOperation, java.io.Serializable  {
         }
         g2.drawImage(input,0,0,null);
         for(Point p : points) {
-            System.out.println("Adding point");
             p = adjustPoint(p);
             Ellipse2D e2d = new Ellipse2D.Double(p.getX(), p.getY(), 2*(double)radius + 1, 2*(double)radius + 1);
             g2.fillOval((int)e2d.getX(), (int)e2d.getY(), (int)e2d.getWidth(), (int)e2d.getHeight());
