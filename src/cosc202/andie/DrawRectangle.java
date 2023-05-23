@@ -36,7 +36,6 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable {
     private boolean shapeOutline;
     private boolean outlineEyeDropper;
 
-<<<<<<< HEAD
      /**
       * Construct a DrawRectangle object with the given rectangle, outline color, fill color, line size, fill option, and outline option.
       * 
@@ -67,59 +66,10 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable {
     
     /**
      * Apply the draw rectangle operation to the input image.
-=======
-    public DrawRectangle(Rectangle r, Color shapeOC, Color shapeFC, float ls, boolean sf, boolean so, boolean oed) {
-        this.rect = r;
-        this.shapeOutlineColour = shapeOC;
-        this.shapeFillColour = shapeFC;
-        this.lineSize = ls;
-        this.shapeFill = sf;
-        this.shapeOutline = so;
-        this.outlineEyeDropper = oed;
-        // maybe use super? but add whether or not its eyedropper and also the colour
-        // for both fill/outline
-
-    }
-    // private boolean filled = true;
-
-    public DrawRectangle(Rectangle r) {// boolean filled) {
-        this.rect = r;
-        // this.filled = filled;
-    }
-    // create constructor that passes through the variables
-
-    /**
-     * <p>
-     * Calculates the new dimensions by multiplying the initial dimensions by the
-     * scale,
-     * then creates a new buffered image with new given dimensions.
-     * </p>
->>>>>>> bdd61a7 (eye dropper rectange done)
      * 
      * @param input The image to apply the draw rectangle operation to.
      * @return The resulting image with the rectangle drawn.
      */
-<<<<<<< HEAD
-    public BufferedImage apply(BufferedImage input){
-        int width = input.getWidth();
-        int height = input.getHeight();
-
-        output = new BufferedImage(width,height,input.TYPE_INT_ARGB);
-
-        Graphics2D g = output.createGraphics();
-        g.drawImage(input,0,0,null);
-        g.setStroke(new BasicStroke(lineSize));
-
-        if(shapeFill){
-            g.setColor(shapeFillColour);
-            g.fillRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
-        }
-        if(shapeOutline){
-            g.setColor(shapeOutlineColour); 
-            g.drawRect((int)rect.getX(),(int)rect.getY(),(int)rect.getWidth(),(int)rect.getHeight());
-        }
-        
-=======
     public BufferedImage apply(BufferedImage input) {
         int width = input.getWidth();
         int height = input.getHeight();
@@ -142,7 +92,6 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable {
             }
             g.drawRect((int) rect.getX(), (int) rect.getY(), (int) rect.getWidth(), (int) rect.getHeight());
         }
->>>>>>> bdd61a7 (eye dropper rectange done)
         g.dispose();
         return output;
     }

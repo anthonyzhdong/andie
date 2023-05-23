@@ -55,11 +55,8 @@ public class RectangleDrawListener extends ShapeListener {
     private boolean shapeOutline;
     private boolean outlineEyeDropper;
 
-<<<<<<< HEAD
-    public RectangleDrawListener(ImagePanel target, Color shapeOutlineColour, Color shapeFillColour, float lineWidth, boolean shapeFill, boolean shapeOutline) {
-=======
+
     public RectangleDrawListener(ImagePanel target, Color shapeOutlineColour, Color shapeFillColour, float lineWidth,boolean shapeFill, boolean shapeOutline, boolean outlineEyeDropper) {
->>>>>>> bdd61a7 (eye dropper rectange done)
         super(target);
         this.shapeOutlineColour = shapeOutlineColour;
         this.shapeFillColour = shapeFillColour;
@@ -146,11 +143,7 @@ public class RectangleDrawListener extends ShapeListener {
      */
     public void mouseReleased(MouseEvent e) {
         currentRectangle.setBounds(rectToDraw);
-<<<<<<< HEAD
-        target.getImage().apply(new DrawRectangle(currentRectangle, shapeOutlineColour, shapeFillColour, lineWidth, shapeFill, shapeOutline));
-=======
         target.getImage().apply(new DrawRectangle(currentRectangle,shapeOutlineColour,shapeFillColour,lineWidth, shapeFill, shapeOutline, outlineEyeDropper));
->>>>>>> bdd61a7 (eye dropper rectange done)
         this.setShapesToZero();
         target.removeShapeListener();
         target.repaint();
