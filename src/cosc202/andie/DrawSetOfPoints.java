@@ -36,7 +36,7 @@ public class DrawSetOfPoints implements ImageOperation, java.io.Serializable  {
      * Construct a Draw object with the given point.
      * The default color is red and the default radius is 4.
      * 
-     * @param p The Point object specifying the location of the point.
+     * @param points The arraylist of points specifying where to draw the points
      */
     public DrawSetOfPoints(ArrayList<Point> points) {
         this.points = points;
@@ -47,9 +47,9 @@ public class DrawSetOfPoints implements ImageOperation, java.io.Serializable  {
     /**
      * Construct a Draw object with the given point, color, and radius.
      * 
-     * @param p The Point object specifying the location of the point.
-     * @param c The color of the point.
-     * @param radius The radius of the point.
+     * @param points The arraylist of points specifying where to draw the points
+     * @param c The color of the points.
+     * @param radius The radius of the points.
      */
     public DrawSetOfPoints(ArrayList<Point> points, Color c, int radius,boolean eyeDropper) {
         this.points = points;
@@ -85,6 +85,13 @@ public class DrawSetOfPoints implements ImageOperation, java.io.Serializable  {
         return output;
     }
 
+    /**
+     * Helper method to check the bounds of a point
+     * and keep them within the range of possible points
+     * 
+     * @param p Tthe point to adjust
+     * @return The resulting adjusted point
+     */
     private Point adjustPoint(Point p) {
         double x = p.getX();
         double y = p.getY();
