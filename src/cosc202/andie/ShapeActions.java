@@ -46,7 +46,8 @@ public class ShapeActions{
     private static float lineSize = 8;
     private static Color shapeFillColour = Color.white;
     private static Color shapeOutlineColour = Color.black;
-    public static Color eyeDropper;
+    private static boolean outlineEyeDropper = false;
+    public static Color eyeDropperColour = Color.blue;
 
  /**
   * <p>
@@ -113,7 +114,7 @@ public class ShapeActions{
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
             if(EditableImage.hasImage()){
-                target.addShapeListener(new RectangleDrawListener(target,shapeOutlineColour,shapeFillColour, lineSize, shapeFill,shapeOutline));
+                target.addShapeListener(new RectangleDrawListener(target,shapeOutlineColour,shapeFillColour, lineSize, shapeFill,shapeOutline,outlineEyeDropper));
             } else {
                 ErrorHandling.NoFileOpenError();
             }
@@ -372,6 +373,8 @@ public class ShapeActions{
                 if(EditableImage.hasImage()) {
 
                     BufferedImage originalTarget = target.getImage().getCurrentImage();
+                    //all jtext make translations and call them from the package
+                    //SettingsActions.bundle.getString(key);
 
                     JLabel checkBoxLabel = new JLabel("Shape Outline:");
                     JCheckBox checkBox = new JCheckBox("",shapeOutline);
@@ -381,11 +384,14 @@ public class ShapeActions{
                     Integer lineSizes[] = {2,4,6,8,12,16,20,25,30,50,100};
                     JComboBox<Integer> comboBox = new JComboBox<>(lineSizes);
                     comboBox.setSelectedItem((int)lineSize);
+
+                    JLabel eyeDropperLabel = new JLabel("Use Eye Dropper Colour:");
+                    JCheckBox eyeDropperCheckBox = new JCheckBox("",outlineEyeDropper);
                     
                     JLabel outlineColourLabel = new JLabel("Select outline colour:");
                     JColorChooser outlineColourChooser = new JColorChooser();
 
-                    JComponent[] labels = new JComponent[]  {checkBoxLabel, checkBox, outlineLabel, comboBox,outlineColourLabel, outlineColourChooser};
+                    JComponent[] labels = new JComponent[]  {checkBoxLabel, checkBox, outlineLabel, comboBox, eyeDropperLabel, eyeDropperCheckBox, outlineColourLabel, outlineColourChooser};
                 
                     int optionSize = JOptionPane.showOptionDialog(null, labels, SettingsActions.bundle.getString("ShapeOutlineSettings"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
                 
@@ -405,6 +411,12 @@ public class ShapeActions{
                             shapeOutline = true;
                         }else{
                             shapeOutline = false;
+                        }
+
+                        if(eyeDropperCheckBox.isSelected()){
+                            outlineEyeDropper = true;
+                        }else{
+                            outlineEyeDropper = false;
                         }
 
                         target.repaint();

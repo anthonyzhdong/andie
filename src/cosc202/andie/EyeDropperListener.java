@@ -28,8 +28,8 @@ public class EyeDropperListener extends ShapeListener {
         if(x < bufferedImageVersion.getWidth() && y < bufferedImageVersion.getHeight() && x >= 0 && y >= 0){
             int rgb = bufferedImageVersion.getRGB(x,y);
             //selectedColour = new Color(rgb);
-            ShapeActions.eyeDropper = new Color(rgb);
-            System.out.println(ShapeActions.eyeDropper);
+            ShapeActions.eyeDropperColour = new Color(rgb);
+            System.out.println(ShapeActions.eyeDropperColour);
             // i dont know how to encapsulate this
         }
         
