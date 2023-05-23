@@ -59,10 +59,9 @@ public class RectangleDrawListener extends ShapeListener {
     /**
       * Construct a DrawRectangle object with the given rectangle, outline color, fill color, line size, fill option, and outline option.
       * 
-      * @param rect The Rectangle object specifying the dimensions of the rectangle.
       * @param shapeOutlineColour The color of the rectangle's outline.
       * @param shapeFillColour The color of the rectangle's fill.
-      * @param lineSize The size of the line used for the outline.
+      * @param lineWidth The size of the line used for the outline.
       * @param shapeFill Whether to fill the rectangle or not.
       * @param shapeOutline Whether to draw the outline of the rectangle or not.
       */

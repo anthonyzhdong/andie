@@ -5,6 +5,24 @@ import java.io.File;
 import java.io.FileNotFoundException;  
 import java.util.Scanner;
 
+
+/**
+ * <p>
+ * Class to handle standard errors the user may incounter
+ * </p>
+ * 
+ * <p>
+ * This class uses Dialogs to inform the user when they have encountered an error
+ * </p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
+ * </p>
+ * 
+ * @author Lachlan Graham
+ * @version 2.0
+ */
 public class ErrorHandling {
     
     /** Creates error message for: Unsupported File Types */

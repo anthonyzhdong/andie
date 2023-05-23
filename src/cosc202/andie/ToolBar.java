@@ -24,7 +24,7 @@ import javax.swing.*;
  * </p>
  * 
  * @author Lachlan Graham
- * @version 1.0
+ * @version 2.0
  */
 public class ToolBar {
 
@@ -42,7 +42,6 @@ public class ToolBar {
      * Create a toolbar containing certain menubar functions.
      * </p>
      * @param buttonIn The button to add to the toolbar, if null, default toolbar is made.
-     * @return A completed toolbar.
      */
     public static void createToolBar(JButton buttonIn) throws Exception {
         toolbar = new JToolBar();

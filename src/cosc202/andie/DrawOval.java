@@ -38,11 +38,13 @@ public class DrawOval implements ImageOperation, java.io.Serializable  {
      * Construct a DrawOval object with the given ellipse, outline color, fill color, line size, fill option, and outline option.
      * 
      * @param ellipse2d The Ellipse2D object specifying the dimensions of the oval.
-     * @param shapeOutlineColour The color of the oval's outline.
-     * @param shapeFillColour The color of the oval's fill.
-     * @param lineSize The size of the line used for the outline.
-     * @param shapeFill Whether to fill the oval or not.
-     * @param shapeOutline Whether to draw the outline of the oval or not.
+     * @param shapeOC The color of the oval's outline.
+     * @param shapeFC The color of the oval's fill.
+     * @param ls The size of the line used for the outline.
+     * @param sf Whether to fill the oval or not.
+     * @param so Whether to draw the outline of the oval or not.
+     * @param oed Whether to use the eyedropper color as the outline color
+     * @param fed Whether to use the eyedropper color as the fill color
      */
     public DrawOval(Ellipse2D ellipse2d, Color shapeOC, Color shapeFC, float ls, boolean sf, boolean so, boolean oed, boolean fed){
         this.ellipse2d = ellipse2d;
