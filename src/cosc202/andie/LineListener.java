@@ -54,6 +54,7 @@ public class LineListener extends ShapeListener {
     // Variables for shape appearance
     private Color shapeOutlineColour;
     private float lineWidth;
+    private boolean outlineEyeDropper;
 
     /**
      * Constructs a LineListener with the specified parameters.
@@ -61,10 +62,11 @@ public class LineListener extends ShapeListener {
      * @param shapeOutlineColour  the color of the line
      * @param lineWidth           the width of the line
      */
-    public LineListener(ImagePanel target, Color shapeOutlineColour, float lineWidth) {
+    public LineListener(ImagePanel target, Color shapeOutlineColour, float lineWidth, boolean outlineEyeDropper) {
         super(target);
         this.shapeOutlineColour = shapeOutlineColour;
         this.lineWidth = lineWidth;
+        this.outlineEyeDropper = outlineEyeDropper;
     }
 
     /**
@@ -115,7 +117,7 @@ public class LineListener extends ShapeListener {
         // Complete the line and apply the drawing operation to the image
         finalPoint.setLocation(pointToDraw.getX(), pointToDraw.getY());
         currentLine.setLine(initialPoint, finalPoint);
-        target.getImage().apply(new DrawLine(currentLine, shapeOutlineColour, lineWidth));
+        target.getImage().apply(new DrawLine(currentLine, shapeOutlineColour, lineWidth, outlineEyeDropper));
         this.setShapesToZero();
         target.removeShapeListener();
         target.repaint();

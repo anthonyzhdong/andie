@@ -47,6 +47,7 @@ public class ShapeActions{
     private static Color shapeFillColour = Color.white;
     private static Color shapeOutlineColour = Color.black;
     private static boolean outlineEyeDropper = false;
+    private static boolean fillEyeDropper = false;
     public static Color eyeDropperColour = Color.blue;
 
  /**
@@ -114,7 +115,7 @@ public class ShapeActions{
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
             if(EditableImage.hasImage()){
-                target.addShapeListener(new RectangleDrawListener(target,shapeOutlineColour,shapeFillColour, lineSize, shapeFill,shapeOutline,outlineEyeDropper));
+                target.addShapeListener(new RectangleDrawListener(target,shapeOutlineColour,shapeFillColour, lineSize, shapeFill,shapeOutline,outlineEyeDropper,fillEyeDropper));
             } else {
                 ErrorHandling.NoFileOpenError();
             }
@@ -154,7 +155,7 @@ public class ShapeActions{
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
             if(EditableImage.hasImage()){
-                target.addShapeListener(new OvalListener(target,shapeOutlineColour,shapeFillColour, lineSize, shapeFill,shapeOutline));
+                target.addShapeListener(new OvalListener(target,shapeOutlineColour,shapeFillColour, lineSize, shapeFill,shapeOutline,outlineEyeDropper,fillEyeDropper));
             } else {
                 ErrorHandling.NoFileOpenError();
             }
@@ -192,7 +193,7 @@ public class ShapeActions{
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
             if(EditableImage.hasImage()) {
-                target.addShapeListener(new LineListener(target, shapeOutlineColour, lineSize));
+                target.addShapeListener(new LineListener(target, shapeOutlineColour, lineSize, outlineEyeDropper));
             } else {
                 ErrorHandling.NoFileOpenError();
             }

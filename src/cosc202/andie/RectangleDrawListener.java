@@ -54,12 +54,9 @@ public class RectangleDrawListener extends ShapeListener {
     private boolean shapeFill;
     private boolean shapeOutline;
     private boolean outlineEyeDropper;
+    private boolean fillEyeDropper;
 
-<<<<<<< HEAD
-    public RectangleDrawListener(ImagePanel target, Color shapeOutlineColour, Color shapeFillColour, float lineWidth, boolean shapeFill, boolean shapeOutline) {
-=======
-    public RectangleDrawListener(ImagePanel target, Color shapeOutlineColour, Color shapeFillColour, float lineWidth,boolean shapeFill, boolean shapeOutline, boolean outlineEyeDropper) {
->>>>>>> bdd61a7 (eye dropper rectange done)
+    public RectangleDrawListener(ImagePanel target, Color shapeOutlineColour, Color shapeFillColour, float lineWidth,boolean shapeFill, boolean shapeOutline, boolean outlineEyeDropper, boolean fillEyeDropper) {
         super(target);
         this.shapeOutlineColour = shapeOutlineColour;
         this.shapeFillColour = shapeFillColour;
@@ -67,6 +64,7 @@ public class RectangleDrawListener extends ShapeListener {
         this.shapeFill = shapeFill;
         this.shapeOutline = shapeOutline;
         this.outlineEyeDropper = outlineEyeDropper;
+        this.fillEyeDropper = fillEyeDropper;
     }
 
     public RectangleDrawListener(ImagePanel target) {
@@ -146,11 +144,7 @@ public class RectangleDrawListener extends ShapeListener {
      */
     public void mouseReleased(MouseEvent e) {
         currentRectangle.setBounds(rectToDraw);
-<<<<<<< HEAD
-        target.getImage().apply(new DrawRectangle(currentRectangle, shapeOutlineColour, shapeFillColour, lineWidth, shapeFill, shapeOutline));
-=======
-        target.getImage().apply(new DrawRectangle(currentRectangle,shapeOutlineColour,shapeFillColour,lineWidth, shapeFill, shapeOutline, outlineEyeDropper));
->>>>>>> bdd61a7 (eye dropper rectange done)
+        target.getImage().apply(new DrawRectangle(currentRectangle,shapeOutlineColour,shapeFillColour,lineWidth, shapeFill, shapeOutline, outlineEyeDropper, fillEyeDropper));
         this.setShapesToZero();
         target.removeShapeListener();
         target.repaint();

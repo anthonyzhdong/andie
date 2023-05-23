@@ -49,6 +49,8 @@ public class OvalListener extends ShapeListener {
     private float lineWidth;
     private boolean shapeFill;
     private boolean shapeOutline;
+    private boolean outlineEyeDropper;
+    private boolean fillEyeDropper;
 
     /**
      * Constructs an OvalListener object with the specified shape properties.
@@ -59,13 +61,15 @@ public class OvalListener extends ShapeListener {
      * @param shapeFill whether to fill the oval or not
      * @param shapeOutline whether to draw the outline of the oval or not
      */
-    public OvalListener(ImagePanel target, Color shapeOutlineColour, Color shapeFillColour, float lineWidth, boolean shapeFill, boolean shapeOutline) {
+    public OvalListener(ImagePanel target, Color shapeOutlineColour, Color shapeFillColour, float lineWidth, boolean shapeFill, boolean shapeOutline, boolean outlineEyeDropper, boolean fillEyeDropper) {
         super(target);
         this.shapeOutlineColour = shapeOutlineColour;
         this.shapeFillColour = shapeFillColour;
         this.lineWidth = lineWidth;
         this.shapeFill = shapeFill;
         this.shapeOutline = shapeOutline;
+        this.outlineEyeDropper = outlineEyeDropper;
+        this.fillEyeDropper = fillEyeDropper;
     }
 
     /**
@@ -129,7 +133,7 @@ public class OvalListener extends ShapeListener {
      */
     public void mouseReleased(MouseEvent e) {
         currentOval.setFrame(ovalToDraw.getBounds());
-        target.getImage().apply(new DrawOval(currentOval, shapeOutlineColour, shapeFillColour, lineWidth, shapeFill, shapeOutline));
+        target.getImage().apply(new DrawOval(currentOval, shapeOutlineColour, shapeFillColour, lineWidth, shapeFill, shapeOutline,outlineEyeDropper,fillEyeDropper));
         this.setShapesToZero();
         target.removeShapeListener();
         target.repaint();
