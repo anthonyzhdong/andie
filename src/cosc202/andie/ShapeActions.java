@@ -305,7 +305,7 @@ public class ShapeActions{
         }
 
     }
-        public class ShapeOutlineAction extends ImageAction{
+        public static class ShapeOutlineAction extends ImageAction{
             /**
              * <p>
              * Create a new RotationLeft action.

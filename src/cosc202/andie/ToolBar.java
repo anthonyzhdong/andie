@@ -80,14 +80,6 @@ public class ToolBar {
         toolbar.add(brightnessAndContrastButton);
         toolbar.addSeparator();
 
-        Image drawLineImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/drawLine24px.png"));
-        Image drawLineSmallerImage = drawLineImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
-        ImageIcon drawLineIcon = new ImageIcon(drawLineSmallerImage, "drawLine");
-        Action drawLine = new ShapeActions.DrawAction(null, drawLineIcon, SettingsActions.bundle.getString("DrawLine"), Integer.valueOf(KeyEvent.VK_L));
-        JButton drawLineButton = new JButton(drawLine);
-        toolbar.add(drawLineButton);
-        toolbar.addSeparator();
-
         Image rectangleSelectImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/rectangle-select.png"));
         Image rectangleSelectSmallerImage = rectangleSelectImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
         ImageIcon rectangleSelectIcon = new ImageIcon(rectangleSelectSmallerImage, "rectangleSelect");
@@ -102,6 +94,54 @@ public class ToolBar {
         Action imageCrop = new AdjustmentActions.ImageCropAction(null, imageCropIcon, SettingsActions.bundle.getString("ImageCrop"), Integer.valueOf(KeyEvent.VK_L));
         JButton imageCropButton = new JButton(imageCrop);
         toolbar.add(imageCropButton);
+        toolbar.addSeparator();
+
+        Image drawLineImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/drawLine24px.png"));
+        Image drawLineSmallerImage = drawLineImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
+        ImageIcon drawLineIcon = new ImageIcon(drawLineSmallerImage, "drawLine");
+        Action drawLine = new ShapeActions.DrawAction(null, drawLineIcon, SettingsActions.bundle.getString("DrawLine"), Integer.valueOf(KeyEvent.VK_L));
+        JButton drawLineButton = new JButton(drawLine);
+        toolbar.add(drawLineButton);
+        toolbar.addSeparator();
+
+        Image drawRectangleImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/rectangle.png"));
+        Image drawRectangleSmallerImage = drawRectangleImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
+        ImageIcon drawRectangleIcon = new ImageIcon(drawRectangleSmallerImage, "DrawRectangle");
+        Action drawRectangle = new ShapeActions.DrawRectangleAction(null, drawRectangleIcon, SettingsActions.bundle.getString("DrawRectangle"), Integer.valueOf(KeyEvent.VK_L));
+        JButton drawRectangleButton = new JButton(drawRectangle);
+        toolbar.add(drawRectangleButton);
+        toolbar.addSeparator();
+
+        Image drawOvalImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/circle.png"));
+        Image drawOvalSmallerImage = drawOvalImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
+        ImageIcon drawOvalIcon = new ImageIcon(drawOvalSmallerImage, "imageCrop");
+        Action drawOval = new ShapeActions.DrawOvalAction(null, drawOvalIcon, SettingsActions.bundle.getString("DrawOval"), Integer.valueOf(KeyEvent.VK_L));
+        JButton drawOvalButton = new JButton(drawOval);
+        toolbar.add(drawOvalButton);
+        toolbar.addSeparator();
+
+        Image colorOutlineSelectImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/color-outline-selection.png"));
+        Image colorOutlineSelectSmallerImage = colorOutlineSelectImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
+        ImageIcon colorOutlineSelectIcon = new ImageIcon(colorOutlineSelectSmallerImage, "OutlineColorSelect");
+        Action colorOutlineSelect = new ShapeActions.ShapeOutlineAction(null, colorOutlineSelectIcon, SettingsActions.bundle.getString("ShapeOutlineSettings"), Integer.valueOf(KeyEvent.VK_L));
+        JButton colorOutlineSelectButton = new JButton(colorOutlineSelect);
+        toolbar.add(colorOutlineSelectButton);
+        toolbar.addSeparator();
+
+        Image colorFillSelectImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/color-fill-selection.png"));
+        Image colorFillSelectSmallerImage = colorFillSelectImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
+        ImageIcon colorFillSelectIcon = new ImageIcon(colorFillSelectSmallerImage, "FillColorSelect");
+        Action colorFillSelect = new ShapeActions.ShapeOutlineAction(null, colorFillSelectIcon, SettingsActions.bundle.getString("ShapeFillSettings"), Integer.valueOf(KeyEvent.VK_L));
+        JButton colorFillSelectButton = new JButton(colorFillSelect);
+        toolbar.add(colorFillSelectButton);
+        toolbar.addSeparator();
+
+        Image eyedropperImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/color-picker.png"));
+        Image eyedropperSmallerImage = eyedropperImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
+        ImageIcon eyedropperIcon = new ImageIcon(eyedropperSmallerImage, "FillColorSelect");
+        Action eyedropper = new ShapeActions.ShapeOutlineAction(null, eyedropperIcon, SettingsActions.bundle.getString("EyeDropper"), Integer.valueOf(KeyEvent.VK_L));
+        JButton eyedropperButton = new JButton(eyedropper);
+        toolbar.add(eyedropperButton);
         toolbar.addSeparator();
 
         if (buttonIn != null) {
