@@ -37,6 +37,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
     private int[] red;
     private int[] green;
     private int[] blue;
+    private boolean sN = false;
 
     /**
      * <p>
@@ -72,6 +73,21 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
 
 
     /**
+     * Constructs a MedianFilter object with the specified radius and shiftNegative flag.
+     *
+     * @param radius The radius of the filter, which determines the size of the local neighborhood.
+     *               A radius of 1 corresponds to a 3x3 filter, 2 corresponds to 5x5, and so on.
+     * @param t      A boolean flag indicating whether to apply the shiftNegative operation before filtering.
+     *               If true, the shiftNegative operation will be applied; otherwise, it will be skipped.
+     * 
+     * Chat Gpt did this comment
+     */
+    MedianFilter(int radius, boolean t) {
+        this.radius = radius;  
+        this.sN = t;
+    }
+
+    /**
      * <p>
      * Apply a median filter to an image
      * </p>
@@ -86,6 +102,8 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * @return The resulting median filtered image.
      */
     public BufferedImage apply(BufferedImage input) {
+        if (sN == true) {input = shiftNegative.fixNegative(input);}
+
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
         
         int size = (2*radius+1) * (2*radius+1);

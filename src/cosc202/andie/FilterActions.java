@@ -114,9 +114,14 @@ public class FilterActions {
                 } else if (option == JOptionPane.OK_OPTION) {
                     radius = radiusModel.getNumber().intValue();
                 }
+
+                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (option2 == JOptionPane.YES_OPTION) {
+                    target.getImage().apply(new MeanFilter(radius,true));
+                }
+                else {target.getImage().apply(new MeanFilter(radius));}
                 
                 // Create and apply the filter
-                target.getImage().apply(new MeanFilter(radius));
                 target.repaint();
                 target.getParent().revalidate(); 
             } else {
@@ -178,8 +183,13 @@ public class FilterActions {
                     radius = radiusModel.getNumber().intValue();
                 }
                 
+                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (option2 == JOptionPane.YES_OPTION) {
+                    target.getImage().apply(new MedianFilter(radius, true));
+                }
+                else {target.getImage().apply(new MedianFilter(radius));}
+
                 // Create and apply the filter
-                target.getImage().apply(new MedianFilter(radius));
                 target.repaint();
                 target.getParent().revalidate(); 
             } else {
@@ -200,7 +210,14 @@ public class FilterActions {
                 if(EditableImage.hasImage()){
                 if(target.getShapeListener() != null) target.removeShapeListener();
             // Create and apply the filter
-                target.getImage().apply(new SoftBlur());
+                
+                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (option2 == JOptionPane.YES_OPTION) {
+                    target.getImage().apply(new SoftBlur(true));
+                }
+                else {target.getImage().apply(new SoftBlur());}
+
+                
                 target.repaint();
                 target.getParent().revalidate();
             } else {
@@ -217,7 +234,13 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
                 // Create and apply the filter
-                target.getImage().apply(new Sharpen());
+
+                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (option2 == JOptionPane.YES_OPTION) {
+                    target.getImage().apply(new Sharpen(true));
+                }
+                else {target.getImage().apply(new Sharpen());}
+                
                 target.repaint();
                 target.getParent().revalidate();
             } else {
@@ -272,9 +295,14 @@ public class FilterActions {
                  } else if (option == JOptionPane.OK_OPTION) {
                      radius = radiusModel.getNumber().intValue();
                  }
+
+                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (option2 == JOptionPane.YES_OPTION) {
+                    target.getImage().apply(new BlotchBlur(radius,true));
+                } 
+                else {target.getImage().apply(new BlotchBlur(radius));}
                  
                  // Create and apply the filter
-                 target.getImage().apply(new BlotchBlur(radius));
                  target.repaint();
                  target.getParent().revalidate();
                  
@@ -363,6 +391,12 @@ public class FilterActions {
                 } else if (option == JOptionPane.OK_OPTION) {
                     radius = radiusModel.getNumber().intValue();
                 }
+
+                int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (option2 == JOptionPane.YES_OPTION) {
+                    target.getImage().apply(new GaussianBlur(radius, true));
+                }
+                else {target.getImage().apply(new GaussianBlur(radius));}
 
                 // Create and apply the filter
                 target.getImage().apply(new GaussianBlur(radius));
