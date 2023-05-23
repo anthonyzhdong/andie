@@ -139,7 +139,7 @@ SOFTWARE.
 
 - Create macros that record a sequence of events and can apply that sequence of actions at the users liking
 
-- Keyboard shortcut
+- Keyboard shortcuts
  
 --- 
 
@@ -171,7 +171,7 @@ However, in the next part of developing ANDIE, more unit testing will be used, a
 ### Milestone 2
 
 **Who did what**
-Carinn completed the Emboss filters, the 2 Sobel Filters, extended the existing filters and created the additional Blotch Blur.
+Carinn completed the Emboss filters, the 2 Sobel Filters, extended the existing filters and created the additional Blotch Blur, as well as adding a bunch of additional filters.
 
 Anthony completed the Eyedropper tool, the 2 Color menus, and Shape Drawing (joint-effort with Liam)
 
@@ -188,6 +188,8 @@ This brute force testing was done mainly through print statements and testing ou
 Again, the reason we did far more brute force testing was because of the fact that ANDIE is a pretty self diagnosing program, as in when something is wrong with an filter alogrithm for instance, it was pretty obvious there is an error there, and often one could guess what part of the filter was going wrong. So rather than unit tests the easier method to test was to chuck a test image in ANDIE and see what happens.
 
 If we had the chance to re-do this project, I think from the start we would implement unit tests as each feature is developed, so that from the beginning we can constantly test ANDIE to ensure consistency and functionality of a feature once its added. This would also mean that going into Milestone 2 from Milestone 1, we would have unit tests that we know work already, and if they start failing once we change things in Milestone 2, we know exactly where.
+
+
 
 ---
 

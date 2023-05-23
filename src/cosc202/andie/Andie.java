@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.imageio.*;
 
+
 /**
  * test
  * test
@@ -69,12 +70,16 @@ public class Andie {
         Hotkeys hotkeys = new Hotkeys();
         hotkeys.createDefaultHotkeys(imagePanel);
         
-        
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
+
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setSize(screenSize.width, screenSize.height);
+
         frame.add(scrollPane, BorderLayout.CENTER);
         frame.setJMenuBar(menuBar);
-        frame.pack();
+        //frame.pack();
         frame.setVisible(true);
     }
 
