@@ -40,7 +40,7 @@ public class RotationLeft implements ImageOperation, java.io.Serializable  {
         int width = input.getWidth();
         int height = input.getHeight();
 
-        BufferedImage rotatedToLeft = new BufferedImage(height,width,input.TYPE_INT_ARGB);
+        BufferedImage rotatedToLeft = new BufferedImage(height,width,BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphic = rotatedToLeft.createGraphics();
         AffineTransform transform = new AffineTransform();
 

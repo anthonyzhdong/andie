@@ -1,8 +1,6 @@
 package cosc202.andie;
 
 import java.awt.*;
-import javax.swing.*;
-import java.awt.image.*;
 import java.awt.event.*;
 import javax.swing.event.*;
 

@@ -39,7 +39,7 @@ public class RotationRight implements ImageOperation, java.io.Serializable  {
         int width = input.getWidth();
         int height = input.getHeight();
 
-        BufferedImage rotatedToRight = new BufferedImage(height,width,input.TYPE_INT_ARGB);
+        BufferedImage rotatedToRight = new BufferedImage(height,width,BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphic = rotatedToRight.createGraphics();
         AffineTransform transform = new AffineTransform();
 

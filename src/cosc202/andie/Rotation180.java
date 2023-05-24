@@ -39,7 +39,7 @@ public class Rotation180 implements ImageOperation, java.io.Serializable  {
         int width = input.getWidth();
         int height = input.getHeight();
 
-        BufferedImage rotated180 = new BufferedImage(width,height,input.TYPE_INT_ARGB);
+        BufferedImage rotated180 = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphic = rotated180.createGraphics();
         AffineTransform transform = new AffineTransform();
 

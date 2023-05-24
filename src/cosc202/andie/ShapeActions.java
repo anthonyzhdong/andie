@@ -1,20 +1,11 @@
 package cosc202.andie;
 
 import java.util.*;
-import java.util.Formatter.BigDecimalLayoutForm;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-
-import java.lang.Runnable;
-import java.math.BigInteger;
-
-
-import javax.swing.colorchooser.AbstractColorChooserPanel;
 
 /**
  * <p>

@@ -49,7 +49,7 @@ public class ResizeLarger implements ImageOperation, java.io.Serializable  {
         int newWidth = (int)(input.getWidth() * scaleNum);
         int newHeight = (int)(input.getHeight() * scaleNum);
 
-        BufferedImage image = new BufferedImage(newWidth,newHeight,input.TYPE_INT_ARGB);
+        BufferedImage image = new BufferedImage(newWidth,newHeight,BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
         g.drawImage(input,0,0,newWidth,newHeight,null);
         g.dispose();
