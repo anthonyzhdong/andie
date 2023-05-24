@@ -111,6 +111,7 @@ public class ShapeActions{
 
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
+            RectangleListener.setSelect(false);
             if(EditableImage.hasImage()){
                 target.addShapeListener(new RectangleDrawListener(target,shapeOutlineColour,shapeFillColour, lineSize, shapeFill,shapeOutline,outlineEyeDropper,fillEyeDropper));
             } else {
@@ -151,6 +152,7 @@ public class ShapeActions{
 
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
+            RectangleListener.setSelect(false);
             if(EditableImage.hasImage()){
                 target.addShapeListener(new OvalListener(target,shapeOutlineColour,shapeFillColour, lineSize, shapeFill,shapeOutline,outlineEyeDropper,fillEyeDropper));
             } else {
@@ -189,6 +191,7 @@ public class ShapeActions{
 
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
+            RectangleListener.setSelect(false);
             if(EditableImage.hasImage()) {
                 target.addShapeListener(new LineListener(target, shapeOutlineColour, lineSize, outlineEyeDropper));
             } else {
@@ -228,6 +231,7 @@ public class ShapeActions{
 
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
+            RectangleListener.setSelect(false);
             if(EditableImage.hasImage()) {
                 target.addShapeListener(new DrawListener(target, shapeOutlineColour, (int)lineSize, outlineEyeDropper));
             } else {
@@ -268,6 +272,7 @@ public class ShapeActions{
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
                 if(target.getShapeListener() != null) target.removeShapeListener();
+                RectangleListener.setSelect(false);
 
                 BufferedImage originalTarget = target.getImage().getCurrentImage();
 
@@ -336,6 +341,7 @@ public class ShapeActions{
 
             public void actionPerformed(ActionEvent e) {
                 if(target.getShapeListener() != null) target.removeShapeListener();
+                RectangleListener.setSelect(false);
                 if(EditableImage.hasImage()) {
 
                     BufferedImage originalTarget = target.getImage().getCurrentImage();
@@ -422,6 +428,7 @@ public class ShapeActions{
     
             public void actionPerformed(ActionEvent e) {
                 if(target.getShapeListener() != null) target.removeShapeListener();
+                RectangleListener.setSelect(false);
                 if(EditableImage.hasImage()) {
                     target.addShapeListener(new EyeDropperListener(target));
                 } else {

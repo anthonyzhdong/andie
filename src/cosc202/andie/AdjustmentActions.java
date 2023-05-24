@@ -383,6 +383,7 @@ public class AdjustmentActions{
     public void actionPerformed(ActionEvent e) {
         if(target.getShapeListener() != null) target.removeShapeListener();
         if(EditableImage.hasImage()) {
+            System.out.println("Added rectangle Listener");
             RectangleListener r = new RectangleListener(target);
             if(RectangleListener.getSelect() == true) return;
             RectangleListener.setSelect(true);

@@ -97,6 +97,7 @@ public class EditActions {
                 ErrorHandling.NoFileOpenError();
                 return;
             }
+            RectangleListener.setSelect(false);
             if(target.getShapeListener() != null) target.removeShapeListener();
             try {
                 target.getImage().undo();
@@ -149,6 +150,7 @@ public class EditActions {
                 ErrorHandling.NoFileOpenError();
                 return;
             }
+            RectangleListener.setSelect(false);
             if(target.getShapeListener() != null) target.removeShapeListener();
             try {
                 target.getImage().redo();

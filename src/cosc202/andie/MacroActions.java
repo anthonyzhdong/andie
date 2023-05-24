@@ -49,7 +49,8 @@ public class MacroActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
+            if(target.getShapeListener() != null) target.removeShapeListener();
+            RectangleListener.setSelect(false);
             JDialog frame = new JDialog();
             Object[] options = { SettingsActions.bundle.getString("Yes"),
             SettingsActions.bundle.getString("No")};
@@ -127,6 +128,8 @@ public class MacroActions {
             // creates .ops file for post macro recording.
             // then calculates the difference between pre and post macro recording to get
             // final macro. If no pre macro recording, final = post
+            if(target.getShapeListener() != null) target.removeShapeListener();
+            RectangleListener.setSelect(false);
             opsPostMacro = EditableImage.getOps();
             macroOps = new Stack<ImageOperation>();
             int index = 0;

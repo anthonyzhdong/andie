@@ -95,6 +95,8 @@ public class ViewActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            if(target.getShapeListener() != null) target.removeShapeListener();
+            RectangleListener.setSelect(false);
             target.setZoom(target.getZoom()+10);
             target.repaint();
             target.getParent().revalidate();
@@ -140,6 +142,8 @@ public class ViewActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            if(target.getShapeListener() != null) target.removeShapeListener();
+            RectangleListener.setSelect(false);
             target.setZoom(target.getZoom()-10);
             target.repaint();
             target.getParent().revalidate();
@@ -185,6 +189,8 @@ public class ViewActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            if(target.getShapeListener() != null) target.removeShapeListener();
+            RectangleListener.setSelect(false);
             target.setZoom(100);
             target.revalidate();
             target.getParent().revalidate();

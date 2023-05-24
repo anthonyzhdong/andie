@@ -121,6 +121,7 @@ public class SettingsActions extends AbstractAction {
          */
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
+            RectangleListener.setSelect(false);            
             /* Potenial code for saving preferences inbetween instances of Andie
             bundle.clearCache();
             prefs.put("language", "en"); 
@@ -180,6 +181,7 @@ public class SettingsActions extends AbstractAction {
          */
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
+            RectangleListener.setSelect(false);            
             bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle_mi_NZ");
 
             try {
@@ -231,6 +233,7 @@ public class SettingsActions extends AbstractAction {
          */
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
+            RectangleListener.setSelect(false);            
             bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle_fr_FR");
 
             try {
@@ -282,6 +285,7 @@ public class SettingsActions extends AbstractAction {
          */
         public void actionPerformed(ActionEvent e) {
             if(target.getShapeListener() != null) target.removeShapeListener();
+            RectangleListener.setSelect(false);            
             bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle_sp_SP");
 
             try {

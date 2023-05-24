@@ -181,6 +181,7 @@ public class FileActions {
             if (EditableImage.hasImage()) {
                 if (target.getShapeListener() != null)
                     target.removeShapeListener();
+                RectangleListener.setSelect(false);
                 try {
                     target.getImage().save();
                 } catch (Exception ex) {
@@ -233,6 +234,7 @@ public class FileActions {
             if (EditableImage.hasImage()) {
                 if (target.getShapeListener() != null)
                     target.removeShapeListener();
+                RectangleListener.setSelect(false);
                 JFileChooser fileChooser = new JFileChooser();
                 int result = fileChooser.showSaveDialog(target);
 

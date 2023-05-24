@@ -100,6 +100,7 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
                 if(EditableImage.hasImage()){
+                RectangleListener.setSelect(false);
                 if(target.getShapeListener() != null) target.removeShapeListener();
                 // Determine the radius - ask the user.
                 int radius = 1;
@@ -171,6 +172,7 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
                 if(EditableImage.hasImage()){
+                RectangleListener.setSelect(false);
                 if(target.getShapeListener() != null) target.removeShapeListener();
                 // Determine the radius - ask the user.
                 int radius = 1;
@@ -214,6 +216,7 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
                 if(EditableImage.hasImage()){
                 if(target.getShapeListener() != null) target.removeShapeListener();
+                RectangleListener.setSelect(false);
             // Create and apply the filter
                 
                 int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
@@ -241,7 +244,8 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
                 // Create and apply the filter
-
+                if(target.getShapeListener() != null) target.removeShapeListener();
+                RectangleListener.setSelect(false);
                 int option2 = JOptionPane.showConfirmDialog(null,"Would you like to rebase negative image values?", "Please select one. (Select no for default)" , JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
                 if (option2 == JOptionPane.CANCEL_OPTION) {
                     return;
@@ -290,6 +294,7 @@ public class FilterActions {
          public void actionPerformed(ActionEvent e) {
                 if(EditableImage.hasImage()){
                 if(target.getShapeListener() != null) target.removeShapeListener();
+                RectangleListener.setSelect(false);
                  // Determine the radius - ask the user.
                  int radius = 1;
  
@@ -330,6 +335,8 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
             String option;
             if(EditableImage.hasImage()){
+                if(target.getShapeListener() != null) target.removeShapeListener();
+                RectangleListener.setSelect(false);
                 String[] embossOptions = {"Center Left", "Top Left", "Center Right", "Top Center", "Top Right", "Bottom Left", "Bottom Center", "Bottom Right", "Sobel Vertical", "Sobel Horiontal"};
                 if (GraphicsEnvironment.isHeadless()) {
                     option = "Center Left";
@@ -367,6 +374,8 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
             String option;
             if(EditableImage.hasImage()){
+                if(target.getShapeListener() != null) target.removeShapeListener();
+                RectangleListener.setSelect(false);
                 String[] embossOptions = {"red", "blue","green","yellow","pink", "light blue", "patches radius 1", "patches radius 5", "patches radius 1000", "patches radius 100000"};
                 if (GraphicsEnvironment.isHeadless()) {
                     option = "red";
@@ -425,6 +434,7 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
             if(EditableImage.hasImage()){
                 if(target.getShapeListener() != null) target.removeShapeListener();
+                RectangleListener.setSelect(false);
                 // Determine the radius - ask the user.
                 int radius = 1;
 
