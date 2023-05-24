@@ -139,7 +139,7 @@ public class ToolBar {
         Image eyedropperImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/color-picker.png"));
         Image eyedropperSmallerImage = eyedropperImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
         ImageIcon eyedropperIcon = new ImageIcon(eyedropperSmallerImage, "FillColorSelect");
-        Action eyedropper = new ShapeActions.ShapeOutlineAction(null, eyedropperIcon, SettingsActions.bundle.getString("EyeDropper"), Integer.valueOf(KeyEvent.VK_L));
+        Action eyedropper = new ShapeActions.EyeDropperAction(null, eyedropperIcon, SettingsActions.bundle.getString("EyeDropper"), Integer.valueOf(KeyEvent.VK_L));
         JButton eyedropperButton = new JButton(eyedropper);
         toolbar.add(eyedropperButton);
         toolbar.addSeparator();
