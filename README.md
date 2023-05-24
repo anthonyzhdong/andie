@@ -191,13 +191,15 @@ Again, the reason we did far more brute force testing was because of the fact th
 
 If we had the chance to re-do this project, I think from the start we would implement unit tests as each feature is developed, so that from the beginning we can constantly test ANDIE to ensure consistency and functionality of a feature once its added. This would also mean that going into Milestone 2 from Milestone 1, we would have unit tests that we know work already, and if they start failing once we change things in Milestone 2, we know exactly where.
 
+**Additional Features**
 
+We added additional filters (such as blotch blur), an eyedropper tool, a paintbrush/draw tool, 2 color menus for selecting fill shape options and hollow shape options (so the user could combine and mix and match options, such as having a orange outlined yellow filled circle). Unfortanely, the draw feature is not fully functional at the time of submission. This is because if the user moves the mouse quickly, the mouse listener doesn't activate quickly enough, and causes there to be gaps in the line drawn. A possible solution to this would be to see where there are gaps in the list of points, and then fill the gaps in with appopriate points. 
 
 ---
 
 ## Versions
 
-1.0 : Base form of ANDIE supplied by Department of Computer Science.
+1.0 : Base form of ANDIE supplied by Department of Computer Science at the Univesity of Otago.
 
 2.0 : Added Sharpen, Gaussian blur, mean filter, soft blur, brightness and contrast altering, increase size, rotate by 90 degrees, flip, and multilingual support
 
