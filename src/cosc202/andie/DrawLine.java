@@ -40,6 +40,10 @@ public class DrawLine implements ImageOperation, java.io.Serializable {
      */
     private float lineSize;
 
+    /**
+     * Whether to use the eye dropper colour for the outline
+     */
+
     private boolean outlineEyeDropper;
 
     /**
@@ -50,6 +54,7 @@ public class DrawLine implements ImageOperation, java.io.Serializable {
      *                           line.
      * @param shapeOutlineColour The color of the line's outline.
      * @param lineSize           The size of the line.
+     * @param outlineEyeDropper  Whether to use the eye dropper colour for the line
      */
     public DrawLine(Line2D line2d, Color shapeOutlineColour, float lineSize, boolean outlineEyeDropper) {
         this.line2d = line2d;

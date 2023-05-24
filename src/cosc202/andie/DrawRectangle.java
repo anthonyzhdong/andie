@@ -6,12 +6,14 @@ import javax.swing.*;
 
 /**
  * <p>
- * ImageOperation to change the size of the image.
+ * ImageOperation to draw a rectangle on the image.
  * </p>
  * 
  * <p>
- * This method uses a scale to create the dimensions for the new (resized)
- * image.
+ * This class uses a Rectangle object to specify the dimensions of the rectangle
+ * to be drawn.
+ * It also allows customization of the rectangle's outline color, fill color,
+ * line size, and fill/outline options.
  * </p>
  * 
  * <p>
@@ -37,7 +39,22 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable {
     private boolean outlineEyeDropper;
     private boolean fillEyeDropper;
 
-    public DrawRectangle(Rectangle r, Color shapeOC, Color shapeFC, float ls, boolean sf, boolean so, boolean oed, boolean fed) {
+    /**
+     * Construct a DrawRectangle object with the given rectangle, outline color,
+     * fill color, line size, fill option, and outline option.
+     *
+     * @param r       The Rectangle object specifying the dimensions of the
+     *                rectangle.
+     * @param shapeOC The color of the rectangle's outline.
+     * @param shapeFC The color of the rectangle's fill.
+     * @param ls      The size of the line used for the outline.
+     * @param sf      Whether to fill the rectangle or not.
+     * @param so      Whether to draw the outline of the rectangle or not.
+     * @param oed     Whether to use the eyedropper color as the outline color.
+     * @param fed     Whether to use the eyedropper color as the fill color.
+     */
+    public DrawRectangle(Rectangle r, Color shapeOC, Color shapeFC, float ls, boolean sf, boolean so, boolean oed,
+            boolean fed) {
         this.rect = r;
         this.shapeOutlineColour = shapeOC;
         this.shapeFillColour = shapeFC;
@@ -49,18 +66,19 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable {
 
     }
 
+    /**
+     * Construct a DrawRectangle object with the given rectangle.
+     *
+     * @param r The Rectangle object specifying the dimensions of the rectangle.
+     */
     public DrawRectangle(Rectangle r) {
         this.rect = r;
     }
     // create constructor that passes through the variables
 
     /**
-     * <p>
-     * Calculates the new dimensions by multiplying the initial dimensions by the
-     * scale,
-     * then creates a new buffered image with new given dimensions.
-     * </p>
-     * 
+     * Apply the draw rectangle operation to the input image.
+     *
      * @param input The image to apply the draw rectangle operation to.
      * @return The resulting image with the rectangle drawn.
      */
@@ -75,10 +93,12 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable {
         g.setStroke(new BasicStroke(lineSize));
 
         if (shapeFill) {
-            if(fillEyeDropper){
+            if (fillEyeDropper) {
+                // Use the eye dropper colour for the fill
                 g.setColor(ShapeActions.eyeDropperColour);
-            }else{    
-            g.setColor(shapeFillColour);
+            } else {
+                // Use the specified shape fill colour
+                g.setColor(shapeFillColour);
             }
             g.fillRect((int) rect.getX(), (int) rect.getY(), (int) rect.getWidth(), (int) rect.getHeight());
         }
@@ -88,6 +108,7 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable {
             } else {
                 g.setColor(shapeOutlineColour);
             }
+            // Fill the rectangle with the specified dimensions
             g.drawRect((int) rect.getX(), (int) rect.getY(), (int) rect.getWidth(), (int) rect.getHeight());
         }
         g.dispose();
