@@ -78,6 +78,13 @@ of your choosing, and export allows you to explicity specify file type on save.
 ![alt text](assets/images/Export%20Capture.PNG)
 
 ---
+
+**Video**
+Here is a video showing basic use of ANDIE such as demonstrating file open, drawing, filter application, and undo and redo
+
+https://vimeo.com/829670014/48503037d3
+
+
 ## Credits
 
 This was collaborative effort of Carinn, Anthony, Lachlan and Liam. 
