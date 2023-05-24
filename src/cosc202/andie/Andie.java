@@ -6,8 +6,6 @@ import javax.imageio.*;
 
 
 /**
- * test
- * test
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
  * </p>
