@@ -35,7 +35,7 @@ import javax.swing.colorchooser.AbstractColorChooserPanel;
  * @version 1.0
  */
 public class ShapeActions{
- /** A list of actions for the Adjustments menu. */
+ /** A list of actions for the Shapes menu. */
  protected ArrayList<Action> actions;
 
     private static boolean shapeFill = false;
@@ -240,11 +240,7 @@ public class ShapeActions{
 
         /**
          * <p>
-<<<<<<< HEAD
          * Create a new ShapeFill action.
-=======
-         * Create a new shape fill action.
->>>>>>> 8be0a92 (comments)
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -257,7 +253,6 @@ public class ShapeActions{
         }
 
         /**
-<<<<<<< HEAD
         * <p>
         * Callback for when the ShapeFill action is triggered.
         * </p>
@@ -268,17 +263,6 @@ public class ShapeActions{
         * 
         * </p>
         * 
-=======
-         * <p>
-         * Callback for when the shape fill action is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the shape fill is triggered.
-         * It shows a ui which allows the user to customise the fill of the shape 
-         * </p>
-         * 
->>>>>>> 8be0a92 (comments)
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
@@ -325,11 +309,7 @@ public class ShapeActions{
         public static class ShapeOutlineAction extends ImageAction{
             /**
              * <p>
-<<<<<<< HEAD
              * Create a new ShapeOutline action.
-=======
-             * Create a new shape outline action.
->>>>>>> 8be0a92 (comments)
              * </p>
              * 
              * @param name The name of the action (ignored if null).
@@ -342,21 +322,12 @@ public class ShapeActions{
             }
                     /**
              * <p>
-<<<<<<< HEAD
              * Callback for when the ShapeOutline action is triggered.
              * </p>
              * 
              * <p>
              * This method is called whenever the ShapeOutlineAction is triggered.
              * It activates a Dialog that asks the user to select a color and line width.
-=======
-             * Callback for when the shape outline action is triggered.
-             * </p>
-             * 
-             * <p>
-             * This method is called whenever the shape outline is triggered.
-             * It shows a ui which allows the user to customise the outline of the shape 
->>>>>>> 8be0a92 (comments)
              * 
              * </p>
              * 
@@ -424,11 +395,7 @@ public class ShapeActions{
         public static class EyeDropperAction extends ImageAction{
             /**
              * <p>
-<<<<<<< HEAD
              * Create a new EyeDropper action.
-=======
-             * Create a new Eye dropper action.
->>>>>>> 8be0a92 (comments)
              * </p>
              * 
              * @param name The name of the action (ignored if null).
@@ -441,21 +408,12 @@ public class ShapeActions{
             }
                     /**
              * <p>
-<<<<<<< HEAD
              * Callback for when the EyeDropper action is triggered.
              * </p>
              * 
              * <p>
              * This method is called whenever the EyeDropper action
              * It stores the RGB value of the pixel the user clicks
-=======
-             * Callback for when the eye dropper action is triggered.
-             * </p>
-             * 
-             * <p>
-             * This method is called whenever the eye dropper is triggered.
-             * It selects and holds the colour of the pixel that the user clicks
->>>>>>> 8be0a92 (comments)
              * 
              * </p>
              * 
