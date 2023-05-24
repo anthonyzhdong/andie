@@ -131,7 +131,7 @@ public class ToolBar {
         Image colorFillSelectImage = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/color-fill-selection.png"));
         Image colorFillSelectSmallerImage = colorFillSelectImage.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
         ImageIcon colorFillSelectIcon = new ImageIcon(colorFillSelectSmallerImage, "FillColorSelect");
-        Action colorFillSelect = new ShapeActions.ShapeOutlineAction(null, colorFillSelectIcon, SettingsActions.bundle.getString("ShapeFillSettings"), Integer.valueOf(KeyEvent.VK_L));
+        Action colorFillSelect = new ShapeActions.ShapeFillAction(null, colorFillSelectIcon, SettingsActions.bundle.getString("ShapeFillSettings"), Integer.valueOf(KeyEvent.VK_L));
         JButton colorFillSelectButton = new JButton(colorFillSelect);
         toolbar.add(colorFillSelectButton);
         toolbar.addSeparator();

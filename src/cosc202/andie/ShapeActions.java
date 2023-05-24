@@ -200,7 +200,7 @@ public class ShapeActions{
     public static class DrawAction extends ImageAction{
         /**
          * <p>
-         * Create a new RotationLeft action.
+         * Create a new DrawAction
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -236,11 +236,11 @@ public class ShapeActions{
             
         }
     }
-        public class ShapeFillAction extends ImageAction {
+        public static class ShapeFillAction extends ImageAction {
 
         /**
          * <p>
-         * Create a new convert-to-grey action.
+         * Create a new ShapeFill action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -253,15 +253,16 @@ public class ShapeActions{
         }
 
         /**
-         * <p>
-         * Callback for when the convert-to-grey action is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the ConvertToGreyAction is triggered.
-         * It changes the image to greyscale.
-         * </p>
-         * 
+        * <p>
+        * Callback for when the ShapeFill action is triggered.
+        * </p>
+        * 
+        * <p>
+        * This method is called whenever the ShapeFilleAction is triggered.
+        * It activates a Dialog that asks the user to select a color to fill the shape with.
+        * 
+        * </p>
+        * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
@@ -308,7 +309,7 @@ public class ShapeActions{
         public static class ShapeOutlineAction extends ImageAction{
             /**
              * <p>
-             * Create a new RotationLeft action.
+             * Create a new ShapeOutline action.
              * </p>
              * 
              * @param name The name of the action (ignored if null).
@@ -321,12 +322,12 @@ public class ShapeActions{
             }
                     /**
              * <p>
-             * Callback for when the RotationLeft action is triggered.
+             * Callback for when the ShapeOutline action is triggered.
              * </p>
              * 
              * <p>
-             * This method is called whenever the RotationLeftAction is triggered.
-             * It rotates the image 90 degrees to the left.
+             * This method is called whenever the ShapeOutlineAction is triggered.
+             * It activates a Dialog that asks the user to select a color and line width.
              * 
              * </p>
              * 
@@ -391,10 +392,10 @@ public class ShapeActions{
                 
             }
         }
-        public class EyeDropperAction extends ImageAction{
+        public static class EyeDropperAction extends ImageAction{
             /**
              * <p>
-             * Create a new RotationLeft action.
+             * Create a new EyeDropper action.
              * </p>
              * 
              * @param name The name of the action (ignored if null).
@@ -407,12 +408,12 @@ public class ShapeActions{
             }
                     /**
              * <p>
-             * Callback for when the RotationLeft action is triggered.
+             * Callback for when the EyeDropper action is triggered.
              * </p>
              * 
              * <p>
-             * This method is called whenever the RotationLeftAction is triggered.
-             * It rotates the image 90 degrees to the left.
+             * This method is called whenever the EyeDropper action
+             * It stores the RGB value of the pixel the user clicks
              * 
              * </p>
              * 
