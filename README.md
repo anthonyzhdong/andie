@@ -139,7 +139,7 @@ SOFTWARE.
 
 - Create macros that record a sequence of events and can apply that sequence of actions at the users liking
 
-- Keyboard shortcuts
+- Keyboard shortcuts (Ctrl+O = Open, Ctrl+Z = Undo, Ctrl+S = Save, ESC = Exit Andie)
  
 --- 
 
@@ -189,10 +189,6 @@ Again, the reason we did far more brute force testing was because of the fact th
 
 If we had the chance to re-do this project, I think from the start we would implement unit tests as each feature is developed, so that from the beginning we can constantly test ANDIE to ensure consistency and functionality of a feature once its added. This would also mean that going into Milestone 2 from Milestone 1, we would have unit tests that we know work already, and if they start failing once we change things in Milestone 2, we know exactly where.
 
-
-**Additional Features**
-
-We added several more Emboss filters, an eye dropper/color sampler tool, a draw/paintbrush tool, 2 shape customisation menus (shape fill or hollow, or a combination, shape color for both the filled shap, and line width). 
 
 
 ---
