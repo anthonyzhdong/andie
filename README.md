@@ -137,7 +137,9 @@ SOFTWARE.
 
 - Apply emboss filters and Sobel filters
 
-- Create macros that record a sequence of events and can apply that sequence of actions at the users liking
+- Toolbar for quick access to frequently used actions (e.g. Save, Undo/Redo, Draw Tools, Macro Recording)
+
+- Create macros that record a sequence of events and can apply that sequence of actions at the users liking (the camera button on the toolbar)
 
 - Keyboard shortcuts (Ctrl+O = Open, Ctrl+Z = Undo, Ctrl+S = Save, ESC = Exit Andie)
  
