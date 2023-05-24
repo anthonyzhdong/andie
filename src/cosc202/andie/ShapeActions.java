@@ -18,7 +18,7 @@ import javax.swing.colorchooser.AbstractColorChooserPanel;
 
 /**
  * <p>
- * Actions provided by the Adjustments menu.
+ * Actions provided by the shape menu.
  * </p>
  * 
  * <p>
@@ -35,7 +35,7 @@ import javax.swing.colorchooser.AbstractColorChooserPanel;
  * @version 1.0
  */
 public class ShapeActions{
- /** A list of actions for the Adjustments menu. */
+ /** A list of actions for the Shapes menu. */
  protected ArrayList<Action> actions;
 
     private static boolean shapeFill = false;
@@ -49,7 +49,7 @@ public class ShapeActions{
 
  /**
   * <p>
-  * Create a set of Adjustment menu actions.
+  * Create a set of shape menu actions.
   * </p>
   */
  public ShapeActions() {
@@ -137,7 +137,7 @@ public class ShapeActions{
         }
                 /**
          * <p>
-         * Callback for when the RotationLeft action is triggered.
+         * Callback for when the DrawOval action is triggered.
          * </p>
          * 
          * <p>

@@ -61,6 +61,7 @@ public class LineListener extends ShapeListener {
      * @param target              the ImagePanel to draw on
      * @param shapeOutlineColour  the color of the line
      * @param lineWidth           the width of the line
+     * @param outlineEyeDropper   Whether to use the eye dropper colour or not
      */
     public LineListener(ImagePanel target, Color shapeOutlineColour, float lineWidth, boolean outlineEyeDropper) {
         super(target);

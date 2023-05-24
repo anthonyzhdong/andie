@@ -60,6 +60,8 @@ public class OvalListener extends ShapeListener {
      * @param lineWidth the width of the outline
      * @param shapeFill whether to fill the oval or not
      * @param shapeOutline whether to draw the outline of the oval or not
+     * @param outlineEyeDropper whether or not the eye dropper colour is used
+     * @param fillEyeDropper the eye dropper colour
      */
     public OvalListener(ImagePanel target, Color shapeOutlineColour, Color shapeFillColour, float lineWidth, boolean shapeFill, boolean shapeOutline, boolean outlineEyeDropper, boolean fillEyeDropper) {
         super(target);
